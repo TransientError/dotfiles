@@ -11,6 +11,7 @@ Plug 'dag/vim-fish'
 Plug 'lambdalisue/suda.vim'
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'cespare/vim-toml'
 call plug#end()
 
 set colorcolumn=120
