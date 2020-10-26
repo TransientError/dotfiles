@@ -10,3 +10,7 @@
 	excludesfile = /home/kvwu/.gitignore_global
 [color "diff"]
 	meta = 11
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
