@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  config = import ./config-provider.nix;
+in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -26,11 +29,11 @@
     plugins = with pkgs.vimPlugins; [ vim-nix ];
   };
 
-  programs.tmux = {
+  programs.tmux = if config.is_remote {} then {
     enable = true;
     clock24 = true;
     extraConfig = builtins.readFile extraConfigs/.tmux.conf;
 
     plugins = with pkgs.tmuxPlugins; [ yank ];
-  };
+  } else {};
 }
