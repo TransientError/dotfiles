@@ -63,6 +63,7 @@ in {
       ripgrep
       tealdeer
       procs
+      glibcLocales
     ];
 
   programs.neovim = {
@@ -70,6 +71,28 @@ in {
     extraConfig = builtins.readFile extraConfigs/nvim/init.vim;
 
     plugins = with pkgs.vimPlugins; [ vim-nix neoformat ];
+  };
+
+  programs.git = {
+    enable = true;
+
+    userName = "kvwu";
+    userEmail = "kvwu@transienterror.com";
+
+    extraConfig = {
+      alias = {
+        lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
+        tree = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all";
+      };
+      core = {
+        pager = "diff-so-fancy | less --tabs=4 -RFX";
+        editor = "nvim";
+        excludesfile = "extraConfigs/git/gitignore_global";
+      };
+      color.diff.meta = 11;
+      pull.rebase = true;
+      rebase.autoStash = true;
+    };
   };
 
   imports = let
