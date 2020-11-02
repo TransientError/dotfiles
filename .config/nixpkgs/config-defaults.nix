@@ -1,4 +1,3 @@
 {
-    remote = false;
     role = "personal";
 }

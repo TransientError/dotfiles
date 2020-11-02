@@ -22,11 +22,12 @@ let
   else
     throw "Couldn't determine home directory, please set $HOME";
 
-  hardwareInfo = let attrsAsList = strings.splitString "-" builtins.currentSystem;
-  in {
-    arch = elemAt attrsAsList 0;
-    os = elemAt attrsAsList 1;
-  };
+  hardwareInfo =
+    let attrsAsList = strings.splitString "-" builtins.currentSystem;
+    in {
+      arch = elemAt attrsAsList 0;
+      os = elemAt attrsAsList 1;
+    };
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -55,19 +56,13 @@ in {
     plugins = with pkgs.vimPlugins; [ vim-nix neoformat ];
   };
 
-  programs.tmux = if myConfig.remote then {
-    enable = true;
-    clock24 = true;
-    extraConfig = builtins.readFile extraConfigs/.tmux.conf;
-
-    plugins = with pkgs.tmuxPlugins; [ yank ];
-  } else
-    { };
-
-  imports = let 
+  imports = let
     os = hardwareInfo.os;
     hostname = builtins.getEnv "hostname";
     role = myConfig.role;
-  in
-    builtins.filter builtins.pathExists [ (./os + "${os}.nix") (./role + "/${role}.nix") (./hosts + "${hostname}.nix") ];
+  in builtins.filter builtins.pathExists [
+    (./os + "${os}.nix")
+    (./role + "/${role}.nix")
+    (./hosts + "${hostname}.nix")
+  ];
 }
