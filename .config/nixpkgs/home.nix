@@ -47,7 +47,23 @@ in {
   # changes in each release.
   home.stateVersion = "20.09";
 
-  home.packages = with pkgs; [ nixfmt parallel ];
+  home.packages = with pkgs;
+    with gitAndTools; [
+      nixfmt
+      parallel
+      cargo-update
+      dua
+      exa
+      bat
+      diff-so-fancy
+      fd
+      fasd
+      fzf
+      starship
+      ripgrep
+      tealdeer
+      procs
+    ];
 
   programs.neovim = {
     enable = true;
