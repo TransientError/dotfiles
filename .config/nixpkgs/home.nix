@@ -3,19 +3,30 @@
 with lib;
 
 let
-  callPackage = pkgs.callPackage;
-  my_config = callPackage ./config-provider.nix { };
+  defaultConfig = import ./config-defaults.nix;
+  configPath = ./config.nix;
+  myConfig = if builtins.pathExists configPath then
+    defaultConfig // import configPath
+  else
+    defaultConfig;
+
   name = let envUser = builtins.getEnv "USER";
   in if builtins.stringLength envUser > 0 then envUser else "kvwu";
   homeDir = let envHome = builtins.getEnv "HOME";
   in if builtins.stringLength envHome != 0 then
     envHome
-  else if my_config.os == "linux" then
+  else if myLib.os == "linux" then
     "/home/kvwu"
-  else if my_config.os == "darwin" then
+  else if myLib.os == "darwin" then
     "/Users/kvwu"
   else
     throw "Couldn't determine home directory, please set $HOME";
+
+  hardwareInfo = let attrsAsList = strings.splitString "-" builtins.currentSystem;
+  in {
+    arch = elemAt attrsAsList 0;
+    os = elemAt attrsAsList 1;
+  };
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -35,7 +46,7 @@ in {
   # changes in each release.
   home.stateVersion = "20.09";
 
-  home.packages = with pkgs; [ nixfmt direnv lorri parallel imagemagick ];
+  home.packages = with pkgs; [ nixfmt parallel ];
 
   programs.neovim = {
     enable = true;
@@ -44,7 +55,7 @@ in {
     plugins = with pkgs.vimPlugins; [ vim-nix neoformat ];
   };
 
-  programs.tmux = if my_config.is_remote { } then {
+  programs.tmux = if myConfig.remote then {
     enable = true;
     clock24 = true;
     extraConfig = builtins.readFile extraConfigs/.tmux.conf;
@@ -53,4 +64,10 @@ in {
   } else
     { };
 
+  imports = let 
+    os = hardwareInfo.os;
+    hostname = builtins.getEnv "hostname";
+    role = myConfig.role;
+  in
+    builtins.filter builtins.pathExists [ (./os + "${os}.nix") (./role + "/${role}.nix") (./hosts + "${hostname}.nix") ];
 }
