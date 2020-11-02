@@ -35,7 +35,7 @@ in {
   # changes in each release.
   home.stateVersion = "20.09";
 
-  home.packages = with pkgs; [ nixfmt direnv lorri ];
+  home.packages = with pkgs; [ nixfmt direnv lorri parallel ];
 
   programs.neovim = {
     enable = true;
