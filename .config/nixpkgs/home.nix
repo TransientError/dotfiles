@@ -80,8 +80,10 @@ in {
 
     extraConfig = {
       alias = {
-        lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
-        tree = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all";
+        lg =
+          "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
+        tree =
+          "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all";
       };
       core = {
         pager = "diff-so-fancy | less --tabs=4 -RFX";
@@ -98,18 +100,19 @@ in {
     enable = true;
 
     enableFishIntegration = true;
-    settings = {
-      add_newline = false;
-    };
+    settings = { add_newline = false; };
   };
+
+  home.file.".config/kitty/theme.conf".source = extraConfigs/kitty/theme.conf;
+  home.file.".config/kitty/kitty.conf".source = extraConfigs/kitty/kitty-base.conf;
 
   imports = let
     os = hardwareInfo.os;
     hostname = builtins.getEnv "hostname";
     role = myConfig.role;
   in builtins.filter builtins.pathExists [
-    (./os + "${os}.nix")
+    (./os + "/${os}.nix")
     (./role + "/${role}.nix")
-    (./hosts + "${hostname}.nix")
+    (./hosts + "/${hostname}.nix")
   ];
 }
