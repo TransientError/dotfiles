@@ -59,7 +59,6 @@ in {
       fd
       fasd
       fzf
-      starship
       ripgrep
       tealdeer
       procs
@@ -92,6 +91,15 @@ in {
       color.diff.meta = 11;
       pull.rebase = true;
       rebase.autoStash = true;
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+
+    enableFishIntegration = true;
+    settings = {
+      add_newline = false;
     };
   };
 
