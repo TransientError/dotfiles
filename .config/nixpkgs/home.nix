@@ -62,7 +62,6 @@ in {
       ripgrep
       tealdeer
       procs
-      glibcLocales
     ];
 
   programs.neovim = {
@@ -76,7 +75,6 @@ in {
     enable = true;
 
     userName = "kvwu";
-    userEmail = "kvwu@transienterror.com";
 
     extraConfig = {
       alias = {

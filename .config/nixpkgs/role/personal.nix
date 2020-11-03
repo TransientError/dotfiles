@@ -13,4 +13,6 @@
     sccache
     rustup
   ];
+
+  programs.git = { userEmail = "kvwu@transienterror.com"; };
 }
