@@ -62,6 +62,7 @@ in {
       ripgrep
       tealdeer
       procs
+      jq
     ];
 
   programs.neovim = {
