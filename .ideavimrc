@@ -1,0 +1,20 @@
+source ~/.vimrc
+
+set surround
+set rnu
+set nu
+set showmode
+set ignorecase smartcase
+set ideajoin
+set commentary
+
+nmap gb :action ToggleLineBreakpoint<CR>
+nmap gtf :action RerunFailedTests<CR>
+nmap gtt :action Run<CR>
+nmap gtd :action Debug<CR>
+nmap <CR> i<CR><Esc>
+nmap gi :action GotoImplementation<CR>
+nmap fs :action FileStructurePopup<CR>
+nmap gv :action Vcs.RollbackChangedLines<CR>
+nmap gu :action FindUsages<CR>
+

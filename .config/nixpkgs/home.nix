@@ -109,9 +109,11 @@ in {
     os = hardwareInfo.os;
     hostname = builtins.getEnv "hostname";
     role = myConfig.role;
-  in builtins.filter builtins.pathExists [
-    (./os + "/${os}.nix")
-    (./role + "/${role}.nix")
-    (./hosts + "/${hostname}.nix")
-  ];
+    profiles = myConfig.profiles;
+  in builtins.filter builtins.pathExists (flatten [
+    [(./os + "/${os}.nix")]
+    [(./role + "/${role}.nix")]
+    (map (profile: (./profile + "/${profile}.nix")) profiles)
+    [(./hosts + "/${hostname}.nix")]
+  ]);
 }
