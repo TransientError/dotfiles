@@ -103,7 +103,8 @@ in {
   };
 
   home.file.".config/kitty/theme.conf".source = extraConfigs/kitty/theme.conf;
-  home.file.".config/kitty/kitty.conf".source = extraConfigs/kitty/kitty-base.conf;
+  home.file.".config/kitty/kitty.conf".source =
+    extraConfigs/kitty/kitty-base.conf;
 
   imports = let
     os = hardwareInfo.os;
@@ -111,9 +112,9 @@ in {
     role = myConfig.role;
     profiles = myConfig.profiles;
   in builtins.filter builtins.pathExists (flatten [
-    [(./os + "/${os}.nix")]
-    [(./role + "/${role}.nix")]
-    (map (profile: (./profile + "/${profile}.nix")) profiles)
-    [(./hosts + "/${hostname}.nix")]
+    [ (./os + "/${os}.nix") ]
+    [ (./role + "/${role}.nix") ]
+    (map (profile: (./profiles + "/${profile}.nix")) profiles)
+    [ (./hosts + "/${hostname}.nix") ]
   ]);
 }
