@@ -63,6 +63,7 @@ in {
       tealdeer
       procs
       jq
+      curlie
     ];
 
   programs.neovim = {
