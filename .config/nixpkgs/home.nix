@@ -64,6 +64,8 @@ in {
       procs
       jq
       curlie
+      duplicity
+      htop
     ];
 
   programs.neovim = {
