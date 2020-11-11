@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 with lib; {
-  home.packages = with pkgs; [ powerline ];
+  home.packages = with pkgs; [ powerline reptyr ];
 
   programs.tmux = {
     enable = true;
