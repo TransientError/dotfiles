@@ -54,7 +54,6 @@ in {
       cargo-update
       dua
       exa
-      bat
       diff-so-fancy
       fd
       fasd
@@ -103,6 +102,14 @@ in {
 
     enableFishIntegration = true;
     settings = { add_newline = false; };
+  };
+
+  programs.bat = {
+    enable = true;
+
+    config = {
+      theme = "OneHalfDark";
+    };
   };
 
   home.file.".config/kitty/theme.conf".source = extraConfigs/kitty/theme.conf;
