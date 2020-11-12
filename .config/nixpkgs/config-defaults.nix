@@ -1,4 +1,5 @@
 {
     role = "";
     profiles = [];
+    powerlineTmuxSrc = "";
 }

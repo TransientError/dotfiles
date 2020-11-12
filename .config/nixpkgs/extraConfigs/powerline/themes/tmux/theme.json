@@ -5,12 +5,12 @@
 				"function": "powerline.segments.common.sys.cpu_load_percent",
 				"priority": 50
 			},
-      {
-        "function": "powerlinemem.mem_usage.mem_usage"
-      },
-      {
-        "function": "powerline.segments.common.net.network_load"
-      },
+			{
+				"function": "powerlinemem.mem_usage.mem_usage"
+			},
+			{
+				"function": "powerline.segments.common.net.network_load"
+			},
 			{
 				"function": "powerline.segments.common.net.hostname"
 			}
