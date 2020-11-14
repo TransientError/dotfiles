@@ -12,6 +12,8 @@
     aria2
     sccache
     rustup
+    nodejs
+    nodePackages.npm
   ];
 
   programs.git = { userEmail = "kvwu@transienterror.com"; };
