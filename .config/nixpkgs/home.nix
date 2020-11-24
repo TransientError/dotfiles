@@ -72,7 +72,19 @@ in {
     enable = true;
     extraConfig = builtins.readFile extraConfigs/nvim/init.vim;
 
-    plugins = with pkgs.vimPlugins; [ vim-nix neoformat ];
+    plugins = with pkgs.vimPlugins; [
+      vim-nix
+      neoformat
+      lightline-vim
+      fzf-vim
+      emmet-vim
+      vim-closetag
+      vim-surround
+      vim-fish
+      vim-commentary
+      ReplaceWithRegister
+      vim-toml
+    ];
   };
 
   programs.git = {
@@ -108,9 +120,7 @@ in {
   programs.bat = {
     enable = true;
 
-    config = {
-      theme = "OneHalfDark";
-    };
+    config = { theme = "OneHalfDark"; };
   };
 
   home.file.".config/kitty/theme.conf".source = extraConfigs/kitty/theme.conf;

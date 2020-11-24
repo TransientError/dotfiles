@@ -1,17 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'kaicataldo/material.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'itchyny/lightline.vim'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'mattn/emmet-vim'
-Plug 'alvan/vim-closetag'
-Plug 'tpope/vim-surround'
-Plug 'dag/vim-fish'
 Plug 'lambdalisue/suda.vim'
-Plug 'tpope/vim-commentary'
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'cespare/vim-toml'
 call plug#end()
 
 set colorcolumn=120
