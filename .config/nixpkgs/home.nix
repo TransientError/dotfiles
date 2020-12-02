@@ -59,7 +59,7 @@ in {
       fasd
       fzf
       ripgrep
-      tealdeer
+      cht-sh
       procs
       jq
       curlie
