@@ -102,7 +102,7 @@ in {
       core = {
         pager = "diff-so-fancy | less --tabs=4 -RFX";
         editor = "nvim";
-        excludesfile = "$HOME/.config/extraConfigs/git/gitignore_global";
+        excludesfile = homeDir + "/.config/nixpkgs/extraConfigs/git/gitignore_global";
       };
       color.diff.meta = 11;
       pull.rebase = true;
