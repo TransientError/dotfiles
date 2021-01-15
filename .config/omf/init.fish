@@ -10,6 +10,6 @@ end
 
 if test $TERM = "xterm-kitty"
   abbr -g icat kitty +kitten icat
-  abbr -g ssh kitty +kitten ssh
+  abbr -g kssh kitty +kitten ssh
 end
 
