@@ -7,6 +7,8 @@ set showmode
 set ignorecase smartcase
 set ideajoin
 set commentary
+set ReplaceWithRegister
+set argtextobj
 
 nmap gb :action ToggleLineBreakpoint<CR>
 nmap gtf :action RerunFailedTests<CR>
@@ -18,4 +20,5 @@ nmap fs :action FileStructurePopup<CR>
 nmap gv :action Vcs.RollbackChangedLines<CR>
 nmap gu :action FindUsages<CR>
 nmap == :action ReformatCode<CR>
+vmap == :action ReformatCode<CR>
 
