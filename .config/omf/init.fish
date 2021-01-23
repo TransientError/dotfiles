@@ -8,7 +8,7 @@ if type -q direnv
   eval (direnv hook fish)
 end
 
-if test $TERM = "xterm-kitty"
+if test "$TERM" = "xterm-kitty"
   abbr -g icat kitty +kitten icat
   abbr -g kssh kitty +kitten ssh
 end
