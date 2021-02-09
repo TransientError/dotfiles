@@ -348,8 +348,4 @@ input {
   font-weight: var(--font-weight);
 }
 `;
-<<<<<<< Updated upstream
-// click `Save` button to make above settings to take effect.
-=======
 
->>>>>>> Stashed changes
