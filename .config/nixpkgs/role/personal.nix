@@ -11,7 +11,7 @@
     cargo-outdated
     aria2
     sccache
-    rustup
+    # rustup is not really compatible with the glibc I'm using anymore
     nodejs
     nodePackages.npm
   ];

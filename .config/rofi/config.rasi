@@ -1,5 +1,5 @@
 configuration {
-	modi: "window,drun,ssh,combi";
+	modi: "ssh,calc,combi,file-browser,run";
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/
@@ -149,7 +149,7 @@ configuration {
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
-@import "/usr/share/rofi/themes/Arc-Dark.rasi"
 element-icon {
   size: 3ch;
 }
+@import "/home/kvwu/.local/share/rofi/themes/oxide.rasi"

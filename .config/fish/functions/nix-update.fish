@@ -1,7 +1,7 @@
 function nix-update
   nix-channel --update;
-  home-manager switch;
-  nix-collect-garbage --delete-older-than 7d;
-  nix optimise-store
+  and home-manager switch; 
+  and nix-collect-garbage --delete-older-than 7d; 
+  and nix optimise-store
 end
 
