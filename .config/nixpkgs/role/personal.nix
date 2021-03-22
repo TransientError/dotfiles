@@ -3,7 +3,6 @@
   home.file.".cargo/config".source = ../extraConfigs/cargo/config;
 
   home.packages = with pkgs; [
-    direnv
     lorri
     imagemagick
     cargo-audit

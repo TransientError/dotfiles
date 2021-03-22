@@ -67,6 +67,7 @@ in {
       htop
       poetry
       uq
+      direnv
     ];
 
   programs.neovim = {
