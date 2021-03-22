@@ -8,6 +8,8 @@
     cargo-audit
     cargo-edit
     cargo-outdated
+    cargo-udeps
+    cargo-update
     aria2
     sccache
     # rustup is not really compatible with the glibc I'm using anymore
