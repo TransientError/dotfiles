@@ -67,6 +67,7 @@ in {
       # duplicity
       htop
       poetry
+      uq
     ];
 
   programs.neovim = {
