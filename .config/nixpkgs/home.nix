@@ -60,7 +60,6 @@ in {
       fzf
       ripgrep
       cht-sh
-      procs
       jq
       curlie
       # need to figure out how to get runtime dependency to work
