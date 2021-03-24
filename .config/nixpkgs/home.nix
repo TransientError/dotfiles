@@ -10,24 +10,20 @@ let
   else
     defaultConfig;
 
+  hardwareInfo = (import utils/hardwareInfo.nix) {inherit lib;};
+
   name = let envUser = builtins.getEnv "USER";
   in if builtins.stringLength envUser > 0 then envUser else "kvwu";
   homeDir = let envHome = builtins.getEnv "HOME";
   in if builtins.stringLength envHome != 0 then
     envHome
-  else if myLib.os == "linux" then
+  else if hardwareInfo.os == "linux" then
     "/home/kvwu"
-  else if myLib.os == "darwin" then
+  else if hardwareInfo.os == "darwin" then
     "/Users/kvwu"
   else
     throw "Couldn't determine home directory, please set $HOME";
 
-  hardwareInfo =
-    let attrsAsList = strings.splitString "-" builtins.currentSystem;
-    in {
-      arch = elemAt attrsAsList 0;
-      os = elemAt attrsAsList 1;
-    };
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -104,7 +100,8 @@ in {
       core = {
         pager = "diff-so-fancy | less --tabs=4 -RFX";
         editor = "nvim";
-        excludesfile = homeDir + "/.config/nixpkgs/extraConfigs/git/gitignore_global";
+        excludesfile = homeDir
+          + "/.config/nixpkgs/extraConfigs/git/gitignore_global";
       };
       color.diff.meta = 11;
       pull.rebase = true;
