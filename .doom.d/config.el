@@ -58,3 +58,7 @@
 (use-package! lsp-rust
   :config
   (setq! rustic-lsp-server 'rust-analyzer))
+
+(use-package! evil-multiedit
+  :config
+  (map! :n "R" #'evil-multiedit-match-all))
