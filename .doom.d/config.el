@@ -55,6 +55,6 @@
 
 ;; (defun add-company-tabnine () (add-to-list (make-local-variable 'company-backends) 'company-tabnine))
 
-;; (def-package! company-tabnine
-;;   :config
-;;   (add-hook! (emacs-lisp-mode) #'add-company-tabnine))
+(use-package! lsp-rust
+  :config
+  (setq! rustic-lsp-server 'rust-analyzer))
