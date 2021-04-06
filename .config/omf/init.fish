@@ -13,3 +13,9 @@ if test "$TERM" = "xterm-kitty"
   abbr -g kssh kitty +kitten ssh
 end
 
+if test "$TERM" = "dumb"
+  function fish_prompt
+    echo "\$"
+  end
+end
+
