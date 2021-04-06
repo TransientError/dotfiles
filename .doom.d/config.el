@@ -60,5 +60,11 @@
   (setq! rustic-lsp-server 'rust-analyzer))
 
 (use-package! evil-multiedit
+  :defer t
+  :config (map! :n "R" #'evil-multiedit-match-all))
+
+(use-package! org
+  :defer t
   :config
-  (map! :n "R" #'evil-multiedit-match-all))
+  (setq! org-log-done 'time
+         org-agenda-start-with-log-mode t))
