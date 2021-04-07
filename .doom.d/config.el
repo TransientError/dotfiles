@@ -58,6 +58,7 @@
 ;; (defun add-company-tabnine () (add-to-list (make-local-variable 'company-backends) 'company-tabnine))
 
 (use-package! lsp-rust
+  :defer t
   :config
   (setq! rustic-lsp-server 'rust-analyzer))
 
@@ -70,3 +71,14 @@
   :config
   (setq! org-log-done 'time
          org-agenda-start-with-log-mode t))
+
+(setf (alist-get 'markdown-mode +spell-excluded-faces-alist)
+        '(markdown-code-face
+        markdown-url-face
+        markdown-link-face
+        markdown-markup-face
+        markdown-reference-face
+        markdown-html-attr-name-face
+        markdown-html-attr-value-face
+        markdown-html-tag-name-face))
+(setq ispell-dictionary "en")
