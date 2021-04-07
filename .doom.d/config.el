@@ -36,7 +36,8 @@
 (setq display-line-numbers-type 'relative)
 
 ;; Autosave!
-(setq auto-save-visited-mode t)
+(setq! auto-save-visited-mode t
+       auto-save-visited-interval 1)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
