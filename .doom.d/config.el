@@ -35,6 +35,8 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
+;; Autosave!
+(setq auto-save-visited-mode t)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
