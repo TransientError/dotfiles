@@ -55,7 +55,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-
 ;; (defun add-company-tabnine () (add-to-list (make-local-variable 'company-backends) 'company-tabnine))
 
 (use-package! lsp-rust
@@ -65,8 +64,9 @@
 
 (use-package! evil-multiedit
   :defer t
-  :config (map! :n "R" #'evil-multiedit-match-all))
+  :config (map! :map evil-visual-state-map :n "R" #'evil-multiedit-match-all))
 
+;; org
 (use-package! org
   :defer t
   :config
