@@ -19,8 +19,13 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
+<<<<<<< Updated upstream
  (setq doom-font (font-spec :family "Liga Hack" :size 14)
        doom-variable-pitch-font (font-spec :family "Liga Hack" :size 13 :weight 'bold))
+=======
+ (setq doom-font (font-spec :family "Liga Hack" :size 12 :weight 'semi-light)
+       doom-variable-pitch-font (font-spec :family "Liga Hack" :size 13))
+>>>>>>> Stashed changes
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -56,6 +61,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+<<<<<<< Updated upstream
 ;; (defun add-company-tabnine () (add-to-list (make-local-variable 'company-backends) 'company-tabnine))
 
 (use-package! lsp-rust
@@ -84,3 +90,29 @@
         markdown-html-attr-value-face
         markdown-html-tag-name-face))
 (setq ispell-dictionary "en")
+=======
+
+(after! tramp
+   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
+(after! lsp-rust
+ (lsp-register-client
+  (make-lsp-client
+   :new-connection (lsp-stdio-connection
+                    (lambda ()
+                      `(,(or (executable-find
+                              (cl-first lsp-rust-analyzer-server-command))
+                             (lsp-package-path 'rust-analyzer)
+                             "rust-analyzer")
+                        ,@(cl-rest lsp-rust-analyzer-server-args))))
+   :remote? t
+   :major-modes '(rust-mode rustic-mode)
+   :initialization-options 'lsp-rust-analyzer--make-init-options
+   :notification-handlers (ht<-alist lsp-rust-notification-handlers)
+   :action-handlers (ht ("rust-analyzer.runSingle" #'lsp-rust--analyzer-run-single))
+   :library-folders-fn (lambda (_workspace) lsp-rust-library-directories)
+   :after-open-fn (lambda ()
+                    (when lsp-rust-analyzer-server-display-inlay-hints
+                      (lsp-rust-analyzer-inlay-hints-mode)))
+   :ignore-messages nil
+   :server-id 'rust-analyzer-remote)))
