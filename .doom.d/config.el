@@ -61,7 +61,8 @@
 (use-package! lsp-rust
   :defer t
   :config
-  (setq! rustic-lsp-server 'rust-analyzer))
+  (setq! lsp-rust-server 'rust-analyzer
+  lsp-rust-analyzer-server-display-inlay-hints t))
 
 (use-package! evil-multiedit
   :defer t
