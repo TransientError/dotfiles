@@ -39,6 +39,7 @@
 (setq! auto-save-visited-mode t
        auto-save-visited-interval 1)
 (ws-butler-mode -1)
+(remove-hook 'write-file-functions #'whitespace-write-file-hook)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -61,7 +62,8 @@
   :defer t
   :config
   (setq! lsp-rust-server 'rust-analyzer
-         lsp-rust-analyzer-server-display-inlay-hints t))
+         lsp-rust-analyzer-server-display-inlay-hints t
+         lsp-rust-clippy-preference "on"))
 
 (use-package! evil-multiedit
   :defer t
