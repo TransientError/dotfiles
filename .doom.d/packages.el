@@ -50,3 +50,4 @@
 ;(unpin! t)
 
 (package! protobuf-mode)
+(package! company-tabnine)
