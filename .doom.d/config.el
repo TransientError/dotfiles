@@ -91,3 +91,13 @@
   :config
   (cl-pushnew 'company-tabnine (default-value 'company-backends))
   (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
+
+(use-package! magit-blame
+  :defer t
+  :config
+  (setq magit-blame-styles
+    '((margin
+       (margin-format    . (" %s%f" " %C %a" " %H"))
+       (margin-width     . 42)
+       (margin-face      . magit-blame-margin)
+       (margin-body-face . (magit-blame-dimmed))))))
