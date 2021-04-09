@@ -56,13 +56,12 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-;; (defun add-company-tabnine () (add-to-list (make-local-variable 'company-backends) 'company-tabnine))
 
 (use-package! lsp-rust
   :defer t
   :config
   (setq! lsp-rust-server 'rust-analyzer
-  lsp-rust-analyzer-server-display-inlay-hints t))
+         lsp-rust-analyzer-server-display-inlay-hints t))
 
 (use-package! evil-multiedit
   :defer t
@@ -88,6 +87,7 @@
 
 (use-package! company-tabnine
   :after company
+  :defer t
   :config
   (cl-pushnew 'company-tabnine (default-value 'company-backends))
   (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
