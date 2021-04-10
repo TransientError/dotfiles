@@ -65,6 +65,8 @@
          lsp-rust-analyzer-server-display-inlay-hints t
          lsp-rust-clippy-preference "on"))
 
+(add-hook 'rustic-mode-hook #'rainbow-delimiters-mode)
+
 (use-package! evil-multiedit
   :defer t
   :config (map! :map evil-visual-state-map :n "R" #'evil-multiedit-match-all))
