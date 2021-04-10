@@ -65,11 +65,12 @@
          lsp-rust-analyzer-server-display-inlay-hints t
          lsp-rust-clippy-preference "on"))
 
-(add-hook 'rustic-mode-hook #'rainbow-delimiters-mode)
+(add-hook! 'rustic-mode-hook #'rainbow-delimiters-mode)
 
 (use-package! evil-multiedit
   :defer t
-  :config (map! :map evil-visual-state-map :n "R" #'evil-multiedit-match-all))
+  :config
+  (map! :map evil-visual-state-map :n "R" #'evil-multiedit-match-all))
 
 ;; org
 (use-package! org
@@ -78,28 +79,21 @@
   (setq! org-log-done 'time
          org-agenda-start-with-log-mode t))
 
-(setf (alist-get 'markdown-mode +spell-excluded-faces-alist)
-        '(markdown-code-face
-        markdown-url-face
-        markdown-link-face
-        markdown-markup-face
-        markdown-reference-face
-        markdown-html-attr-name-face
-        markdown-html-attr-value-face
-        markdown-html-tag-name-face))
-(setq ispell-dictionary "en")
+(after! text-mode
+  (when (executable-find "aspell")
+        (setq! ispell-dictionary "en")))
 
 (use-package! company-tabnine
   :after company
   :defer t
   :config
   (cl-pushnew 'company-tabnine (default-value 'company-backends))
-  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
+  (setq! +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
 
 (use-package! magit-blame
   :defer t
   :config
-  (setq magit-blame-styles
+  (setq! magit-blame-styles
     '((margin
        (margin-format    . (" %s%f" " %C %a" " %H"))
        (margin-width     . 42)
