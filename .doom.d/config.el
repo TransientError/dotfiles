@@ -40,6 +40,7 @@
        auto-save-visited-interval 1)
 (ws-butler-mode -1)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
+(global-activity-watch-mode)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

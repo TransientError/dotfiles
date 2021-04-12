@@ -52,3 +52,4 @@
 (package! protobuf-mode)
 (package! company-tabnine)
 (package! visual-fill-column)
+(package! activity-watch-mode)
