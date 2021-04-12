@@ -60,6 +60,7 @@
 ;; they are implemented.
 
 (load! "config-manager.el")
+(load! "misc.el")
 
 (use-package! lsp-rust
   :defer t
