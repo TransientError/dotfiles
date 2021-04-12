@@ -51,3 +51,4 @@
 
 (package! protobuf-mode)
 (package! company-tabnine)
+(package! visual-fill-column)

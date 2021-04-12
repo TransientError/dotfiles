@@ -99,3 +99,14 @@
        (margin-width     . 42)
        (margin-face      . magit-blame-margin)
        (margin-body-face . (magit-blame-dimmed))))))
+
+(after! prog-mode
+  (setq! fill-column 120))
+
+(use-package! visual-fill-column
+  :hook text-mode org-mode
+  :config
+  (setq! fill-column 90)
+  (visual-line-mode)
+  (visual-fill-column-mode))
+
