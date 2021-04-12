@@ -2,6 +2,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'kaicataldo/material.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'lambdalisue/suda.vim'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 set colorcolumn=120
@@ -23,3 +24,12 @@ nmap == :Neoformat<CR>
 if (has("termguicolors"))
   set termguicolors
 endif
+
+let mapleader = "\<Space>"
+map <leader>wh :wincmd h<CR>
+map <leader>wj :wincmd j<CR>
+map <leader>wk :wincmd k<CR>
+map <leader>wl :wincmd l<CR>
+map <leader>ws :wincmd s<CR>
+map <leader>wv :wincmd v<CR>
+map <leader>wd :q<CR>
