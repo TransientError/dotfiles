@@ -148,4 +148,4 @@
   (visual-fill-column-mode))
 
 (after! ws-butler
-  (setq! ws-butler-global-exempt-modes '(prog-mode text-mode)))
+  (setq! ws-butler-keep-whitespace-before-point t))
