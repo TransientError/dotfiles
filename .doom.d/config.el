@@ -110,7 +110,7 @@
            "NO(n)"))
         org-todo-keyword-faces
         '(("[-]"  . +org-todo-active)
-          ("STRT" . +org-todo-active)
+          ("IN_PROGRESS" . +org-todo-active)
           ("[?]"  . +org-todo-onhold)
           ("BLOCKED" . +org-todo-onhold)
           ("HOLD" . +org-todo-onhold)
@@ -121,7 +121,7 @@
 
 (after! text-mode
   (when (executable-find "aspell")
-        (setq! ispell-dictionary "en")))
+    (setq! ispell-dictionary "en")))
 
 (use-package! company-tabnine
   :after company
