@@ -60,6 +60,8 @@
 
 (load! "config-manager.el")
 (load! "misc.el")
+(when (file-exists-p "personalization.el")
+      (load! "personalization.el"))
 
 (use-package! lsp-rust
   :defer t
@@ -80,7 +82,8 @@
   :defer t
   :config
   (setq! org-log-done 'time
-         org-agenda-start-with-log-mode t
+         org-agenda-start-with-log-mode t)
+  (when (personal-config-has-profile 'work) (setq!
          org-todo-keywords
         '((sequence
            "TODO(t)"  ; A task that needs doing & is ready to do
@@ -93,7 +96,7 @@
            "|"
            "DONE(d)"  ; Task successfully completed
            "KILL(k)"
-           "HAND-OFF(h)") ; Task was cancelled, aborted or is no longer applicable
+           "HAND-OFF(a)") ; Task was cancelled, aborted or is no longer applicable
           (sequence
            "[ ](T)"   ; A task that needs doing
            "[-](S)"   ; Task is in progress
@@ -114,7 +117,7 @@
           ("REVIEW" . +org-todo-onhold)
           ("PROJ" . +org-todo-project)
           ("NO"   . +org-todo-cancel)
-          ("KILL" . +org-todo-cancel))))
+          ("KILL" . +org-todo-cancel)))))
 
 (after! text-mode
   (when (executable-find "aspell")
