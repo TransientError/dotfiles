@@ -38,7 +38,6 @@
 ;; Autosave!
 (setq! auto-save-visited-mode t
        auto-save-visited-interval 1)
-(ws-butler-mode -1)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
 (global-activity-watch-mode)
 
@@ -148,3 +147,5 @@
   (visual-line-mode)
   (visual-fill-column-mode))
 
+(after! ws-butler
+  (setq! ws-butler-global-exempt-modes '(prog-mode text-mode)))
