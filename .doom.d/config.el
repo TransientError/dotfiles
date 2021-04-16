@@ -96,22 +96,10 @@
            "|"
            "DONE(d)"  ; Task successfully completed
            "KILL(k)"
-           "HAND-OFF(a)") ; Task was cancelled, aborted or is no longer applicable
-          (sequence
-           "[ ](T)"   ; A task that needs doing
-           "[-](S)"   ; Task is in progress
-           "[?](W)"   ; Task is being held up or paused
-           "|"
-           "[X](D)")  ; Task was completed
-          (sequence
-           "|"
-           "OKAY(o)"
-           "YES(y)"
-           "NO(n)"))
+           "HAND-OFF(a)"
+           "PUNT(u)")) ; Task was cancelled, aborted or is no longer applicable
         org-todo-keyword-faces
-        '(("[-]"  . +org-todo-active)
-          ("IN_PROGRESS" . +org-todo-active)
-          ("[?]"  . +org-todo-onhold)
+        '(("IN_PROGRESS" . +org-todo-active)
           ("BLOCKED" . +org-todo-onhold)
           ("HOLD" . +org-todo-onhold)
           ("REVIEW" . +org-todo-onhold)
