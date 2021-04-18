@@ -53,3 +53,5 @@
 (package! company-tabnine)
 (package! visual-fill-column)
 (package! activity-watch-mode)
+(package! poetry
+  :recipe (:host github :repo "TransientError/poetry.el"))
