@@ -55,3 +55,4 @@
 (package! activity-watch-mode)
 (package! poetry
   :recipe (:host github :repo "TransientError/poetry.el"))
+(package! sql)
