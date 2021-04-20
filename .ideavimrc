@@ -9,6 +9,12 @@ set ideajoin
 set commentary
 set ReplaceWithRegister
 set argtextobj
+set which-key
+
+set notimeout
+let g:WhichKey_ShowVimActions = "true"
+
+let mapleader = "\<Space>"
 
 nmap gb :action ToggleLineBreakpoint<CR>
 nmap gtf :action RerunFailedTests<CR>
@@ -22,3 +28,9 @@ nmap gu :action FindUsages<CR>
 nmap == :action ReformatCode<CR>
 vmap == :action ReformatCode<CR>
 
+nmap <leader>pp :action ManageRecentProjects<CR>
+nmap <leader>gF :action Git.Pull<CR>
+nmap <leader>/ :action FindInPath<CR>
+nmap <leader>gD :action FindUsages<CR>
+nmap <leader>cf :action ReformatCode<CR>
+vmap <leader>cf :action ReformatCode<CR>

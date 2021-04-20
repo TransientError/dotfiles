@@ -9,7 +9,7 @@ map('gt', 'T');
 // an example to remove mapkey `Ctrl-i`
 unmap('<Ctrl-i>');
 
-settings.scrollStepSize = 140;
+settings.scrollStepSize = 175;
 
 // ---- Hints ----
 // Hints have to be defined separately
