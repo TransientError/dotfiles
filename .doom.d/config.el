@@ -89,7 +89,7 @@
            "TODO(t)"  ; A task that needs doing & is ready to do
            "PROJ(p)"  ; A project, which usually contains other tasks
            "IN-PROGRESS(s)"  ; A task that is in progress
-           "REVIEW(r)"  ; A task that is in progress
+           "REVIEW(r)"  ; task is being reviewed
            "BLOCKED(b)"  ; Something external is holding up this task
            "HOLD(h)"  ; This task is paused/on hold because of me
            "IDEA(i)"  ; An unconfirmed and unapproved task or notion
