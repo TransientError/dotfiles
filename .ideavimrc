@@ -21,7 +21,6 @@ nmap gtf :action RerunFailedTests<CR>
 nmap gtt :action Run<CR>
 nmap gtd :action Debug<CR>
 nmap <CR> i<CR><Esc>
-nmap gi :action GotoImplementation<CR>
 nmap fs :action FileStructurePopup<CR>
 nmap gv :action Vcs.RollbackChangedLines<CR>
 nmap gu :action FindUsages<CR>
@@ -34,3 +33,6 @@ nmap <leader>/ :action FindInPath<CR>
 nmap <leader>gD :action FindUsages<CR>
 nmap <leader>cf :action ReformatCode<CR>
 vmap <leader>cf :action ReformatCode<CR>
+nmap <leader>ci :action GotoImplementation<CR>
+nmap <leader>si :action FileStructurePopup<CR>
+nmap <leader>gr :action Vcs.RollbackChangedLines<CR>
