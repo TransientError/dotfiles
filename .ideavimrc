@@ -28,7 +28,7 @@ nmap == :action ReformatCode<CR>
 vmap == :action ReformatCode<CR>
 
 nmap <leader>pp :action ManageRecentProjects<CR>
-nmap <leader>gF :action Git.Pull<CR>
+nmap <leader>gF :action Vcs.UpdateProject<CR>
 nmap <leader>/ :action FindInPath<CR>
 nmap <leader>gD :action FindUsages<CR>
 nmap <leader>cf :action ReformatCode<CR>
@@ -36,3 +36,13 @@ vmap <leader>cf :action ReformatCode<CR>
 nmap <leader>ci :action GotoImplementation<CR>
 nmap <leader>si :action FileStructurePopup<CR>
 nmap <leader>gr :action Vcs.RollbackChangedLines<CR>
+nmap <leader>, :action RecentFiles<CR>
+nmap <leader><leader> :action GotoFile<CR>
+
+let g:WhichKeyDesc_GitVcs_Status = "<leader>gs status"
+nnoremap <leader>gs    :action Vcs.Show.Local.Changes<CR>
+vnoremap <leader>gs    :action Vcs.Show.Local.Changes<CR>
+
+let g:WhichKeyDesc_Leader_OpenShell = "<leader>ot open-shell"
+nnoremap <leader>ot    :action ActivateTerminalToolWindow<CR>
+vnoremap <leader>ot    :action ActivateTerminalToolWindow<CR>
