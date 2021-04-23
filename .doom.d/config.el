@@ -60,7 +60,7 @@
 
 (load! "config-manager.el")
 (load! "misc.el")
-(when (file-exists-p "$DOOMDIR/personalization.el")
+(when (file-exists-p (concat (doom-private-dir) "personalization.el"))
       (load! "personalization.el"))
 
 (use-package! lsp-rust
