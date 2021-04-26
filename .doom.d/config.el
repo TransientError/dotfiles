@@ -60,8 +60,12 @@
 
 (load! "config-manager.el")
 (load! "misc.el")
-(when (file-exists-p (concat (doom-private-dir) "personalization.el"))
-      (load! "personalization.el"))
+(after! core
+  (if (file-exists-p (concat (doom-private-dir) "personalization.el"))
+      (progn
+        (load! "personalization.el")
+        (provide 'personalization))
+    (provide 'personalization)))
 
 (use-package! lsp-rust
   :defer t
@@ -80,6 +84,7 @@
 ;; org
 (use-package! org
   :defer t
+  :after personalization
   :config
   (setq! org-log-done 'time
          org-agenda-start-with-log-mode t)
