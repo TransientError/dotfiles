@@ -41,6 +41,8 @@
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
 (global-activity-watch-mode)
 
+;; (setq select-enable-clipboard nil)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -66,6 +68,9 @@
       (provide 'personalization))
   (provide 'personalization))
 
+(after! evil
+  (map! :vn "U" #'evil-redo))
+
 (use-package! lsp-rust
   :defer t
   :config
@@ -76,9 +81,8 @@
 (add-hook! 'rustic-mode-hook #'rainbow-delimiters-mode)
 
 (use-package! evil-multiedit
-  :defer t
   :config
-  (map! :map evil-visual-state-map :n "R" #'evil-multiedit-match-all))
+  (map! :vn "R" #'evil-multiedit-match-all))
 
 ;; org
 (use-package! org
