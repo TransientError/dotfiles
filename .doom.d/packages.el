@@ -57,6 +57,7 @@
   :recipe (:host github :repo "TransientError/poetry.el"))
 (unpin! poetry)
 (package! sql)
+(package! org-tree-slide)
 
 (if (file-exists-p (concat doom-private-dir "packages-secrets.el"))
     (progn
