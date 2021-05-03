@@ -168,3 +168,13 @@
   :config
   (setq! web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   (setq! web-mode-markup-indent-offset 2))
+
+(use-package! mu4e
+  :config
+  (set-email-account! "gmail"
+                      '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")
+                        (mu4e-drafts-folder     . "/gmail/[Gmail]/Drafts")
+                        (mu4e-trash-folder      . "/gmail/[Gmail]/Trash")
+                        (mu4e-refile-folder     . "/gmail/[Gmail]/All Mail")
+                        (smtpmail-smtp-user     . "kvwu@transienterror.com")
+                        ) t))
