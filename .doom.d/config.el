@@ -40,6 +40,7 @@
        auto-save-visited-interval 1)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
 (global-activity-watch-mode)
+(setq! enable-local-variables t)
 
 (setq enable-local-variables t)
 
@@ -90,7 +91,9 @@
   :after personalization
   :config
   (setq! org-log-done 'time
-         org-agenda-start-with-log-mode t)
+         org-agenda-start-with-log-mode t
+         org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+  (map! :map org-mode-map :leader :nv "m l o" #'org-open-at-point)
   (when (personal-config-has-profile 'work) (setq!
          org-todo-keywords
         '((sequence
@@ -140,7 +143,7 @@
   (setq! fill-column 120))
 
 (use-package! visual-fill-column
-  :hook text-mode org-mode
+  :hook ((text-mode org-mode) . #'visual-fill-column-mode)
   :config
   (setq! fill-column 90)
   (visual-line-mode)
