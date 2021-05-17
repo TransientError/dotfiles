@@ -18,14 +18,10 @@ let mapleader = "\<Space>"
 
 nmap gb :action ToggleLineBreakpoint<CR>
 nmap gtf :action RerunFailedTests<CR>
-nmap gtt :action Run<CR>
-nmap gtd :action Debug<CR>
 nmap <CR> i<CR><Esc>
 nmap fs :action FileStructurePopup<CR>
 nmap gv :action Vcs.RollbackChangedLines<CR>
 nmap gu :action FindUsages<CR>
-nmap == :action ReformatCode<CR>
-vmap == :action ReformatCode<CR>
 
 nmap <leader>pp :action ManageRecentProjects<CR>
 nmap <leader>gF :action Vcs.UpdateProject<CR>
@@ -37,7 +33,7 @@ nmap <leader>ci :action GotoImplementation<CR>
 nmap <leader>si :action FileStructurePopup<CR>
 nmap <leader>gr :action Vcs.RollbackChangedLines<CR>
 nmap <leader>, :action RecentFiles<CR>
-nmap <leader><leader> :action GotoFile<CR>
+nmap <leader>. :action GotoFile<CR>
 
 let g:WhichKeyDesc_GitVcs_Status = "<leader>gs status"
 nnoremap <leader>gs    :action Vcs.Show.Local.Changes<CR>
@@ -46,3 +42,59 @@ vnoremap <leader>gs    :action Vcs.Show.Local.Changes<CR>
 let g:WhichKeyDesc_Leader_OpenShell = "<leader>ot open-shell"
 nnoremap <leader>ot    :action ActivateTerminalToolWindow<CR>
 vnoremap <leader>ot    :action ActivateTerminalToolWindow<CR>
+
+let g:WhichKeyDesc_Projects_GotoFile = "<leader>pf goto-file"
+nnoremap <leader>pf    :action GotoFile<CR>
+vnoremap <leader>pf    :action GotoFile<CR>
+
+nnoremap gs<leader> :action AceAction<CR>
+
+let g:WhichKeyDesc_Errors_PreviousError = "[e previous-error"
+nnoremap [e    :action GotoPreviousError<CR>
+vnoremap [e    <Esc>:action GotoPreviousError<CR>
+
+let g:WhichKeyDesc_Errors_NextError = "]e next-error"
+nnoremap ]e    :action GotoNextError<CR>
+vnoremap ]e    <Esc>:action GotoNextError<CR>
+
+let g:WhichKeyDesc_Errors_ListErrors = "<leader>cx list-errors"
+nnoremap <leader>cx    :action CodeInspection.OnEditor<CR>
+vnoremap <leader>cx    :action CodeInspection.OnEditor<CR>
+
+let g:WhichKeyDesc_Tests_RunTests = "<leader>tt run tests"
+nnoremap <leader>tt :action Run<CR>
+let g:WhichKeyDesc_Tests_RunDebugTests = "<leader>td run debug tests"
+nnoremap <leader>td :action Debug<CR>
+
+let g:WhichKeyDesc_Module_GoToTest = "<leader>mt go to tests"
+nnoremap <leader>mt    :action GotoTest<CR>
+vnoremap <leader>mt    :action GotoTest<CR>
+
+let g:WhichKeyDesc_Help_ShowKeyBindings = "<leader>hk show-key-bindings"
+nnoremap <leader>hk     :map<CR>
+vnoremap <leader>hk     <Esc>:map<CR>
+
+let g:WhichKeyDesc_Help_Describe = "<leader>hd +describe"
+
+let g:WhichKeyDesc_Help_Describe_Bindings = "<leader>hdb describe-bindings"
+nnoremap <leader>hdb    :map<CR>
+vnoremap <leader>hdb    <Esc>:map<CR>
+
+let g:WhichKeyDesc_Help_Describe_Key = "<leader>hdk describe-key"
+nnoremap <leader>hdk    :map<CR>
+vnoremap <leader>hdk    <Esc>:map<CR>
+
+let g:WhichKeyDesc_Help_PluginDevelopment = "<leader>hp plugin-development"
+nnoremap <leader>hp    :action WelcomeScreen.DevelopPlugins<CR>
+vnoremap <leader>hp    :action WelcomeScreen.DevelopPlugins<CR>
+
+let g:WhichKeyDesc_Help_ContextualHelp = "<leader>hrr refresh settings"
+nnoremap <leader>hrr          :source ~/.ideavimrc<CR>
+vnoremap <leader>hrr          :source ~/.ideavimrc<CR>
+let g:WhichKeyDesc_Help_ContextualHelpAlt = "<leader>h<Space> contextual-help"
+nnoremap <leader>h<Space>    :action ContextHelp<CR>
+vnoremap <leader>h<Space>    :action ContextHelp<CR>
+
+let g:WhichKeyDesc_Edit_Settings = "<leader>fp edit settings"
+nnoremap <leader>fp :action ShowSettings<CR>
+vnoremap <leader>fp :action ShowSettings<CR>
