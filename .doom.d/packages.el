@@ -58,6 +58,7 @@
 (unpin! poetry)
 (package! sql)
 (package! org-tree-slide)
+(package! vimrc-mode)
 
 (if (file-exists-p (concat doom-private-dir "packages-secrets.el"))
     (progn

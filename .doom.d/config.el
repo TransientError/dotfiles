@@ -171,3 +171,7 @@
   :config
   (setq! web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   (setq! web-mode-markup-indent-offset 2))
+
+(use-package! vimrc-mode
+  :config
+  ((add-to-list 'auto-mode-alist '("\\.\\(idea\\)?\\)vim\\(rc\\)?\\'" . vimrc-mode))))
