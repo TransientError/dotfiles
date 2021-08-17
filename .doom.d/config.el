@@ -174,4 +174,4 @@
 
 (use-package! vimrc-mode
   :config
-  ((add-to-list 'auto-mode-alist '("\\.\\(idea\\)?\\)vim\\(rc\\)?\\'" . vimrc-mode))))
+  ((add-to-list 'auto-mode-alist '("\\.\\(idea\\)?\\)vim\\(rc\\)?\\" . vimrc-mode))))
