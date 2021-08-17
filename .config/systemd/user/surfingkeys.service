@@ -1,0 +1,9 @@
+[Unit]
+Description=Surfingkeys settings
+
+[Service]
+ExecStart=python -m http.server --directory /home/kvwu/utils/surfingkeys-server/data --bind 127.0.0.1 1795
+
+[Install]
+WantedBy=default.target
+
