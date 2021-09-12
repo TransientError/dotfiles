@@ -72,16 +72,6 @@ in {
 
     plugins = with pkgs.vimPlugins; [
       vim-nix
-      neoformat
-      lightline-vim
-      fzf-vim
-      emmet-vim
-      vim-closetag
-      vim-surround
-      vim-fish
-      vim-commentary
-      ReplaceWithRegister
-      vim-toml
     ];
   };
 

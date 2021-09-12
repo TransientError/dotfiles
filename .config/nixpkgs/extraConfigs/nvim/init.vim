@@ -3,6 +3,16 @@ Plug 'kaicataldo/material.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'lambdalisue/suda.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'sbdchd/neoformat'
+Plug 'itchyny/lightline.vim'
+Plug 'alvan/vim-closetag'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'dag/vim-fish'
+Plug 'junegunn/fzf.vim'
+Plug 'mattn/emmet-vim'
+Plug 'cespare/vim-toml'
+Plug 'vim-scripts/ReplaceWithRegister'
 call plug#end()
 
 set colorcolumn=120
