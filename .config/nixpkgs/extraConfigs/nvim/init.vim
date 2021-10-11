@@ -22,7 +22,7 @@ set number relativenumber
 set list listchars=tab:▸▸,trail:·
 set smartcase
 
-let g:closetag_filenames = '*.html,*.xml,*.plist'
+let g:closetag_filenames = '*.html,*.xml,*.plist,*.*proj'
 
 let g:lightline = { 'colorscheme': 'material_vim' }
 let g:material_theme_style = 'dark'
