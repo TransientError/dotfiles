@@ -154,6 +154,7 @@
 (after! ws-butler
   (setq! ws-butler-keep-whitespace-before-point t))
 
+;; python
 (after! python
   (defun pipx-install ()
     (interactive)
@@ -164,6 +165,7 @@
         :leader :n "m p" #'poetry
         :leader :n "m n" #'pipx-install))
 
+;; js
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
 (after! web-mode
   (map! :map emmet-mode-map :leader :n "m E" #'emmet-expand-line))
@@ -174,6 +176,26 @@
   (setq! web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   (setq! web-mode-markup-indent-offset 2))
 
-(use-package! vimrc-mode
+;; mail
+(use-package mu4e
   :config
-  ((add-to-list 'auto-mode-alist '("\\.\\(idea\\)?\\)vim\\(rc\\)?\\" . vimrc-mode))))
+  (set-email-account! "gmail"
+                      '((mu4e-sent-folder . "/gmail/[Gmail]/Sent Mail")
+                        (mu4e-drafts-folder . "/gmail/[Gmail]/Drafts")
+                        (mu4e-trash-folder . "/gmail/[Gmail]/Trash")
+                        (mu4e-refile-folder . "/gmail/[Gmail]/All Mail")
+                        (smtpmail-smtp-user . "kgqw503"))
+                      t)
+  (setq! mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
+         mu4e-view-prefer-html nil
+         message-send-mail-function 'smtpmail-send-it
+         smtpmail-local-domain "gmail.com"
+         smtpmail-default-smtp-server "smtp.gmail.com"
+         smtpmail-smtp-server "smtp.gmail.com"
+         smtpmail-smtp-service 587
+         mail-user-agent 'mu4e-user-agent)
+  (require 'org-msg)
+  (setq! org-msg-default-alternatives '((new . (text html))
+                                        (reply-to-html . (text html))
+                                        (reply-to-text . (text))))
+  (add-to-list 'mm-discouraged-alternatives "text/html"))
