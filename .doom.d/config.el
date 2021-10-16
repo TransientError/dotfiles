@@ -72,6 +72,8 @@
 (after! evil
   (map! :vn "U" #'evil-redo))
 
+(map! :vni "C-v" #'yank)
+
 (use-package! lsp-rust
   :defer t
   :config
