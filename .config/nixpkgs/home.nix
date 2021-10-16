@@ -57,7 +57,6 @@ in {
       ripgrep
       cht-sh
       jq
-      curlie
       # need to figure out how to get runtime dependency to work
       # duplicity
       htop
