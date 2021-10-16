@@ -59,6 +59,13 @@
 (package! sql)
 (package! org-tree-slide)
 (package! vimrc-mode)
+(package! org-msg)
+(package! ob-mermaid)
+(package! mermaid-mode)
+(unpin! org-roam)
+(package! websocket)
+(package! org-roam-ui
+  :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 
 (if (file-exists-p (concat doom-private-dir "packages-secrets.el"))
     (progn
