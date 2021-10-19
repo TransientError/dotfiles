@@ -66,6 +66,7 @@
 (package! websocket)
 (package! org-roam-ui
   :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+(package! powershell)
 
 (when (executable-find "journalctl")
   (package! journalctl-mode))
