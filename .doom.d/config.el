@@ -73,6 +73,7 @@
   (map! :vn "U" #'evil-redo))
 
 (map! :vni "C-v" #'yank)
+(setq! +org-msg-accent-color "#000000")
 
 (use-package! lsp-rust
   :defer t
