@@ -237,8 +237,10 @@
         "x" #'org-roam-capture)
   (org-roam-db-autosync-mode))
 (use-package! websocket
+  :defer t
   :after org-roam)
 (use-package! org-roam-ui
+  :defer t
   :after org-roam
   (setq! org-roam-ui-sync-theme t
          org-roam-ui-follow t
