@@ -150,6 +150,7 @@
 
 (use-package! visual-fill-column
   :hook ((text-mode org-mode) . #'visual-fill-column-mode)
+  :defer t
   :config
   (setq! fill-column 120)
   (visual-line-mode)
@@ -176,12 +177,14 @@
 
 (use-package! js2-mode
   :after web-mode
+  :defer t
   :config
   (setq! web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   (setq! web-mode-markup-indent-offset 2))
 
 ;; mail
 (use-package mu4e
+  :defer t
   :config
   (set-email-account! "gmail"
                       '((mu4e-sent-folder . "/gmail/[Gmail]/Sent Mail")
@@ -206,6 +209,7 @@
 
 ;; org roam
 (use-package! org-roam
+  :defer t
   :config
   (setq! org-roam-directory (file-truename "~/Dropbox/org-roam")
          org-roam-capture-templates
