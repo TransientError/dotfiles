@@ -213,8 +213,17 @@
   (setq! +org-msg-accent-color "#000000"))
 
 ;; org roam
+(map! :leader :prefix ("r" . "roam")
+      "f" #'org-roam-node-find
+      "t" #'org-roam-tag-add
+      "s" #'org-roam-ref-add
+      "l" #'org-roam-node-insert
+      "x" #'org-roam-capture)
+
 (use-package! org-roam
   :defer t
+  :init
+  (setq! org-roam-v2-ack t)
   :config
   (setq! org-roam-directory (file-truename "~/Dropbox/org-roam")
          org-roam-capture-templates
@@ -228,15 +237,9 @@
            ("t" "todo" entry "* TODO %?" :target (file+olp "%<%Y-%m-%d>.org" ("Todo")) :unnarrowed t))
          org-roam-dailies-capture-templates
          '(("d" "default" plain "%[/home/kvwu/Dropbox/templates/journal.org]"
-            :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: \n")))
-         org-roam-v2-ack t)
-  (map! :leader :prefix ("r" . "roam")
-        "f" #'org-roam-node-find
-        "t" #'org-roam-tag-add
-        "s" #'org-roam-ref-add
-        "l" #'org-roam-node-insert
-        "x" #'org-roam-capture)
+            :target (file+head "%<%Y-%m-%d>.org" "#+title: ${title}\n#+filetags: \n"))))
   (org-roam-db-autosync-mode))
+
 (use-package! websocket
   :defer t
   :after org-roam)
