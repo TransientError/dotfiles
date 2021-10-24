@@ -170,7 +170,7 @@
        (yaml +lsp)              ; JSON, but readable
 
        :email
-       (mu4e +gmail)
+       (mu4e +gmail +org)
        ;; notmuch
        ;;(wanderlust +gmail)
 

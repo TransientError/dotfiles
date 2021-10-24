@@ -195,17 +195,21 @@
                       t)
   (setq! mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
          mu4e-view-prefer-html nil
-         message-send-mail-function 'smtpmail-send-it
-         smtpmail-local-domain "gmail.com"
-         smtpmail-default-smtp-server "smtp.gmail.com"
-         smtpmail-smtp-server "smtp.gmail.com"
-         smtpmail-smtp-service 587
          mail-user-agent 'mu4e-user-agent)
-  (require 'org-msg)
-  (setq! org-msg-default-alternatives '((new . (text html))
-                                        (reply-to-html . (text html))
-                                        (reply-to-text . (text))))
+
+  (cond ((eq system-type "darwin") (setq! message-send-mail-function 'sendmail-send-it
+                                          sendmail-program (executable-find "msmtp")))
+        ((eq system-type "gnu/linux") (setq! message-send-mail-function 'smtpmail-send-it
+                                             smtpmail-local-domain "gmail.com"
+                                             smtpmail-default-smtp-server "smtp.gmail.com"
+                                             smtpmail-smtp-server "smtp.gmail.com"
+                                             smtpmail-smtp-service 587)))
+
   (add-to-list 'mm-discouraged-alternatives "text/html"))
+
+(use-package! org-msg
+  :init
+  (setq! +org-msg-accent-color "#000000"))
 
 ;; org roam
 (use-package! org-roam

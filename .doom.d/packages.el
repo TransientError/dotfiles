@@ -59,7 +59,6 @@
 (package! sql)
 (package! org-tree-slide)
 (package! vimrc-mode)
-(package! org-msg)
 (package! ob-mermaid)
 (package! mermaid-mode)
 (unpin! org-roam)
