@@ -198,13 +198,13 @@
          mu4e-view-prefer-html nil
          mail-user-agent 'mu4e-user-agent)
 
-  (cond ((eq system-type "darwin") (setq! message-send-mail-function 'sendmail-send-it
-                                          sendmail-program (executable-find "msmtp")))
-        ((eq system-type "gnu/linux") (setq! message-send-mail-function 'smtpmail-send-it
-                                             smtpmail-local-domain "gmail.com"
-                                             smtpmail-default-smtp-server "smtp.gmail.com"
-                                             smtpmail-smtp-server "smtp.gmail.com"
-                                             smtpmail-smtp-service 587)))
+  (cond ((string-equal system-type "darwin") (setq! message-send-mail-function 'sendmail-send-it
+                                                    sendmail-program (executable-find "msmtp")))
+        ((string-equal system-type "gnu/linux") (setq! message-send-mail-function 'smtpmail-send-it
+                                                       smtpmail-local-domain "gmail.com"
+                                                       smtpmail-default-smtp-server "smtp.gmail.com"
+                                                       smtpmail-smtp-server "smtp.gmail.com"
+                                                       smtpmail-smtp-service 587)))
 
   (add-to-list 'mm-discouraged-alternatives "text/html"))
 
