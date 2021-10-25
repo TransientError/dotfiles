@@ -40,7 +40,6 @@
        auto-save-visited-interval 1)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
 (global-activity-watch-mode)
-(setq! enable-local-variables t)
 
 (setq enable-local-variables t)
 
@@ -74,15 +73,6 @@
 
 (map! :vni "C-v" #'yank)
 (setq! +org-msg-accent-color "#000000")
-
-(use-package! lsp-rust
-  :defer t
-  :config
-  (setq! lsp-rust-server 'rust-analyzer
-         lsp-rust-analyzer-server-display-inlay-hints t
-         lsp-rust-clippy-preference "on"))
-
-(add-hook! 'rustic-mode-hook #'rainbow-delimiters-mode)
 
 (use-package! evil-multiedit
   :config
@@ -127,6 +117,7 @@
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")
+(load! "modules/rust.el")
 (when (not (personal-config-has-profile 'work )) (load! "modules/mail.el"))
 (load! "modules/mail.el")
 (load! "modules/org-roam.el")
