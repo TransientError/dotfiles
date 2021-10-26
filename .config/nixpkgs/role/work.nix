@@ -1,1 +1,1 @@
-{ programs.git = { userEmail = "kvwu@amazon.com"; }; }
+{ programs.git = { userEmail = "wukevin@microsoft.com"; }; }
