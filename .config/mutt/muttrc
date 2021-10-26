@@ -1,0 +1,23 @@
+set realname="Kevin Wu"
+set from = "kvwu@transienterror.com"
+
+set mbox_type=Maildir
+set folder=$HOME/.mail/gmail
+set spoolfile=+Inbox
+set header_cache=$HOME/.cache/mutt/header-cache
+
+set sendmail="/usr/bin/msmtp"
+
+set sort = threads
+set sort_aux = reverse-last-date-received
+
+macro index G "!mbsync gmail^M" "Update through mbsync"
+bind pager j next-line
+bind pager k previous-line
+bind index x sync-mailbox
+
+auto_view text/html
+alternative_order text/plain text/html
+set mailcap_path = ~/.config/mutt/mailcap
+
+source ~/utils/mutt/dracula.muttrc
