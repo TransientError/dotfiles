@@ -25,8 +25,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(cond ((eq window-system 'x) (setq doom-theme 'doom-material))
-      ((eq window-system nil) (setq doom-theme 'doom-opera)))
+(cond ((eq window-system nil) (setq doom-theme 'doom-opera))
+      (t (setq doom-theme 'doom-material)))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -84,15 +84,7 @@
     (setq! ispell-dictionary "en")))
 
 (after! prog-mode
-  (setq! fill-column 120))
-
-(use-package! visual-fill-column
-  :hook ((text-mode org-mode) . #'visual-fill-column-mode)
-  :defer t
-  :config
-  (setq! fill-column 120)
-  (visual-line-mode)
-  (visual-fill-column-mode))
+  (display-fill-column-indicator-mode))
 
 (after! ws-butler
   (setq! ws-butler-keep-whitespace-before-point t))

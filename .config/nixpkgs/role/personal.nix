@@ -26,7 +26,12 @@ in {
     ../extraConfigs/mbsync/mbsyncrc-linux;
 
   home.file.".msmtprc".source = if hardwareInfo.os == "darwin" then
-    ../extraConfigs/msmtp/msmtp-mac
+    ../extraConfigs/msmtp/msmtprc-mac
   else
     ../extraConfigs/msmtp/msmtprc-linux;
+
+  home.file.".config/mutt/mailcap" = if hardwareInfo.os == "darwin" then
+    ../extraconfigs/mutt/mailcap-mac
+  else
+    ../extraConfigs/mutt/mailcap;
 }
