@@ -108,6 +108,6 @@
 (load! "modules/python.el")
 (load! "modules/javascript.el")
 (load! "modules/rust.el")
-(when (not (personal-config-has-profile 'work )) (load! "modules/mail.el"))
+(unless (personal-config-has-profile 'work) (load! "modules/mail.el"))
 (load! "modules/mail.el")
 (load! "modules/org-roam.el")
