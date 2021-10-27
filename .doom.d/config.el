@@ -36,7 +36,8 @@
 (setq! auto-save-visited-mode t
        auto-save-visited-interval 1)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
-(global-activity-watch-mode)
+
+(when (executable-find "aw-qt") (global-activity-watch-mode))
 
 (setq enable-local-variables t)
 
