@@ -30,7 +30,7 @@ in {
   else
     ../extraConfigs/msmtp/msmtprc-linux;
 
-  home.file.".config/mutt/mailcap" = if hardwareInfo.os == "darwin" then
+  home.file.".config/mutt/mailcap".source = if hardwareInfo.os == "darwin" then
     ../extraconfigs/mutt/mailcap-mac
   else
     ../extraConfigs/mutt/mailcap;

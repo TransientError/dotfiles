@@ -22,7 +22,13 @@
             :unnarrowed t)
            ("re" "restaurants-entry" plain "%[/home/kvwu/Dropbox/templates/restaurants.org]" :target (file+datetree "" 'day))
            ("c" "cinema-therapy" plain "%[/home/kvwu/Dropbox/templates/cinema-therapy.org]" :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'") :unnarrowed t)
-           ("t" "todo" entry "* TODO %?" :target (file+olp "%<%Y-%m-%d>.org" ("Todo")) :unnarrowed t))
+           ("t" "todo" entry "* TODO %?" :target (file+olp "%<%Y-%m-%d>.org" ("Todo")) :unnarrowed t)
+           ("T" "therapy")
+           ("Tt" "to discuss" plain "**** to dicuss\n" :target (file+datetree "~/Dropbox/org-roam/20211014221049-therapy_log.org" 'day))
+           ("Tc" "conclusions" plain "**** conclusions\n" :target (file+datetree "~/Dropbox/org-roam/20211014221049-therapy_log.org" 'day))
+           ("D" "doctor")
+           ("Dt" "to dicuss" plain "**** to discuss\n" :target (file+datetree "~/Dropbox/org-roam/20211026035038-doctor_log.org" 'day))
+           ("Dc" "conclusions" plain "**** conclusions\n" :target (file+datetree "~/Dropbox/org-roam/20211026035038-doctor_log.org" 'day)))
          org-roam-dailies-capture-templates
          '(("d" "default" plain "%[/home/kvwu/Dropbox/templates/journal.org]"
             :target (file+head "%<%Y-%m-%d>.org" "#+title: ${title}\n#+filetags: \n"))))

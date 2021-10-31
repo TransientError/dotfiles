@@ -70,7 +70,8 @@
   (map! :vn "U" #'evil-redo))
 
 (map! :vni "C-v" #'yank)
-(setq! +org-msg-accent-color "#000000")
+(setq! +org-msg-accent-color "#000000"
+       fill-column 120)
 
 (use-package! evil-multiedit
   :config
@@ -104,6 +105,15 @@
             (margin-width     . 42)
             (margin-face      . magit-blame-margin)
             (margin-body-face . (magit-blame-dimmed))))))
+
+;; journalctl
+(when (executable-find "journalctl")
+  (use-package! journalctl
+    :defer t
+    :config
+    (map! :nv
+          "]]" #'journalctl-next-chunk
+          "[[" #'journalctl-previous-chunk)))
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")

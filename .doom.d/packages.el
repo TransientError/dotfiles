@@ -52,18 +52,23 @@
 (package! protobuf-mode)
 (package! company-tabnine)
 (package! activity-watch-mode)
-(package! poetry
-  :recipe (:host github :repo "TransientError/poetry.el"))
-(unpin! poetry)
+(when (executable-find "python")
+  (package! poetry
+    :recipe (:host github :repo "TransientError/poetry.el"))
+  (unpin! poetry))
 (package! sql)
 (package! org-tree-slide)
-(package! vimrc-mode)
+(when (or (executable-find "vim") (executable-find "nvim") (executable-find "idea"))
+  (package! vimrc-mode))
 (package! ob-mermaid)
 (package! mermaid-mode)
 (unpin! org-roam)
 (package! websocket)
 (package! org-roam-ui
   :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+
+(when (executable-find "journalctl")
+  (package! journalctl-mode))
 
 (if (file-exists-p (concat doom-private-dir "packages-secrets.el"))
     (progn
