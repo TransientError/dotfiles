@@ -27,26 +27,18 @@
          '(("d" "default" plain "%[/home/kvwu/Dropbox/templates/general.org]"
             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: \n")
             :unnarrowed t)
-           ("r" "Restaurant templates")
-           ("rf" "restaurants-file" plain ""
+           ("r" "restaurants" plain "%[/home/kvwu/Dropbox/templates/restaurants.org]"
             :target (file+head "restaurants/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :restaurant:\n")
-            :unnarrowed t)
-           ("re" "restaurants-entry" plain "%[/home/kvwu/Dropbox/templates/restaurants.org]"
-            :target (file+datetree "" 'day))
+            :unnarrowed t
+            :empty-lines-after 1)
            ("c" "cinema-therapy" plain "%[/home/kvwu/Dropbox/templates/cinema-therapy.org]"
             :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
             :unnarrowed t)
            ("t" "todo" entry "* TODO %?" :target (file+olp "%<%Y-%m-%d>.org" ("Todo")) :unnarrowed t)
-           ("T" "therapy")
-           ("Tt" "to discuss" plain "**** to dicuss\n"
-            :target (file+datetree "~/Dropbox/org-roam/20211014221049-therapy_log.org" 'day))
-           ("Tc" "conclusions" plain "**** conclusions\n"
-            :target (file+datetree "~/Dropbox/org-roam/20211014221049-therapy_log.org" 'day))
-           ("D" "doctor")
-           ("Dt" "to dicuss" plain "**** to discuss\n"
-            :target (file+datetree "~/Dropbox/org-roam/20211026035038-doctor_log.org" 'day))
-           ("Dc" "conclusions" plain "**** conclusions\n"
-            :target (file+datetree "~/Dropbox/org-roam/20211026035038-doctor_log.org" 'day)))
+           ("m" "meetings" plain "%[~/Dropbox/templates/meetings.org]"
+            :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
+            :unnarrowed t
+            :empty-lines-after 1))
          org-roam-dailies-capture-templates
          '(("d" "default" plain "%[/home/kvwu/Dropbox/templates/journal.org]"
             :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
