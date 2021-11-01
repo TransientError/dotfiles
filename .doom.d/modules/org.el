@@ -24,9 +24,9 @@
         "IDEA(i)"  ; An unconfirmed and unapproved task or notion
         "|"
         "DONE(d)"  ; Task successfully completed
-        "KILL(k)"
+        "KILL(k)" ; Task was cancelled, aborted or is no longer applicable
         "HAND-OFF(a)"
-        "PUNT(u)")) ; Task was cancelled, aborted or is no longer applicable
+        "PUNT(u)"))
      org-todo-keyword-faces
      '(("IN_PROGRESS" . +org-todo-active)
        ("BLOCKED" . +org-todo-onhold)
