@@ -14,3 +14,9 @@
 (defun personal-config-has-profile (profile)
   (when (boundp 'kvwu-personal-config)
     (memq profile (get-personal-config 'profiles))))
+
+(defun which-linux-distribution ()
+  "from lsb_release"
+  (interactive)
+  (when (eq system-type 'gnu/linux)
+     (shell-command-to-string "lsb_release -sd")))
