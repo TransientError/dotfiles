@@ -70,8 +70,7 @@
   (map! :vn "U" #'evil-redo))
 
 (map! :vni "C-v" #'yank)
-(setq! +org-msg-accent-color "#000000"
-       fill-column 120)
+(setq! fill-column 120)
 
 (use-package! evil-multiedit
   :config

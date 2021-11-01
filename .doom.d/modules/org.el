@@ -7,9 +7,13 @@
       (setq org-directory "~/org-roam")
     (setq org-directory "~/Dropbox/org-roam"))
   :config
+  (setq-local refile (if (personal-config-has-profile 'work) "~/org-roam/refile.org" ""))
   (setq! org-log-done 'time
          org-agenda-start-with-log-mode t
-         org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+         org-agenda-files (directory-files-recursively org-directory "\\.org$")
+         org-capture-templates
+         '(("t" "todo" entry (file+headline refile "Todo") "* TODO %?" :unnarrowed t)
+           ("n" "notes" (file+headline refile "Notes") "* %?" :unnarrowed t)))
   (map! :map org-mode-map :leader :nv "m l o" #'org-open-at-point)
   (when (personal-config-has-profile 'work)
     (setq!
