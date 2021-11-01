@@ -27,5 +27,6 @@
   (add-to-list 'mm-discouraged-alternatives "text/html"))
 
 (use-package! org-msg
+  :defer t
   :init
   (setq! +org-msg-accent-color "#000000"))
