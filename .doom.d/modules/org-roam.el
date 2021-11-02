@@ -1,4 +1,5 @@
 ;;; org-roam.el -*- lexical-binding: t; -*-
+
 (map! :leader :prefix ("r" . "roam")
       "f" #'org-roam-node-find
       "t" #'org-roam-tag-add

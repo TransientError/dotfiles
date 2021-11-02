@@ -1,6 +1,10 @@
 ;;; org.el -*- lexical-binding: t; -*-
 
-(map! :leader :desc "open refile" :nv "X" (lambda () (interactive) (find-file "~/Dropbox/todo.org")))
+(unless (personal-config-has-profile 'work)
+  (map! :leader "X" nil ;; unmap org-capture because I use roam
+        (:prefix ("X" . "quick open")
+         :desc "open refile" "r" (lambda () (interactive) (find-file "~/Dropbox/todo.org"))
+         :desc "open habits" "h" (lambda () (interactive) (find-file (format-time-string "%Y-%m-habits.org"))))))
 
 (use-package! org
   :defer t
