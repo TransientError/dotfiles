@@ -4,7 +4,9 @@
   (map! :leader "X" nil ;; unmap org-capture because I use roam
         (:prefix ("X" . "quick open")
          :desc "open refile" "r" (lambda () (interactive) (find-file "~/Dropbox/todo.org"))
-         :desc "open habits" "h" (lambda () (interactive) (find-file (format-time-string "%Y-%m-habits.org"))))))
+         :desc "open habits" "h"
+         (lambda () (interactive)
+           (org-roam-node-visit (org-roam-node-from-title-or-alias (format-time-string "%Y-%m-habits")))))))
 
 (use-package! org
   :defer t
