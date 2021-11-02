@@ -6,16 +6,18 @@
       "s" #'org-roam-ref-add
       "l" #'org-roam-node-insert
       "x" #'org-roam-capture
-      (:prefix ("d" . "dailies")
-       (:prefix ("g" . "go")
-        "t" #'org-roam-dailies-goto-today
-        "y" #'org-roam-dailies-goto-yesterday
-        "d" #'org-roam-dailies-goto-date
-        "n" #'org-roam-dailies-goto-next-note)
-       (:prefix ("c" . "capture")
-        "t" #'org-roam-dailies-capture-today
-        "y" #'org-roam-dailies-capture-yesterday
-        "d" #'org-roam-dailies-capture-date)))
+
+      (:unless (personal-config-has-profile 'work)
+       (:prefix ("d" . "dailies")
+        (:prefix ("g" . "go")
+         "t" #'org-roam-dailies-goto-today
+         "y" #'org-roam-dailies-goto-yesterday
+         "d" #'org-roam-dailies-goto-date
+         "n" #'org-roam-dailies-goto-next-note)
+        (:prefix ("c" . "capture")
+         "t" #'org-roam-dailies-capture-today
+         "y" #'org-roam-dailies-capture-yesterday
+         "d" #'org-roam-dailies-capture-date))))
 
 (use-package! org-roam
   :defer t
