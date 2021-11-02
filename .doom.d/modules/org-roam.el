@@ -44,7 +44,12 @@
               :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
               :unnarrowed t
               :empty-lines-after 1))))
-  (setq! org-roam-directory (file-truename org-directory))
+  (setq! org-roam-directory (file-truename org-directory)
+         org-roam-dailies-capture-templates
+         '(("d" "default" plain "%[/home/kvwu/Dropbox/templates/journal.org]"
+            :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))
+           ("t" "todo" entry "* TODO " :target (file+olp "%<%Y-%m-%d>.org" ("Todo")) :unnarrowed t)
+           ("n" "notes" entry "* %?" :target (file+olp "%<%Y-%m-%d>.org" ("Notes")) :unnarrowed t)))
   (org-roam-db-autosync-mode))
 
 (use-package! websocket

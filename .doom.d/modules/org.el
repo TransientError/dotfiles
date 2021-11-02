@@ -1,4 +1,7 @@
 ;;; org.el -*- lexical-binding: t; -*-
+
+(map! :leader :desc "open refile" :nv "X" (lambda () (interactive) (find-file "~/Dropbox/todo.org")))
+
 (use-package! org
   :defer t
   :after personalization
