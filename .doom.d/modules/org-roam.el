@@ -36,9 +36,11 @@
               :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: \n")
               :unnarrowed t)
              ("r" "restaurants" plain "%[/home/kvwu/Dropbox/templates/restaurants.org]"
-              :target (file+head "restaurants/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :restaurant:\n")
+              :target (file+head
+                       "restaurants/%<%Y%m%d%H%M%S>-${slug}.org"
+                       "#+title: ${title}\n#+filetags: :restaurant:\n")
               :unnarrowed t
-              :empty-lines-after 1)
+              :empty-lines 1)
              ("c" "cinema-therapy" plain "%[/home/kvwu/Dropbox/templates/cinema-therapy.org]"
               :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
               :unnarrowed t)
@@ -46,7 +48,7 @@
              ("m" "meetings" plain "%[~/Dropbox/templates/meetings.org]"
               :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
               :unnarrowed t
-              :empty-lines-after 1))))
+              :empty-lines 1))))
   (setq! org-roam-directory (file-truename org-directory)
          org-roam-dailies-capture-templates
          '(("d" "default" plain "%[/home/kvwu/Dropbox/templates/journal.org]"
