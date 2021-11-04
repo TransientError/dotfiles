@@ -16,8 +16,7 @@
                       t)
   (setq! mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
          mu4e-view-prefer-html nil
-         mail-user-agent #'mu4e-user-agent
-         browse-url-browser-function #'browse-url-chrome)
+         mail-user-agent #'mu4e-user-agent)
 
   (cond (IS-MAC (setq! message-send-mail-function 'sendmail-send-it
                                                     sendmail-program (executable-find "msmtp")))
