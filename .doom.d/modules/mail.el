@@ -19,9 +19,9 @@
          mail-user-agent #'mu4e-user-agent
          browse-url-browser-function #'browse-url-chrome)
 
-  (cond ((IS-MAC) (setq! message-send-mail-function 'sendmail-send-it
+  (cond (IS-MAC (setq! message-send-mail-function 'sendmail-send-it
                                                     sendmail-program (executable-find "msmtp")))
-        ((IS-LINUX) (setq! message-send-mail-function 'smtpmail-send-it
+        (IS-LINUX (setq! message-send-mail-function 'smtpmail-send-it
                                                        smtpmail-local-domain "gmail.com"
                                                        smtpmail-default-smtp-server "smtp.gmail.com"
                                                        smtpmail-smtp-server "smtp.gmail.com"
