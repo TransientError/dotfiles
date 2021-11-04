@@ -1,7 +1,5 @@
 ;;; org.el -*- lexical-binding: t; -*-
 
-(setq-local refilePath (if (personal-config-has-profile 'work) "~/org-roam/refile.org" "~/Dropbox/todo.org"))
-
 (defun ndk/org-set-effort-in-pomodoros (&optional n)
   "This `fn` facilitate to define efforts in tasks in pomodoros units.
 You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 C-c C-x e`."
@@ -14,7 +12,9 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
 
 (map! :leader "X" nil ;; unmap org-capture because I use roam
       (:prefix ("X" . "quick open")
-       :desc "open refile" "r" (lambda () (interactive) (find-file refilePath))
+       :desc "open refile" "r"
+       (lambda () (interactive)
+         (find-file (if (personal-config-has-profile 'work) "~/org-roam/refile.org" "~/Dropbox/todo.org")))
        (:unless (personal-config-has-profile 'work)
         :desc "open habits" "h"
         (lambda () (interactive)
