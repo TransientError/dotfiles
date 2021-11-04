@@ -1,29 +1,13 @@
 ;;; org-roam.el -*- lexical-binding: t; -*-
 
-(map! :leader :prefix ("r" . "roam")
-      "f" #'org-roam-node-find
+(map! :leader :prefix "nr"
       "t" #'org-roam-tag-add
-      "s" #'org-roam-ref-add
-      "l" #'org-roam-node-insert
-      "x" #'org-roam-capture
+      "S" #'org-roam-ref-add)
 
-      (:unless (personal-config-has-profile 'work)
-       (:prefix ("d" . "dailies")
-        (:prefix ("g" . "go")
-         "t" #'org-roam-dailies-goto-today
-         "y" #'org-roam-dailies-goto-yesterday
-         "d" #'org-roam-dailies-goto-date
-         "n" #'org-roam-dailies-goto-next-note)
-        (:prefix ("c" . "capture")
-         "t" #'org-roam-dailies-capture-today
-         "y" #'org-roam-dailies-capture-yesterday
-         "d" #'org-roam-dailies-capture-date))))
 
 (use-package! org-roam
   :defer t
   :after org
-  :init
-  (setq! org-roam-v2-ack t)
   :config
   (if (personal-config-has-profile 'work)
       (setq! org-roam-capture-templates
@@ -49,6 +33,7 @@
               :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
               :unnarrowed t
               :empty-lines 1))))
+
   (setq! org-roam-directory (file-truename org-directory)
          org-roam-dailies-capture-templates
          '(("d" "default" plain "%[/home/kvwu/Dropbox/templates/journal.org]"
