@@ -26,8 +26,6 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
       :desc "estimate pomodoros" "m c E" #'ndk/org-set-effort-in-pomodoros)
 
 
-
-
 (use-package! org
   :defer t
   :after personalization
@@ -38,8 +36,6 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
   :config
   (setq-local refile (if (personal-config-has-profile 'work) "~/org-roam/refile.org" ""))
   (setq! org-log-done 'time
-         org-agenda-start-with-log-mode t
-         org-agenda-files (directory-files-recursively org-directory "\\.org$")
          org-capture-templates
          '(("t" "todo" entry (file+headline refile "Todo") "* TODO %?" :unnarrowed t)
            ("n" "notes" (file+headline refile "Notes") "* %?" :unnarrowed t)))
@@ -68,3 +64,13 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
        ("PROJ" . +org-todo-project)
        ("NO"   . +org-todo-cancel)
        ("KILL" . +org-todo-cancel)))))
+
+(use-package! org-agenda
+  :defer t
+  :config
+  (setq! org-agenda-start-with-log-mode t
+         org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+  (when (personal-config-has-profile 'work)
+    (setq! org-agenda-custom-commands
+           '(("n" "Agenda and all TODOS" ((agenda "") (alltodo "")))
+             ("w" "Serious agenda" ((agenda "work") (tags-todo "work")))))))
