@@ -62,7 +62,6 @@
   (package! vimrc-mode))
 (package! ob-mermaid)
 (package! mermaid-mode)
-(unpin! org-roam)
 (package! websocket)
 (package! org-roam-ui
   :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))

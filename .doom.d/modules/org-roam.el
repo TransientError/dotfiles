@@ -4,7 +4,6 @@
       "t" #'org-roam-tag-add
       "S" #'org-roam-ref-add)
 
-
 (use-package! org-roam
   :defer t
   :after org
