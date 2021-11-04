@@ -118,5 +118,4 @@
 (load! "modules/javascript.el")
 (load! "modules/rust.el")
 (unless (personal-config-has-profile 'work) (load! "modules/mail.el"))
-(load! "modules/mail.el")
 (load! "modules/org-roam.el")
