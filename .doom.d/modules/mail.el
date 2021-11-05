@@ -25,8 +25,11 @@
                                                        smtpmail-default-smtp-server "smtp.gmail.com"
                                                        smtpmail-smtp-server "smtp.gmail.com"
                                                        smtpmail-smtp-service 587)))
+  (let ((display (getenv "XDG_SESSION_TYPE")))
+   (cond ((string-equal display "x11") (setq! browse-url-browser-function #'browse-url-chrome))))
 
   (add-to-list 'mm-discouraged-alternatives "text/html"))
+  
 
 (use-package! org-msg
   :defer t
