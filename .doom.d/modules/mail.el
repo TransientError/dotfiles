@@ -16,7 +16,8 @@
                       t)
   (setq! mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
          mu4e-view-prefer-html nil
-         mail-user-agent #'mu4e-user-agent)
+         mail-user-agent #'mu4e-user-agent
+         browse-url-browser-function #'browse-url-chrome)
 
   (cond (IS-MAC (setq! message-send-mail-function 'sendmail-send-it
                                                     sendmail-program (executable-find "msmtp")))
@@ -25,8 +26,6 @@
                                                        smtpmail-default-smtp-server "smtp.gmail.com"
                                                        smtpmail-smtp-server "smtp.gmail.com"
                                                        smtpmail-smtp-service 587)))
-  (let ((display (getenv "XDG_SESSION_TYPE")))
-   (cond ((string-equal display "x11") (setq! browse-url-browser-function #'browse-url-chrome))))
 
   (add-to-list 'mm-discouraged-alternatives "text/html"))
   
