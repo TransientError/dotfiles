@@ -5,9 +5,7 @@
 You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 C-c C-x e`."
   (interactive "P")
   (setq n (or n (string-to-number (read-from-minibuffer "How many pomodoros? " nil nil nil nil "1" nil))))
-  (let* ((mins-per-pomodoro (if org-pomodoro-length
-                                org-pomodoro-length
-                              25)))
+  (let* ((mins-per-pomodoro 25))
     (org-set-effort nil (org-duration-from-minutes (* n mins-per-pomodoro)))))
 
 (map! :leader "X" nil ;; unmap org-capture because I use roam
