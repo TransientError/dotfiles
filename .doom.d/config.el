@@ -25,8 +25,12 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(cond ((not (display-graphic-p)) (setq doom-theme 'doom-opera))
-      (t (setq doom-theme 'doom-material)))
+
+
+(cond ((not (display-graphic-p)) (setq doom-theme 'doom-opera)) (t (setq doom-theme 'doom-material)))
+
+(defun choose-theme () (cond ((not (display-graphic-p)) (load-theme 'doom-opera) (t (load-theme 'doom-material)))))
+(add-hook 'server-after-make-frame-hook #'choose-theme)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
