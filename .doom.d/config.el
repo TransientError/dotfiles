@@ -61,11 +61,11 @@
 (load! "config-manager.el")
 (load! "misc.el")
 
-(after! evil
-  (map! :vn "U" #'evil-redo))
-
 (map! :vni "C-v" #'yank)
 (setq! fill-column 120)
+
+(after! evil
+  (map! :vn "U" #'evil-redo))
 
 (use-package! evil-multiedit
   :config
