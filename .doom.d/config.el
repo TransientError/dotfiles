@@ -115,7 +115,7 @@
           "[[" #'journalctl-previous-chunk)))
 
 ;; ledger
-(map! :leader :desc "ledger" "X l" (lambda () (interactive) (find-file "~/Dropbox/ledgers/ledger.dat"))
+(map! :leader :desc "ledger" "X l" (lambda () (interactive) (find-file "~/Dropbox/ledgers/ledger.ledger"))
       (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer))
 
 (load! "modules/python.el")
