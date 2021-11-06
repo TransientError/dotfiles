@@ -60,11 +60,6 @@
 
 (load! "config-manager.el")
 (load! "misc.el")
-(if (file-exists-p (concat doom-private-dir "personalization.el"))
-    (progn
-      (load! "personalization.el")
-      (provide 'personalization))
-  (provide 'personalization))
 
 (after! evil
   (map! :vn "U" #'evil-redo))

@@ -14,7 +14,8 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-(if (file-exists-p (concat doom-private-dir "personalization.el"))
+(load! "init-functions.el")
+(if (and (file-exists-p (concat doom-private-dir "personalization.el")))
     (progn
       (load! "personalization.el")
       (provide 'personalization))
