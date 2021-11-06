@@ -49,14 +49,10 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
 
-(package! protobuf-mode)
+
+
 (package! company-tabnine)
-(package! activity-watch-mode)
-(when (executable-find "python")
-  (package! poetry
-    :recipe (:host github :repo "TransientError/poetry.el"))
-  (unpin! poetry))
-(package! sql)
+(when (executable-find "aw-qt") (package! activity-watch-mode))
 (package! org-tree-slide)
 (when (or (executable-find "vim") (executable-find "nvim") (executable-find "idea"))
   (package! vimrc-mode))
@@ -65,13 +61,19 @@
 (package! websocket)
 (package! org-roam-ui
   :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
-(package! powershell)
-
-(when (executable-find "journalctl")
-  (package! journalctl-mode))
+(when (personal-config-has-profile 'work) (package! powershell))
+(when (executable-find "journalctl") (package! journalctl-mode))
 
 (if (file-exists-p (concat doom-private-dir "packages-secrets.el"))
     (progn
       (load! "packages-secrets.el")
       (provide 'packages-secrets))
   (provide 'packages-secrets))
+
+;; No longer used but kept here for reference
+;; (package! protobuf-mode)
+;; (package! sql)
+;; (when (executable-find "python")
+;;   (package! poetry
+;;     :recipe (:host github :repo "TransientError/poetry"))
+;;   (unpin! poetry))

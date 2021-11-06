@@ -65,6 +65,7 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
        ("KILL" . +org-todo-cancel)))))
 
 (use-package! org-agenda
+  :after org
   :defer t
   :config
   (setq! org-agenda-start-with-log-mode t
