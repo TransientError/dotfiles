@@ -29,8 +29,8 @@
 
 (cond ((not (display-graphic-p)) (setq doom-theme 'doom-opera)) (t (setq doom-theme 'doom-material)))
 
-(defun choose-theme () (cond ((not (display-graphic-p)) (load-theme 'doom-opera) (t (load-theme 'doom-material)))))
-(add-hook 'server-after-make-frame-hook #'choose-theme)
+(defun kvwu/choose-theme () (cond ((not (display-graphic-p)) (load-theme 'doom-opera)) (t (load-theme 'doom-material))))
+(add-hook 'server-after-make-frame-hook #'kvwu/choose-theme)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.

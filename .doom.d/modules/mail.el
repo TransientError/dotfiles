@@ -1,6 +1,6 @@
 ;;; mail.el -*- lexical-binding: t; -*-
 
-(let ((distroString (which-linux-distribution)))
+(let ((distroString (kvwu/which-linux-distribution)))
   (when (and distroString (string-equal "Ubuntu" (car (split-string distroString))))
     (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")))
 
