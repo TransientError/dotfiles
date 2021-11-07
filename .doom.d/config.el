@@ -117,6 +117,11 @@
 (map! :leader :desc "ledger" "X l" (lambda () (interactive) (find-file "~/Dropbox/ledgers/ledger.ledger"))
       (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer))
 
+;; fasd
+(when (executable-find "fasd")
+  (global-fasd-mode)
+  (map! :leader "f f" #'fasd-find-file))
+
 (load! "modules/python.el")
 (load! "modules/javascript.el")
 (load! "modules/rust.el")

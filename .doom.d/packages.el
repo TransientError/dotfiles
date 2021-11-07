@@ -63,6 +63,7 @@
   :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (when (personal-config-has-profile 'work) (package! powershell))
 (when (executable-find "journalctl") (package! journalctl-mode))
+(package! fasd)
 
 (if (file-exists-p (concat doom-private-dir "packages-secrets.el"))
     (progn
