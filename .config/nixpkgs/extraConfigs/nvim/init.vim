@@ -13,6 +13,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
 Plug 'cespare/vim-toml'
 Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 set colorcolumn=120
@@ -43,3 +44,15 @@ map <leader>wl :wincmd l<CR>
 map <leader>ws :wincmd s<CR>
 map <leader>wv :wincmd v<CR>
 map <leader>wd :q<CR>
+
+let g:EasyMotion_smartcase = 1
+" search 
+map / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
+
+" snipe
+nmap s <Plug>(easymotion-s2)
+
