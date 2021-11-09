@@ -7,38 +7,43 @@
 (use-package! org-roam
   :defer t
   :after org
+  :init
+  (setq org-roam-directory (file-truename org-directory))
   :config
-  (if (personal-config-has-profile 'work)
+  (let ((filename-template "%<%Y%m%d%H%M%S>-${slug}.org")
+        (default-headers "#+title: ${title}\n#+filetags: \n")
+        (headers-with-tag (lambda (tags) (format "#+title: ${title}\n#+filetags: %s\n" tags)))
+        (mk-template-path (lambda (file-name) (concat (getenv "HOME") "/Dropbox/templates/" file-name)))
+        (roam-daily-filename-template "%<%Y-%m-%d>.org"))
+    (if (personal-config-has-profile 'work)
+        (setq! org-roam-capture-templates
+               '(("d" "default" plain ""
+                  :target (file+head ,filename-template ,default-headers) :unnarrowed t)
+                 ("m" "meetings" plain ""
+                  :target (file+head ,filename-template ,default-headers) :unnarrowed t)))
       (setq! org-roam-capture-templates
-             '(("d" "default" plain ""
-                :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: \n") :unnarrowed t)
-               ("m" "meetings" plain ""
-                :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"  "#+title: ${title}\n#+filetags: \n") :unnarrowed t)))
-    (setq! org-roam-capture-templates
-           `(("d" "default" plain  (file ,(concat (getenv "HOME") "/Dropbox/templates/general.org"))
-              :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: \n")
-              :unnarrowed t)
-             ("r" "restaurants" plain (file ,(concat (getenv "HOME") "/Dropbox/templates/restaurants.org"))
-              :target (file+head
-                       "restaurants/%<%Y%m%d%H%M%S>-${slug}.org"
-                       "#+title: ${title}\n#+filetags: :restaurant:\n")
-              :unnarrowed t
-              :empty-lines 1)
-             ("c" "cinema-therapy" plain (file ,(concat (getenv "HOME") "/Dropbox/templates/cinema-therapy.org"))
-              :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
-              :unnarrowed t)
-             ("t" "todo" entry "* TODO %?" :target (file+olp "%<%Y-%m-%d>.org" ("Todo")) :unnarrowed t)
-             ("m" "meetings" plain (file ,(concat ((getenv "HOME") "/Dropbox/templates/meetings.org")))
-              :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
-              :unnarrowed t
-              :empty-lines 1))))
-
-  (setq! org-roam-directory (file-truename org-directory)
-         org-roam-dailies-capture-templates
-         '(("d" "default" plain (file ,(concat (getenv "HOME") "/Dropbox/templates/journal.org"))
-            :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))
-           ("t" "todo" entry "* TODO " :target (file+olp "%<%Y-%m-%d>.org" ("Todo")) :unnarrowed t)
-           ("n" "notes" entry "* %?" :target (file+olp "%<%Y-%m-%d>.org" ("Notes")) :unnarrowed t)))
+             `(("d" "default" plain  (file ,(funcall mk-template-path "general.org"))
+                :target (file+head ,filename-template ,default-headers)
+                :unnarrowed t)
+               ("r" "restaurants" plain (file ,(funcall mk-template-path "restaurants.org"))
+                :target (file+head
+                         ,(concat "restaurants/" filename-template)
+                         ,(funcall headers-with-tag ":restaurant:"))
+                :unnarrowed t
+                :empty-lines 1)
+               ("c" "cinema-therapy" plain (file ,(funcall mk-template-path "cinema-therapy.org"))
+                :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" ,default-headers)
+                :unnarrowed t)
+               ("t" "todo" entry "* TODO %?" :target (file+olp ,roam-daily-filename-template ("Todo")) :unnarrowed t)
+               ("m" "meetings" plain (file ,(funcall mk-template-path "meetings.org"))
+                :target (file+head "%<%Y-%m-%d>-${slug}.org" ,default-headers)
+                :unnarrowed t
+                :empty-lines 1))
+             org-roam-dailies-capture-templates
+             `(("d" "default" plain (file ,(funcall mk-template-path "journal.org"))
+                :target (file+head ,roam-daily-filename-template "#+title: %<%Y-%m-%d>\n"))
+               ("t" "todo" entry "* TODO " :target (file+olp ,roam-daily-filename-template ("Todo")) :unnarrowed t)
+               ("n" "notes" entry "* %?" :target (file+olp ,roam-daily-filename-template ("Notes")) :unnarrowed t)))))
   (org-roam-db-autosync-mode))
 
 (use-package! websocket
