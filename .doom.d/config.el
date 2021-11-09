@@ -66,28 +66,20 @@
 (load! "misc.el")
 
 (map! :vni "C-v" #'yank)
-(setq! fill-column 120)
+(setq-default fill-column 120)
 
-(after! evil
-  (map! :vn "U" #'evil-redo))
+(after! evil (map! :vn "U" #'evil-redo))
 
-(use-package! evil-multiedit
-  :config
-  (map! :vn "R" #'evil-multiedit-match-all))
+(use-package! evil-multiedit :config (map! :vn "R" #'evil-multiedit-match-all))
 
-(after! text-mode
-  (when (executable-find "aspell")
-    (setq! ispell-dictionary "en")))
+(after! text-mode (when (executable-find "aspell") (setq! ispell-dictionary "en")))
 
-(after! prog-mode
-  (display-fill-column-indicator-mode))
+(add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
 
 (after! ws-butler
   (setq! ws-butler-keep-whitespace-before-point t))
 
-(when IS-MAC
-  (exec-path-from-shell-initialize))
-
+(when IS-MAC (exec-path-from-shell-initialize))
 
 (load! "modules/org.el")
 
