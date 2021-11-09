@@ -15,10 +15,10 @@
                ("m" "meetings" plain ""
                 :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"  "#+title: ${title}\n#+filetags: \n") :unnarrowed t)))
     (setq! org-roam-capture-templates
-           '(("d" "default" plain  "%[/home/kvwu/Dropbox/templates/general.org]"
+           `(("d" "default" plain  (file ,(concat (getenv "HOME") "/Dropbox/templates/general.org"))
               :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: \n")
               :unnarrowed t)
-             ("r" "restaurants" plain "%[/home/kvwu/Dropbox/templates/restaurants.org]"
+             ("r" "restaurants" plain (file ,(concat (getenv "HOME") "/Dropbox/templates/restaurants.org"))
               :target (file+head
                        "restaurants/%<%Y%m%d%H%M%S>-${slug}.org"
                        "#+title: ${title}\n#+filetags: :restaurant:\n")
