@@ -26,10 +26,8 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 
-
-(cond ((not (display-graphic-p)) (setq doom-theme 'doom-opera)) (t (setq doom-theme 'doom-material)))
-
 (defun kvwu/choose-theme () (cond ((not (display-graphic-p)) (load-theme 'doom-opera)) (t (load-theme 'doom-material))))
+(kvwu/choose-theme)
 (add-hook 'server-after-make-frame-hook #'kvwu/choose-theme)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -76,8 +74,7 @@
 
 (add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
 
-(after! ws-butler
-  (setq! ws-butler-keep-whitespace-before-point t))
+(after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
 
 (when IS-MAC (exec-path-from-shell-initialize))
 
