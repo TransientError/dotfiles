@@ -85,6 +85,10 @@
 (after! ws-butler
   (setq! ws-butler-keep-whitespace-before-point t))
 
+(when IS-MAC
+  (exec-path-from-shell-initialize))
+
+
 (load! "modules/org.el")
 
 (use-package! company-tabnine
