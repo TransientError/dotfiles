@@ -24,18 +24,18 @@
                        "#+title: ${title}\n#+filetags: :restaurant:\n")
               :unnarrowed t
               :empty-lines 1)
-             ("c" "cinema-therapy" plain "%[/home/kvwu/Dropbox/templates/cinema-therapy.org]"
+             ("c" "cinema-therapy" plain (file ,(concat (getenv "HOME") "/Dropbox/templates/cinema-therapy.org"))
               :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
               :unnarrowed t)
              ("t" "todo" entry "* TODO %?" :target (file+olp "%<%Y-%m-%d>.org" ("Todo")) :unnarrowed t)
-             ("m" "meetings" plain "%[~/Dropbox/templates/meetings.org]"
+             ("m" "meetings" plain (file ,(concat ((getenv "HOME") "/Dropbox/templates/meetings.org")))
               :target (file+head "%<%Y-%m-%d>-ct-${slug}.org" "#+title: ${title}\n'")
               :unnarrowed t
               :empty-lines 1))))
 
   (setq! org-roam-directory (file-truename org-directory)
          org-roam-dailies-capture-templates
-         '(("d" "default" plain "%[/home/kvwu/Dropbox/templates/journal.org]"
+         '(("d" "default" plain (file ,(concat (getenv "HOME") "/Dropbox/templates/journal.org"))
             :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))
            ("t" "todo" entry "* TODO " :target (file+olp "%<%Y-%m-%d>.org" ("Todo")) :unnarrowed t)
            ("n" "notes" entry "* %?" :target (file+olp "%<%Y-%m-%d>.org" ("Notes")) :unnarrowed t)))
