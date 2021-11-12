@@ -21,6 +21,8 @@ in
   programs.tmux = {
     enable = true;
     clock24 = true;
+    terminal = "screen-256color";
+    keyMode = "vi";
     extraConfig = let
       sources = [ myConfig.powerlineTmuxSrc ];
       sourcesString =
