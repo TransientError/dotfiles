@@ -63,8 +63,7 @@
   :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (when (personal-config-has-profile 'work) (package! powershell))
 (when (executable-find "journalctl") (package! journalctl-mode))
-(package! fasd
-  :recipe (:host gitlab :repo "steckerhalter/emacs-fasd" :files ("fasd.el")))
+(package! fasd)
 (when IS-MAC (package! exec-path-from-shell))
 
 (if (file-exists-p (concat doom-private-dir "packages-secrets.el"))
