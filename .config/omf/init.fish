@@ -12,6 +12,7 @@ end
 if test "$TERM" = "xterm-kitty"
   abbr -g icat kitty +kitten icat
   abbr -g kssh kitty +kitten ssh
+  abbr -g kdiff kitty +kitten diff
 end
 
 if test "$TERM" = "dumb"
