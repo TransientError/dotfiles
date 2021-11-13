@@ -27,7 +27,6 @@
 ;; `load-theme' function. This is the default:
 
 (defun kvwu/choose-theme () (cond ((not (display-graphic-p)) (load-theme 'doom-opera)) (t (load-theme 'doom-material))))
-(kvwu/choose-theme)
 (add-hook 'server-after-make-frame-hook #'kvwu/choose-theme)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
