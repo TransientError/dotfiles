@@ -30,9 +30,9 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
   :defer t
   :after personalization
   :init
-  (if (personal-config-has-profile 'work)
-      (setq org-directory "~/org-roam")
-    (setq org-directory "~/Dropbox/org-roam"))
+  (setq org-directory
+    (cond ((and (personal-config-has-profile 'work) (personal-config-has-profile 'roam)) "~/org-roam")
+          ((personal-config-has-profile 'roam) "~/Dropbox/org-roam")
           (t "~/org")))
   :config
   (setq-local refile (if (personal-config-has-profile 'work) "~/org-roam/refile.org" ""))
