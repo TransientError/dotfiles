@@ -15,7 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 (load! "init-functions.el")
-(if (and (file-exists-p (concat doom-private-dir "personalization.el")))
+(if (file-exists-p (concat doom-private-dir "personalization.el"))
     (progn
       (load! "personalization.el")
       (provide 'personalization))
@@ -119,7 +119,7 @@
        :lang
        ;;agda              ; types of types of types of types...
        cc                ; C/C++/Obj-C madness
-     
+
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -154,7 +154,7 @@
        ;;nim               ; python + lisp at the speed of c
        nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org (:when (personal-config-has-profile 'roam) +roam2))
+       (:cond ((personal-config-has-profile 'roam) (org +roam2)) (t org))
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
