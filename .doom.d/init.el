@@ -148,13 +148,13 @@
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
-       (:unless (personal-config-has-profile 'work) ledger)            ; an accounting system in Emacs
+       (:when (personal-config-has-profile 'ledger) ledger)            ; an accounting system in Emacs
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +roam2)               ; organize your plain life in plain text
+       (org (:when (personal-config-has-profile 'roam) +roam2))
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -177,7 +177,7 @@
        (yaml +lsp)              ; JSON, but readable
 
        :email
-       (:unless (personal-config-has-profile 'work) (mu4e +gmail +org))
+       (:when (personal-config-has-profile 'mail) (mu4e +gmail +org))
        ;; notmuch
        ;;(wanderlust +gmail)
 
