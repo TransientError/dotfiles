@@ -33,6 +33,7 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
   (if (personal-config-has-profile 'work)
       (setq org-directory "~/org-roam")
     (setq org-directory "~/Dropbox/org-roam"))
+          (t "~/org")))
   :config
   (setq-local refile (if (personal-config-has-profile 'work) "~/org-roam/refile.org" ""))
   (setq! org-log-done 'time

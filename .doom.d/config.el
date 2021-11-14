@@ -107,8 +107,9 @@
           "[[" #'journalctl-previous-chunk)))
 
 ;; ledger
-(map! :leader :desc "ledger" "X l" (lambda () (interactive) (find-file "~/Dropbox/ledgers/ledger.ledger"))
-      (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer))
+(when (personal-config-has-profile 'ledger)
+  (map! :leader :desc "ledger" "X l" (lambda () (interactive) (find-file "~/Dropbox/ledgers/ledger.ledger"))
+        (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer)))
 
 ;; fasd
 (when (executable-find "fasd")
@@ -118,5 +119,5 @@
 (load! "modules/python.el")
 (load! "modules/javascript.el")
 (load! "modules/rust.el")
-(unless (personal-config-has-profile 'work) (load! "modules/mail.el"))
-(load! "modules/org-roam.el")
+(when (personal-config-has-profile 'mail) (load! "modules/mail.el"))
+(when (personal-config-has-profile 'roam) (load! "modules/org-roam.el"))
