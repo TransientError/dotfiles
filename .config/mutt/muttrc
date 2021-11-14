@@ -12,6 +12,9 @@ set sort = threads
 set sort_aux = reverse-last-date-received
 
 macro index G "!mbsync gmail^M" "Update through mbsync"
+macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+
 bind pager j next-line
 bind pager k previous-line
 bind index x sync-mailbox
