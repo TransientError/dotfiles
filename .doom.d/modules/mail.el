@@ -16,19 +16,19 @@
                       t)
   (setq! mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
          mu4e-view-prefer-html nil
-         mail-user-agent #'mu4e-user-agent
-         browse-url-browser-function #'browse-url-chrome)
+         mail-user-agent #'mu4e-user-agent)
 
   (cond (IS-MAC (setq! message-send-mail-function 'sendmail-send-it
-                                                    sendmail-program (executable-find "msmtp")))
+                       sendmail-program (executable-find "msmtp")))
         (IS-LINUX (setq! message-send-mail-function 'smtpmail-send-it
-                                                       smtpmail-local-domain "gmail.com"
-                                                       smtpmail-default-smtp-server "smtp.gmail.com"
-                                                       smtpmail-smtp-server "smtp.gmail.com"
-                                                       smtpmail-smtp-service 587)))
+                         smtpmail-local-domain "gmail.com"
+                         smtpmail-default-smtp-server "smtp.gmail.com"
+                         smtpmail-smtp-server "smtp.gmail.com"
+                         smtpmail-smtp-service 587
+                         browse-url-browser-function #'browse-url-chrome)))
 
   (add-to-list 'mm-discouraged-alternatives "text/html"))
-  
+
 
 (use-package! org-msg
   :defer t

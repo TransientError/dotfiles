@@ -68,6 +68,10 @@
 
 (after! evil (map! :vn "U" #'evil-redo))
 
+(when IS-MAC (exec-path-from-shell-initialize))
+
+(setq! native-comp-deferred-compilation t)
+
 (use-package! evil-multiedit :config (map! :vn "R" #'evil-multiedit-match-all))
 
 (after! text-mode (when (executable-find "aspell") (setq! ispell-dictionary "en")))
@@ -75,8 +79,6 @@
 (add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
 
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
-
-(when IS-MAC (exec-path-from-shell-initialize))
 
 (load! "modules/org.el")
 
