@@ -80,6 +80,10 @@
 
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
 
+(when (personal-config-has-profile 'work)
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
+
 (load! "modules/org.el")
 
 (use-package! company-tabnine
