@@ -12,3 +12,7 @@
   (interactive)
   (when (eq system-type 'gnu/linux)
     (shell-command-to-string "lsb_release -sd")))
+
+(defun kvwu/is-wsl ()
+  (when (executable-find "uname")
+    (string-match-p "-[Mm]icrosoft" (shell-command-to-string "uname -a"))))
