@@ -21,3 +21,5 @@ if test "$TERM" = "dumb"
   end
 end
 
+set -gx EDITOR nvim
+
