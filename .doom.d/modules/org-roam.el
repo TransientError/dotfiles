@@ -17,7 +17,7 @@
         (roam-daily-filename-template "%<%Y-%m-%d>.org"))
     (if (personal-config-has-profile 'work)
         (setq! org-roam-capture-templates
-               '(("d" "default" plain ""
+               `(("d" "default" plain ""
                   :target (file+head ,filename-template ,default-headers) :unnarrowed t)
                  ("m" "meetings" plain ""
                   :target (file+head ,filename-template ,default-headers) :unnarrowed t)))
