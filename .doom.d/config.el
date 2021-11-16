@@ -80,7 +80,7 @@
 
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
 
-(when (personal-config-has-profile 'work)
+(when (and (personal-config-has-profile 'work) (kvwu/is-wsl))
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
 
