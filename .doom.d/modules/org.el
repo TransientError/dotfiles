@@ -19,12 +19,7 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
           (org-roam-node-visit (org-roam-node-from-title-or-alias (format-time-string "%Y-%m-habits")))))
        (:when (personal-config-has-profile 'work)
         :desc "open todo" "t" (lambda () (interactive) (find-file "~/org-roam/todo.org"))
-        :desc "open personal" "p" (lambda () (interactive) (find-file "~/org-roam/personal.org"))))
-
-      (:after org-mode :map org-mode-map :localleader
-       :desc "estimate pomodoros" "c E" #'ndk/org-set-effort-in-pomodoros))
-       
-
+        :desc "open personal" "p" (lambda () (interactive) (find-file "~/org-roam/personal.org")))))
 
 (use-package! org
   :defer t
@@ -63,7 +58,8 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
        ("REVIEW" . +org-todo-onhold)
        ("PROJ" . +org-todo-project)
        ("NO"   . +org-todo-cancel)
-       ("KILL" . +org-todo-cancel)))))
+       ("KILL" . +org-todo-cancel))))
+  (map! :map org-mode-map :localleader :desc "estimate pomodoros" "c E" #'ndk/org-set-effort-in-pomodoros))
 
 (use-package! org-agenda
   :after org
