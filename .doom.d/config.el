@@ -122,6 +122,12 @@
   (global-fasd-mode)
   (map! :leader "f f" #'fasd-find-file))
 
+;; elisp
+(use-package! elisp-mode
+  :defer t
+  :init
+  (setq lisp-indent-offset 2))
+
 (load! "modules/python.el")
 (load! "modules/javascript.el")
 (load! "modules/rust.el")
