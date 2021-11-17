@@ -35,8 +35,9 @@
 (setq display-line-numbers-type 'relative)
 
 ;; Autosave!
-(setq super-save-auto-save-when-idle t)
-(super-save-mode +1)
+(after! super-save
+  (setq super-save-auto-save-when-idle t)
+  (super-save-mode +1))
 (add-hook 'doom-before-reload-hook #'save-buffer)
 (after! magit
   (setq magit-save-repository-buffers 'dontask))
