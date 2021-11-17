@@ -65,6 +65,7 @@
 (when (personal-config-has-profile 'work) (package! powershell))
 (when (executable-find "journalctl") (package! journalctl-mode))
 (package! fasd)
+(package! super-save)
 (when IS-MAC (package! exec-path-from-shell))
 
 (if (file-exists-p (concat doom-private-dir "packages-secrets.el"))

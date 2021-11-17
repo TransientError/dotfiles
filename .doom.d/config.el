@@ -35,8 +35,9 @@
 (setq display-line-numbers-type 'relative)
 
 ;; Autosave!
-(setq! auto-save-visited-mode t
-       auto-save-visited-interval 1)
+(setq super-save-auto-save-when-idle t)
+(super-save-mode +1)
+
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
 
 (when (executable-find "aw-qt") (global-activity-watch-mode))
