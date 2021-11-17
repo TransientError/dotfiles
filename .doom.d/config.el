@@ -130,7 +130,9 @@
 (use-package! elisp-mode
   :defer t
   :init
-  (setq lisp-indent-offset 2))
+  (setq! lisp-indent-offset 2
+         tab-width 2
+         evil-shift-width 2))
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")
