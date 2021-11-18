@@ -38,14 +38,6 @@
 (setq super-save-auto-save-when-idle t)
 (super-save-mode +1)
 (add-hook 'doom-before-reload-hook #'save-buffer)
-(after! magit (setq magit-save-repository-buffers 'dontask))
-
-(remove-hook 'write-file-functions #'whitespace-write-file-hook)
-
-(when (executable-find "aw-qt") (global-activity-watch-mode))
-
-(setq enable-local-variables t)
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -67,29 +59,32 @@
 (load! "config-manager.el")
 (load! "misc.el")
 
+;; global
 (map! :vni "C-v" #'yank)
 (setq-default fill-column 120)
-
-(after! evil (map! :vn "U" #'evil-redo))
-
 (when IS-MAC (exec-path-from-shell-initialize))
-
 (setq! native-comp-deferred-compilation t)
-
-(use-package! evil-multiedit :config (map! :vn "R" #'evil-multiedit-match-all))
-
 (after! text-mode (when (executable-find "aspell") (setq! ispell-dictionary "en")))
-
 (add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
+(remove-hook 'write-file-functions #'whitespace-write-file-hook)
+(when (executable-find "aw-qt") (global-activity-watch-mode))
+(setq enable-local-variables t)
 
+;; ws-butler
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
 
+;; browse-url
 (when (and (or (personal-config-has-profile 'work) (featurep! :kvwu work)) (kvwu/is-wsl))
   (setq browse-url-browser-function 'browse-url-generic
     browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
 
+;; evil
+(after! evil (map! :vn "U" #'evil-redo))
+(use-package! evil-multiedit :config (map! :vn "R" #'evil-multiedit-match-all))
+
 (load! "modules/org.el")
 
+;; tabnine
 (use-package! company-tabnine
   :after company
   :defer t
@@ -97,6 +92,8 @@
   (cl-pushnew 'company-tabnine (default-value 'company-backends))
   (setq! +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
 
+;; magit
+(after! magit (setq magit-save-repository-buffers 'dontask))
 (use-package! magit-blame
   :defer t
   :config
