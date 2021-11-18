@@ -35,18 +35,17 @@
 (setq display-line-numbers-type 'relative)
 
 ;; Autosave!
-(after! super-save
-  (setq super-save-auto-save-when-idle t)
-  (super-save-mode +1))
+(setq super-save-auto-save-when-idle t)
+(super-save-mode +1)
 (add-hook 'doom-before-reload-hook #'save-buffer)
-(after! magit
-  (setq magit-save-repository-buffers 'dontask))
+(after! magit (setq magit-save-repository-buffers 'dontask))
 
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
 
 (when (executable-find "aw-qt") (global-activity-watch-mode))
 
 (setq enable-local-variables t)
+
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -85,7 +84,7 @@
 
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
 
-(when (and (personal-config-has-profile 'work) (kvwu/is-wsl))
+(when (and (or (personal-config-has-profile 'work) (featurep! :kvwu work)) (kvwu/is-wsl))
   (setq browse-url-browser-function 'browse-url-generic
     browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
 
@@ -118,7 +117,7 @@
       "[[" #'journalctl-previous-chunk)))
 
 ;; ledger
-(when (personal-config-has-profile 'ledger)
+(when (or (personal-config-has-profile 'ledger) (featurep! :kvwu ledger))
   (map! :leader :desc "ledger" "X l" (lambda () (interactive) (find-file "~/Dropbox/ledgers/ledger.ledger"))
     (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer)))
 
@@ -131,12 +130,11 @@
 (use-package! elisp-mode
   :defer t
   :init
-  (setq! lisp-indent-offset 2
-         tab-width 2
-         evil-shift-width 2))
+  (setq! tab-width 2
+    evil-shift-width 2))
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")
 (load! "modules/rust.el")
-(when (personal-config-has-profile 'mail) (load! "modules/mail.el"))
-(when (personal-config-has-profile 'roam) (load! "modules/org-roam.el"))
+(when (or (personal-config-has-profile 'mail) (featurep! :kvwu mail)) (load! "modules/mail.el"))
+(when (or (personal-config-has-profile 'roam) (featurep! :kvwu roam)) (load! "modules/org-roam.el"))

@@ -4,8 +4,8 @@
   (when (and distroString (string-equal "Ubuntu" (car (split-string distroString))))
     (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")))
 
-(use-package mu4e
-  :defer t
+(use-package! mu4e
+  :defer-incrementally t
   :config
   (set-email-account! "gmail"
                       '((mu4e-sent-folder . "/gmail/[Gmail]/Sent Mail")
