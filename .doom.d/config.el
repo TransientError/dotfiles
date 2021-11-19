@@ -124,7 +124,6 @@
     :after ivy
     :config
     (global-fasd-mode)
-    (ivy-set-actions 'fasd-find-file '(("o" fasd-find-file-action "find-file")))
     (map! :leader "f f" #'fasd-find-file)))
 
 ;; elisp
