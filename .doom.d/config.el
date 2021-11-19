@@ -28,7 +28,7 @@
 
 (defun kvwu/choose-theme ()
   (cond ((not (display-graphic-p)) (load-theme 'doom-opera t)) (t (load-theme 'doom-material t))))
-(add-hook 'server-after-make-frame-hook #'kvwu/choose-theme)
+(add-hook 'after-make-frame-functions #'kvwu/choose-theme)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -79,8 +79,8 @@
         browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
 
 ;; evil
-(after! evil (map! :vn "U" #'evil-redo))
-(use-package! evil-multiedit :config (map! :vn "R" #'evil-multiedit-match-all))
+(after! evil (map! :map evil-normal-state-map :vn "U" #'evil-redo))
+(after! evil-multiedit (map! :map evil-multiedit-mode-map :vn "R" #'evil-multiedit-match-all))
 
 (load! "modules/org.el")
 
@@ -115,7 +115,7 @@
 
 ;; ledger
 (when (featurep! :kvwu ledger)
-  (map! :leader :desc "ledger" "X l" (lambda () (interactive) (find-file "~/Dropbox/ledgers/ledger.ledger"))
+  (map! :leader :desc "ledger" "X l" (cmd! () (find-file "~/Dropbox/ledgers/ledger.ledger"))
         (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer)))
 
 ;; fasd
