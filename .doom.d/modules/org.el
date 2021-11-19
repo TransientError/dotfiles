@@ -12,12 +12,12 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
       (:prefix ("X" . "quick open")
        :desc "open refile" "r"
        (lambda () (interactive)
-         (find-file (if (personal-config-has-profile 'work) "~/org-roam/refile.org" "~/Dropbox/todo.org")))
-       (:unless (personal-config-has-profile 'work)
+         (find-file (if (featurep! :kvwu work) "~/org-roam/refile.org" "~/Dropbox/todo.org")))
+       (:unless (featurep! :kvwu work)
         :desc "open habits" "h"
         (lambda () (interactive)
           (org-roam-node-visit (org-roam-node-from-title-or-alias (format-time-string "%Y-%m-habits")))))
-       (:when (personal-config-has-profile 'work)
+       (:when (featurep! :kvwu work)
         :desc "open todo" "t" (lambda () (interactive) (find-file "~/org-roam/todo.org"))
         :desc "open personal" "p" (lambda () (interactive) (find-file "~/org-roam/personal.org")))))
 
@@ -26,8 +26,8 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
   :after personalization
   :init
   (setq org-directory
-    (cond ((and (personal-config-has-profile 'work) (personal-config-has-profile 'roam)) "~/org-roam")
-          ((personal-config-has-profile 'roam) "~/Dropbox/org-roam")
+    (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/org-roam")
+          ((featurep! :kvwu roam) "~/Dropbox/org-roam")
           (t "~/Documents/org")))
   :config
   (setq-local refile (if (personal-config-has-profile 'work) "~/org-roam/refile.org" ""))
@@ -35,7 +35,7 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
          org-capture-templates
          '(("t" "todo" entry (file+headline refile "Todo") "* TODO %?" :unnarrowed t)
            ("n" "notes" (file+headline refile "Notes") "* %?" :unnarrowed t)))
-  (when (personal-config-has-profile 'work)
+  (when (featurep! :kvwu work)
     (setq!
      org-todo-keywords
      '((sequence
@@ -48,7 +48,7 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
         "IDEA(i)"  ; An unconfirmed and unapproved task or notion
         "|"
         "DONE(d)"  ; Task successfully completed
-        "KILL(k)" ; Task was cancelled, aborted or is no longer applicable
+        "CANCELLED(c)" ; Task was cancelled, aborted or is no longer applicable
         "HAND-OFF(a)"
         "PUNT(u)"))
      org-todo-keyword-faces
@@ -58,7 +58,7 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
        ("REVIEW" . +org-todo-onhold)
        ("PROJ" . +org-todo-project)
        ("NO"   . +org-todo-cancel)
-       ("KILL" . +org-todo-cancel))))
+       ("CANCEL" . +org-todo-cancel))))
   (map! :map org-mode-map :localleader :desc "estimate pomodoros" "c E" #'ndk/org-set-effort-in-pomodoros))
 
 (use-package! org-agenda
@@ -67,7 +67,7 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
   :config
   (setq! org-agenda-start-with-log-mode t
          org-agenda-files (directory-files-recursively org-directory "\\.org$"))
-  (when (personal-config-has-profile 'work)
+  (when (featurep! :kvwu work)
     (setq! org-agenda-custom-commands
            '(("n" "Agenda and all TODOS" ((agenda "") (alltodo "")))
              ("w" "Serious agenda" ((agenda "work") (tags-todo "work")))))))

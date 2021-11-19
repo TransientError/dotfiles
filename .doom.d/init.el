@@ -21,7 +21,9 @@
       (provide 'personalization))
   (provide 'personalization))
 
-(load! "kvwu-personal-init.el")
+(when (file-exists-p (concat doom-private-dir "kvwu-personal-init.el"))
+  (load! "kvwu-personal-init.el"))
+
 (doom! :input
        ;;chinese
        ;;japanese
@@ -193,4 +195,3 @@
        :config
        ;;literate
        (default +bindings +smartpares))
-
