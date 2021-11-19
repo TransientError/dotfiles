@@ -128,11 +128,7 @@
     (map! :leader "f f" #'fasd-find-file)))
 
 ;; elisp
-(use-package! elisp-mode
-  :defer t
-  :init
-  (setq! tab-width 2
-         evil-shift-width 2))
+(setq-hook! 'emacs-lisp-mode-hook tab-width 2 evil-shift-width 2)
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")
