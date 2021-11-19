@@ -74,7 +74,7 @@
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
 
 ;; browse-url
-(when (and (or (personal-config-has-profile 'work) (featurep! :kvwu work)) (kvwu/is-wsl))
+(when (and (featurep! :kvwu work) (kvwu/is-wsl))
   (setq browse-url-browser-function 'browse-url-generic
     browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
 
@@ -114,7 +114,7 @@
       "[[" #'journalctl-previous-chunk)))
 
 ;; ledger
-(when (or (personal-config-has-profile 'ledger) (featurep! :kvwu ledger))
+(when (featurep! :kvwu ledger)
   (map! :leader :desc "ledger" "X l" (lambda () (interactive) (find-file "~/Dropbox/ledgers/ledger.ledger"))
     (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer)))
 
@@ -133,5 +133,5 @@
 (load! "modules/python.el")
 (load! "modules/javascript.el")
 (load! "modules/rust.el")
-(when (or (personal-config-has-profile 'mail) (featurep! :kvwu mail)) (load! "modules/mail.el"))
-(when (or (personal-config-has-profile 'roam) (featurep! :kvwu roam)) (load! "modules/org-roam.el"))
+(when (featurep! :kvwu mail) (load! "modules/mail.el"))
+(when (featurep! :kvwu roam) (load! "modules/org-roam.el"))

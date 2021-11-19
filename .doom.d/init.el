@@ -14,13 +14,6 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-(load! "init-functions.el")
-(if (file-exists-p (concat doom-private-dir "personalization.el"))
-    (progn
-      (load! "personalization.el")
-      (provide 'personalization))
-  (provide 'personalization))
-
 (when (file-exists-p (concat doom-private-dir "kvwu-personal-init.el"))
   (load! "kvwu-personal-init.el"))
 
@@ -127,7 +120,7 @@
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       (:when (or (personal-config-has-profile 'work) (featurep! :kvwu work)) csharp)            ; unity, .NET, and mono shenanigans
+       (:when (featurep! :kvwu work) csharp)            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
@@ -151,13 +144,13 @@
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
-       (:when (or (personal-config-has-profile 'ledger) (featurep! :kvwu ledger)) ledger)            ; an accounting system in Emacs
+       (:when (featurep! :kvwu ledger) ledger)            ; an accounting system in Emacs
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (:cond ((or (personal-config-has-profile 'roam) (featurep! :kvwu roam)) (org +roam2)) (t org))
+       (:cond ((featurep! :kvwu roam) (org +roam2)) (t org))
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -180,7 +173,7 @@
        (yaml +lsp)              ; JSON, but readable
 
        :email
-       (:when (or (personal-config-has-profile 'mail) (featurep! :kvwu mail)) (mu4e +gmail +org))
+       (:when (featurep! :kvwu mail) (mu4e +gmail +org))
        ;; notmuch
        ;;(wanderlust +gmail)
 

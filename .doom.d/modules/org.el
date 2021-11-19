@@ -23,14 +23,13 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
 
 (use-package! org
   :defer t
-  :after personalization
   :init
   (setq org-directory
     (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/org-roam")
           ((featurep! :kvwu roam) "~/Dropbox/org-roam")
           (t "~/Documents/org")))
   :config
-  (setq-local refile (if (personal-config-has-profile 'work) "~/org-roam/refile.org" ""))
+  (setq-local refile (if (featurep! :kvwu work) "~/org-roam/refile.org" ""))
   (setq! org-log-done 'time
          org-capture-templates
          '(("t" "todo" entry (file+headline refile "Todo") "* TODO %?" :unnarrowed t)
