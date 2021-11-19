@@ -7,7 +7,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Kevin"
-  user-mail-address "kvwu@transienterror.com")
+      user-mail-address "kvwu@transienterror.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -20,7 +20,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Liga Hack" :size 14)
-  doom-variable-pitch-font (font-spec :family "Liga Hack" :size 13 :weight 'bold))
+      doom-variable-pitch-font (font-spec :family "Liga Hack" :size 13 :weight 'bold))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -76,7 +76,7 @@
 ;; browse-url
 (when (and (featurep! :kvwu work) (kvwu/is-wsl))
   (setq browse-url-browser-function 'browse-url-generic
-    browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
+        browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
 
 ;; evil
 (after! evil (map! :vn "U" #'evil-redo))
@@ -98,11 +98,11 @@
   :defer t
   :config
   (setq! magit-blame-styles
-    '((margin
-        (margin-format    . (" %s%f" " %C %a" " %H"))
-        (margin-width     . 42)
-        (margin-face      . magit-blame-margin)
-        (margin-body-face . (magit-blame-dimmed))))))
+         '((margin
+            (margin-format    . (" %s%f" " %C %a" " %H"))
+            (margin-width     . 42)
+            (margin-face      . magit-blame-margin)
+            (margin-body-face . (magit-blame-dimmed))))))
 
 ;; journalctl
 (when (executable-find "journalctl")
@@ -110,25 +110,29 @@
     :defer t
     :config
     (map! :nv
-      "]]" #'journalctl-next-chunk
-      "[[" #'journalctl-previous-chunk)))
+          "]]" #'journalctl-next-chunk
+          "[[" #'journalctl-previous-chunk)))
 
 ;; ledger
 (when (featurep! :kvwu ledger)
   (map! :leader :desc "ledger" "X l" (lambda () (interactive) (find-file "~/Dropbox/ledgers/ledger.ledger"))
-    (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer)))
+        (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer)))
 
 ;; fasd
 (when (executable-find "fasd")
-  (global-fasd-mode)
-  (map! :leader "f f" #'fasd-find-file))
+  (use-package! fasd
+    :after ivy
+    :config
+    (global-fasd-mode)
+    (ivy-set-actions 'fasd-find-file '(("o" fasd-find-file-action "find-file")))
+    (map! :leader "f f" #'fasd-find-file)))
 
 ;; elisp
 (use-package! elisp-mode
   :defer t
   :init
   (setq! tab-width 2
-    evil-shift-width 2))
+         evil-shift-width 2))
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")
