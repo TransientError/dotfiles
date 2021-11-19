@@ -18,8 +18,7 @@
          mu4e-view-prefer-html nil
          mail-user-agent #'mu4e-user-agent)
 
-  (cond (IS-MAC (setq! message-send-mail-function 'sendmail-send-it
-                       sendmail-program (executable-find "msmtp")))
+  (cond (IS-MAC (setq! message-send-mail-function 'sendmail-send-it sendmail-program (executable-find "msmtp")))
         (IS-LINUX (setq! message-send-mail-function 'smtpmail-send-it
                          smtpmail-local-domain "gmail.com"
                          smtpmail-default-smtp-server "smtp.gmail.com"
@@ -28,7 +27,6 @@
                          browse-url-browser-function #'browse-url-chrome)))
 
   (add-to-list 'mm-discouraged-alternatives "text/html"))
-
 
 (use-package! org-msg
   :defer t

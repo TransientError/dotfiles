@@ -7,5 +7,5 @@
   :after web-mode
   :defer t
   :config
-  (setq! web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
-  (setq! web-mode-markup-indent-offset 2))
+  (setq! web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'"))
+         web-mode-markup-indent-offset 2))

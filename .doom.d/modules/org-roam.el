@@ -1,8 +1,6 @@
 ;;; org-roam.el -*- lexical-binding: t; -*-
 
-(map! :leader :prefix "nr"
-      "t" #'org-roam-tag-add
-      "S" #'org-roam-ref-add)
+(map! :leader :prefix "nr" "t" #'org-roam-tag-add "S" #'org-roam-ref-add)
 
 (use-package! org-roam
   :defer t
@@ -16,11 +14,10 @@
         (mk-template-path (lambda (file-name) (concat (getenv "HOME") "/Dropbox/templates/" file-name)))
         (roam-daily-filename-template "%<%Y-%m-%d>.org"))
     (if (featurep! :kvwu work)
-        (setq! org-roam-capture-templates
-               `(("d" "default" plain ""
-                  :target (file+head ,filename-template ,default-headers) :unnarrowed t)
-                 ("m" "meetings" plain ""
-                  :target (file+head ,filename-template ,default-headers) :unnarrowed t)))
+        (setq! org-roam-capture-templates `(("d" "default" plain ""
+                                             :target (file+head ,filename-template ,default-headers) :unnarrowed t)
+                                            ("m" "meetings" plain ""
+                                             :target (file+head ,filename-template ,default-headers) :unnarrowed t)))
       (setq! org-roam-capture-templates
              `(("d" "default" plain  (file ,(funcall mk-template-path "general.org"))
                 :target (file+head ,filename-template ,default-headers)
@@ -46,13 +43,8 @@
                ("n" "notes" entry "* %?" :target (file+olp ,roam-daily-filename-template ("Notes")) :unnarrowed t)))))
   (org-roam-db-autosync-mode))
 
-(use-package! websocket
-  :defer t
-  :after org-roam)
-(use-package! org-roam-ui
-  :defer t
-  :after org-roam
-  (setq! org-roam-ui-sync-theme t
-         org-roam-ui-follow t
-         org-roam-ui-update-on-save t
-         org-roam-ui-open-on-start t))
+(use-package! websocket :defer t :after org-roam)
+(use-package! org-roam-ui :defer t :after org-roam (setq! org-roam-ui-sync-theme t
+                                                          org-roam-ui-follow t
+                                                          org-roam-ui-update-on-save t
+                                                          org-roam-ui-open-on-start t))

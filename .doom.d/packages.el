@@ -54,25 +54,19 @@
 (package! company-tabnine)
 (when (executable-find "aw-qt") (package! activity-watch-mode))
 (package! org-tree-slide)
-(when (or (executable-find "vim") (executable-find "nvim") (executable-find "idea"))
-  (package! vimrc-mode))
+(package! vimrc-mode)
 (package! ob-mermaid)
 (package! mermaid-mode)
 (when (featurep! :kvwu roam)
   (package! websocket)
-  (package! org-roam-ui
-    :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out"))))
+  (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out"))))
 (when (featurep! :kvwu work) (package! powershell))
 (when (executable-find "journalctl") (package! journalctl-mode))
 (package! fasd)
 (package! super-save)
 (when IS-MAC (package! exec-path-from-shell))
 
-(if (file-exists-p (concat doom-private-dir "packages-secrets.el"))
-    (progn
-      (load! "packages-secrets.el")
-      (provide 'packages-secrets))
-  (provide 'packages-secrets))
+(when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
 ;; No longer used but kept here for reference
 ;; (package! protobuf-mode)

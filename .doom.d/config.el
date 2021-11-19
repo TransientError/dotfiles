@@ -90,29 +90,21 @@
   :after company
   :defer t
   :config
-  (cl-pushnew 'company-tabnine (default-value 'company-backends))
-  (setq! +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
+  (add-to-list 'company-backends 'company-tabnine)
+  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
 
 ;; magit
 (after! magit (setq magit-save-repository-buffers 'dontask))
-(use-package! magit-blame
-  :defer t
-  :config
-  (setq! magit-blame-styles
-         '((margin
-            (margin-format    . (" %s%f" " %C %a" " %H"))
-            (margin-width     . 42)
-            (margin-face      . magit-blame-margin)
-            (margin-body-face . (magit-blame-dimmed))))))
+(after! magit-blame
+  (setq magit-blame-styles '((margin
+                              (margin-format    . (" %s%f" " %C %a" " %H"))
+                              (margin-width     . 42)
+                              (margin-face      . magit-blame-margin)
+                              (margin-body-face . (magit-blame-dimmed))))))
 
 ;; journalctl
 (when (executable-find "journalctl")
-  (use-package! journalctl
-    :defer t
-    :config
-    (map! :nv
-          "]]" #'journalctl-next-chunk
-          "[[" #'journalctl-previous-chunk)))
+  (after! journalctl (map! :nv "]]" #'journalctl-next-chunk "[[" #'journalctl-previous-chunk)))
 
 ;; ledger
 (when (featurep! :kvwu ledger)
@@ -123,6 +115,7 @@
 (when (executable-find "fasd")
   (use-package! fasd
     :after ivy
+    :defer t
     :config
     (global-fasd-mode)
     (map! :leader "f f" #'fasd-find-file)))
