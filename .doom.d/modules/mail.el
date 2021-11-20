@@ -27,7 +27,13 @@
                          browse-url-browser-function #'browse-url-chrome)))
 
   (add-to-list 'mm-discouraged-alternatives "text/html")
-  (add-to-list 'mu4e-bookmarks '(:name "Inbox" :query "maildir:/gmail/Inbox and not flag:trashed" :key ?i)))
+  (setq mu4e-bookmarks
+        '((:name "Inbox"
+           :query "maildir:/gmail/Inbox and not flag:trashed"
+           :key ?i)
+          (:name "Unread messages"
+           :query "flag:unread and not flag:trashed and not flag:seen and maildir:/gmail/Inbox"
+           :key ?u))))
 
 (use-package! org-msg
   :defer t
