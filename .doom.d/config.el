@@ -64,12 +64,13 @@
 (map! :vni "C-v" #'yank)
 (setq-default fill-column 120)
 (when IS-MAC (exec-path-from-shell-initialize))
-(setq! native-comp-deferred-compilation t)
 (after! text-mode (when (executable-find "aspell") (setq! ispell-dictionary "en")))
 (add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
 (when (executable-find "aw-qt") (global-activity-watch-mode))
-(setq enable-local-variables t)
+(setq! enable-local-variables t
+       epa-pinentry-mode 'loopback
+       native-comp-deferred-compilation t)
 
 ;; ws-butler
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
@@ -122,6 +123,14 @@
 
 ;; elisp
 (setq-hook! 'emacs-lisp-mode-hook tab-width 2 evil-shift-width 2)
+
+;; find-file-in-project
+(map! :leader "s f" #'find-file-in-current-directory-by-selected)
+
+(use-package! find-file-in-project
+  :defer t
+  :config
+  (setq ffip-use-rust-fd t))
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")

@@ -65,6 +65,7 @@
 (package! fasd)
 (package! super-save)
 (when IS-MAC (package! exec-path-from-shell))
+(package! find-file-in-project)
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
