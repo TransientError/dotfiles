@@ -26,7 +26,8 @@
                          smtpmail-smtp-service 587
                          browse-url-browser-function #'browse-url-chrome)))
 
-  (add-to-list 'mm-discouraged-alternatives "text/html"))
+  (add-to-list 'mm-discouraged-alternatives "text/html")
+  (add-to-list 'mu4e-bookmarks '(:name "Inbox" :query "maildir:/gmail/Inbox and not flag:trashed" :key ?i)))
 
 (use-package! org-msg
   :defer t
