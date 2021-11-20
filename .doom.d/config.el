@@ -124,13 +124,14 @@
 ;; elisp
 (setq-hook! 'emacs-lisp-mode-hook tab-width 2 evil-shift-width 2)
 
-;; find-file-in-project
-(map! :leader "s f" #'find-file-in-current-directory-by-selected)
-
-(use-package! find-file-in-project
-  :defer t
-  :config
-  (setq ffip-use-rust-fd t))
+;; find file
+(after! ivy
+  (defun kvwu/find-file (prefix)
+    (interactive "P")
+    (let* ((query (read-from-minibuffer "query: "))
+           (results (split-string (shell-command-to-string (concat "fd " (if prefix "-HI " "") query)))))
+      (if results (ivy-read "" results :action #'find-file) (message "No results!"))))
+  (map! :leader "s f" #'kvwu/find-file))
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")
