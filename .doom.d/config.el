@@ -114,12 +114,8 @@
 
 ;; fasd
 (when (executable-find "fasd")
-  (use-package! fasd
-    :after ivy
-    :defer t
-    :config
-    (global-fasd-mode)
-    (map! :leader "f f" #'fasd-find-file)))
+  (map! :leader "f f" #'fasd-find-file)
+  (after! ivy fasd (global-fasd-mode)))
 
 ;; elisp
 (setq-hook! 'emacs-lisp-mode-hook tab-width 2 evil-shift-width 2)
@@ -131,7 +127,7 @@
     (let* ((query (read-from-minibuffer "query: "))
            (results (split-string (shell-command-to-string (concat "fd " (if prefix "-HI " "") query)))))
       (if results (ivy-read "" results :action #'find-file) (message "No results!"))))
-  (map! :leader "s f" #'kvwu/find-file))
+  (map! :desc "search for file" :leader "s f" #'kvwu/find-file))
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")
