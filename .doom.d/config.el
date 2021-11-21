@@ -70,7 +70,8 @@
 (when (executable-find "aw-qt") (global-activity-watch-mode))
 (setq! enable-local-variables t
        epa-pinentry-mode 'loopback
-       native-comp-deferred-compilation t)
+       native-comp-deferred-compilation t
+       use-package-always-defer t)
 
 ;; ws-butler
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
@@ -89,7 +90,6 @@
 ;; tabnine
 (use-package! company-tabnine
   :after company
-  :defer t
   :config
   (add-to-list 'company-backends 'company-tabnine)
   (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
