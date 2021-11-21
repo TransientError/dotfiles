@@ -4,6 +4,8 @@ set from = "kvwu@transienterror.com"
 set mbox_type=Maildir
 set folder=$HOME/.mail/gmail
 set spoolfile=+Inbox
+
+mailboxes =Inbox ="[Gmail]/All Mail" ="[Gmail]/Trashed"
 set header_cache=$HOME/.cache/mutt/header-cache
 
 set sendmail="/usr/bin/msmtp"
@@ -15,6 +17,7 @@ macro index G "!mbsync gmail^M" "Update through mbsync"
 macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 
+bind index,pager B sidebar-toggle-visible
 bind pager j next-line
 bind pager k previous-line
 bind index x sync-mailbox
