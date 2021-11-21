@@ -115,17 +115,16 @@
 ;; fasd
 (when (executable-find "fasd")
   (map! :leader "f f" #'fasd-find-file)
-  (after! ivy fasd (global-fasd-mode)))
+  (use-package! fasd :after ivy :demand (global-fasd-mode)))
 
 ;; elisp
 (setq-hook! 'emacs-lisp-mode-hook tab-width 2 evil-shift-width 2)
 
 ;; find file
 (after! ivy
-  (defun kvwu/find-file (prefix)
-    (interactive "P")
-    (let* ((query (read-from-minibuffer "query: "))
-           (results (split-string (shell-command-to-string (concat "fd " (if prefix "-HI " "") query)))))
+  (defun kvwu/find-file (prefix query)
+    (interactive "P\nMquery:")
+    (let* ((results (split-string (shell-command-to-string (concat "fd " (if prefix "-HI " "") query)))))
       (if results (ivy-read "" results :action #'find-file) (message "No results!"))))
   (map! :desc "search for file" :leader "s f" #'kvwu/find-file))
 

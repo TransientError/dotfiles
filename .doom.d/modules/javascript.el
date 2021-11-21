@@ -5,7 +5,6 @@
 
 (use-package! js2-mode
   :after web-mode
-  :defer t
   :config
   (setq! web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'"))
          web-mode-markup-indent-offset 2))

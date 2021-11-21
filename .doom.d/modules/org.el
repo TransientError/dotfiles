@@ -20,7 +20,6 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
         :desc "open personal" "p" (cmd! () (find-file "~/org-roam/personal.org")))))
 
 (use-package! org
-  :defer t
   :init
   (setq org-directory
         (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/org-roam")
@@ -58,7 +57,6 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
 
 (use-package! org-agenda
   :after org
-  :defer t
   :config
   (setq! org-agenda-start-with-log-mode t org-agenda-files (directory-files-recursively org-directory "\\.org$"))
   (when (featurep! :kvwu work) (setq! org-agenda-custom-commands

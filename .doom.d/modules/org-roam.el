@@ -3,7 +3,6 @@
 (map! :leader :prefix "nr" "t" #'org-roam-tag-add "S" #'org-roam-ref-add)
 
 (use-package! org-roam
-  :defer t
   :after org
   :init
   (setq org-roam-directory (file-truename org-directory))
@@ -43,8 +42,8 @@
                ("n" "notes" entry "* %?" :target (file+olp ,roam-daily-filename-template ("Notes")) :unnarrowed t)))))
   (org-roam-db-autosync-mode))
 
-(use-package! websocket :defer t :after org-roam)
-(use-package! org-roam-ui :defer t :after org-roam (setq! org-roam-ui-sync-theme t
-                                                          org-roam-ui-follow t
-                                                          org-roam-ui-update-on-save t
-                                                          org-roam-ui-open-on-start t))
+(use-package! websocket :after org-roam)
+(use-package! org-roam-ui :after org-roam (setq! org-roam-ui-sync-theme t
+                                                 org-roam-ui-follow t
+                                                 org-roam-ui-update-on-save t
+                                                 org-roam-ui-open-on-start t))

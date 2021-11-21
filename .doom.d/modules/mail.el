@@ -36,6 +36,5 @@
            :key ?u))))
 
 (use-package! org-msg
-  :defer t
   :init
   (setq! +org-msg-accent-color "#000000"))
