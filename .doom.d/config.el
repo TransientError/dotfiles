@@ -109,8 +109,13 @@
 
 ;; ledger
 (when (featurep! :kvwu ledger)
+  (after! evil (evil-set-initial-state 'ledger-reconcile-mode 'motion))
   (map! :leader :desc "ledger" "X l" (cmd! () (find-file "~/Dropbox/ledgers/ledger.ledger"))
-        (:after ledger-mode :map ledger-mode-map :localleader "f" #'ledger-mode-clean-buffer)))
+        (:after ledger-mode :map ledger-mode-map
+         :localleader "f" #'ledger-mode-clean-buffer
+         :localleader "y" #'ledger-copy-transaction-at-point
+         :localleader "o" #'ledger-occur)))
+         
 
 ;; fasd
 (when (executable-find "fasd")
