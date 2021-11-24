@@ -63,7 +63,6 @@
 ;; global
 (map! :vni "C-v" #'yank)
 (setq-default fill-column 120)
-(when IS-MAC (exec-path-from-shell-initialize))
 (after! text-mode (when (executable-find "aspell") (setq! ispell-dictionary "en")))
 (add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
@@ -71,6 +70,9 @@
 (setq! enable-local-variables t
        native-comp-deferred-compilation t
        use-package-always-defer t)
+
+;; macos
+(when IS-MAC (exec-path-from-shell-initialize) (map! :leader :n "o f" #'toggle-frame-maximized))
 
 ;; ws-butler
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
