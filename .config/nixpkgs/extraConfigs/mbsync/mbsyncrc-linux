@@ -5,7 +5,7 @@ IMAPAccount gmail
 # Address to connect to
 Host imap.gmail.com
 User kgqw503@gmail.com
-PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gmail-app-pass.gpg"
+PassCmd "rbw accounts.google.com kgqw503@gmail.com --full | tail -1"
 AuthMechs LOGIN
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
