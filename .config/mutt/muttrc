@@ -6,7 +6,7 @@ set folder=$HOME/.mail/gmail
 set spoolfile=+Inbox
 set trash=$HOME/.mail/gmail/[Gmail]/Trash
 
-mailboxes =Inbox ="[Gmail]/All Mail" ="[Gmail]/Trashed"
+mailboxes =Inbox ="[Gmail]/All Mail" ="[Gmail]/Trash"
 set header_cache=$HOME/.cache/mutt/header-cache
 
 set sendmail="/usr/bin/msmtp"
