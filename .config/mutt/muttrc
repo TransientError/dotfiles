@@ -4,15 +4,15 @@ set from = "kvwu@transienterror.com"
 set mbox_type=Maildir
 set folder=$HOME/.mail/gmail
 set spoolfile=+Inbox
-set trash=$HOME/.mail/gmail/[Gmail]/Trash
+set trash=+[Gmail]/Trash
 
 mailboxes =Inbox ="[Gmail]/All Mail" ="[Gmail]/Trash"
 set header_cache=$HOME/.cache/mutt/header-cache
 
 set sendmail="/usr/bin/msmtp"
 
-set sort = threads
-set sort_aux = reverse-last-date-received
+set sort=threads
+set sort_aux=reverse-last-date-received
 
 macro index G "!mbsync gmail^M" "Update through mbsync"
 macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
