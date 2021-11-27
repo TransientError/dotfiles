@@ -69,7 +69,6 @@
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
 (when (executable-find "aw-qt") (global-activity-watch-mode))
 (setq! enable-local-variables t
-       epa-pinentry-mode 'loopback
        native-comp-deferred-compilation t
        use-package-always-defer t)
 
