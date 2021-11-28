@@ -123,7 +123,6 @@
 
 ;; elisp
 (setq-hook! 'emacs-lisp-mode-hook tab-width 2 evil-shift-width 2)
-(add-hook! 'lisp-data-mode-hook #'parinfer-rust-mode #'rainbow-delimiters-mode)
 
 ;; find file
 (after! ivy
