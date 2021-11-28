@@ -38,7 +38,7 @@
 ;; Autosave!
 (setq super-save-auto-save-when-idle t)
 (super-save-mode +1)
-(add-hook 'doom-before-reload-hook #'save-buffer)
+(add-hook 'doom-before-reload-hook (lambda () (when (string-match-p ".doom.d" (buffer-file-name)) (save-buffer))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
