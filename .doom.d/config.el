@@ -81,7 +81,7 @@
         browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
 
 ;; evil
-(after! evil (map! :map evil-normal-state-map :vn "U" #'evil-redo))
+(after! evil (map! :map evil-normal-state-map "U" #'evil-redo :leader "w v" #'evil-window-vnew "w s" #'evil-window-new))
 (after! evil-multiedit (map! :map evil-multiedit-mode-map :vn "R" #'evil-multiedit-match-all))
 
 (load! "modules/org.el")
