@@ -25,3 +25,16 @@
                     for used = (file-size-human-readable used)
                     for free = (file-size-human-readable free)
                     concat (format "%s: %s + %s = %s\n" type used free total))))
+
+(defun kvwu/rbw-secret (url account)
+  (let* ((lines (split-string (shell-command-to-string (string-join `("rbw get" ,url ,account) " ")) "\n")))
+    (car lines)))
+
+(defun kvwu/rbw-get-full-secret-plist (url account) 
+  (let* ((lines (split-string (shell-command-to-string (string-join `("rbw get" ,url ,account "--full") " ")) "\n"))
+         (props (cl-loop for line in lines
+                        when (string-match-p ":" line)
+                        append (pcase-let ((`(,key ,value) (split-string line ": ")))
+                                 `(,(intern (s-replace " " "-" (downcase key))) ,value)))))
+    props))
+
