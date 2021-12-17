@@ -5,7 +5,7 @@ IMAPAccount gmail
 # Address to connect to
 Host imap.gmail.com
 User kgqw503@gmail.com
-PassCmd "rbw accounts.google.com kgqw503@gmail.com --full | tail -1"
+PassCmd "rbw get accounts.google.com kgqw503@gmail.com --full | tail -1"
 AuthMechs LOGIN
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
