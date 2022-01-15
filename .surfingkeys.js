@@ -1,14 +1,3 @@
-// an example to create a new mapping `ctrl-y`
-mapkey('<Ctrl-y>', 'Show me the money', function() {
-    Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
-});
-
-// an example to replace `T` with `gt`, click `Default mappings` to see how `T` works.
-map('gt', 'T');
-
-// an example to remove mapkey `Ctrl-i`
-unmap('<Ctrl-i>');
-
 settings.scrollStepSize = 175;
 
 // ---- Hints ----
@@ -32,10 +21,10 @@ Visual.style('cursor', 'background-color: #88C0D0;');
 -- DELETE LINE TO ENABLE THEME */
 
 // Doom One
-Hints.style('border: solid 2px #282C34; color:#98be65; background: initial; background-color: #2E3440;');
-Hints.style("border: solid 2px #282C34 !important; padding: 1px !important; color: #51AFEF !important; background: #2E3440 !important;", "text");
-Visual.style('marks', 'background-color: #98be6599;');
-Visual.style('cursor', 'background-color: #51AFEF;');
+api.Hints.style('border: solid 2px #282C34; color:#98be65; background: initial; background-color: #2E3440;');
+api.Hints.style("border: solid 2px #282C34 !important; padding: 1px !important; color: #51AFEF !important; background: #2E3440 !important;", "text");
+api.Visual.style('marks', 'background-color: #98be6599;');
+api.Visual.style('cursor', 'background-color: #51AFEF;');
 
 // Monokai
 /* -- DELETE LINE TO ENABLE THEME
