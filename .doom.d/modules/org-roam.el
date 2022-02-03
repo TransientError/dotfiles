@@ -15,7 +15,7 @@
     (if (featurep! :kvwu work)
         (setq! org-roam-capture-templates `(("d" "default" plain ""
                                              :target (file+head ,filename-template ,default-headers) :unnarrowed t)
-                                            ("m" "meetings" plain ""
+                                            ("m" "meetings" plain "* %u"
                                              :target (file+head ,filename-template ,default-headers) :unnarrowed t)))
       (setq! org-roam-capture-templates
              `(("d" "default" plain  (file ,(funcall mk-template-path "general.org"))
