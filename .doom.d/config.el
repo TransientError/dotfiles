@@ -151,6 +151,15 @@
              org-gcal-fetch-file-alist `((,email . ,kvwu/calendar-file))
              org-gcal-auto-archive nil))))
 
+;; wordel
+(after! (wordel evil)
+  (evil-make-intercept-map wordel-mode-map)
+  (evil-make-intercept-map wordel-select-mode-map)
+  (evil-set-initial-state  'wordel-mode 'insert)
+  (evil-set-initial-state  'wordel-select-mode 'insert))
+  
+  
+
 (load! "modules/python.el")
 (load! "modules/javascript.el")
 (load! "modules/rust.el")
