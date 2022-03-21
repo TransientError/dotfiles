@@ -44,6 +44,7 @@ map <leader>wl :wincmd l<CR>
 map <leader>ws :wincmd s<CR>
 map <leader>wv :wincmd v<CR>
 map <leader>wd :q<CR>
+map <leader>cf :Neoformat<CR>
 
 let g:EasyMotion_smartcase = 1
 " search 
