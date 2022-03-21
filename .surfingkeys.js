@@ -1,5 +1,14 @@
 settings.scrollStepSize = 175;
 
+api.mapkey(';dI', '#1Download image to', function () {
+  api.Hints.create('img', function(element) {
+    api.RUNTIME('download', {
+      url: element.src,
+      saveAs: true,
+    });
+  });
+});
+
 // ---- Hints ----
 // Hints have to be defined separately
 // Uncomment to enable
