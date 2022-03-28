@@ -8,28 +8,27 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
          (mins-per-pomodoro 25))
     (org-set-effort nil (org-duration-from-minutes (* n mins-per-pomodoro)))))
 
+(setq org-directory
+  (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/org-roam/")
+        ((featurep! :kvwu roam) "~/Dropbox/org-roam/")
+        (t "~/Documents/org/")))
+
 (map! :leader "X" nil ;; unmap org-capture because I use roam
       (:prefix ("X" . "quick open")
        :desc "open refile" "r"
        (cmd! () (find-file (if (featurep! :kvwu work) "~/org-roam/refile.org" "~/Dropbox/todo.org")))
+       :desc "open todo" "t" (cmd! () (find-file (concat org-directory "todo.org")))
        (:unless (featurep! :kvwu work)
         :desc "open habits" "h"
         (cmd! () (org-roam-node-visit (org-roam-node-from-title-or-alias (format-time-string "%Y-%m-habits")))))
        (:when (featurep! :kvwu work)
-        :desc "open todo" "t" (cmd! () (find-file "~/org-roam/todo.org"))
         :desc "open personal" "p" (cmd! () (find-file "~/org-roam/personal.org")))))
 
 (use-package! org
-  :init
-  (setq org-directory
-        (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/org-roam")
-              ((featurep! :kvwu roam) "~/Dropbox/org-roam")
-              (t "~/Documents/org")))
   :config
-  (let ((refile (if (featurep! :kvwu work) "~/org-roam/refile.org" "")))
-    (setq! org-log-done 'time
-           org-capture-templates '(("t" "todo" entry (file+headline refile "Todo") "* TODO %?" :unnarrowed t)
-                                   ("n" "notes" (file+headline refile "Notes") "* %?" :unnarrowed t))))
+  (setq! org-log-done 'time
+         org-capture-templates '(("t" "todo" entry (file+headline "todo.org" "Todo") "* TODO %?" :unnarrowed t)
+                                 ("j" "journal" entry (file+datetree "journal.org") "* %?" :unnarrowed t)))
   (when (featurep! :kvwu work) (setq!
                                 org-todo-keywords
                                 '((sequence
