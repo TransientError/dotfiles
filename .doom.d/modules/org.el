@@ -9,9 +9,9 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
     (org-set-effort nil (org-duration-from-minutes (* n mins-per-pomodoro)))))
 
 (setq org-directory
-  (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/org-roam/")
-        ((featurep! :kvwu roam) "~/Dropbox/org-roam/")
-        (t "~/Documents/org/")))
+      (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/org-roam/")
+            ((featurep! :kvwu roam) "~/Dropbox/org-roam/")
+            (t "~/Documents/org/")))
 
 (map! :leader "X" nil ;; unmap org-capture because I use roam
       (:prefix ("X" . "quick open")
@@ -28,7 +28,8 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
   :config
   (setq! org-log-done 'time
          org-capture-templates '(("t" "todo" entry (file+headline "todo.org" "Todo") "* TODO %?" :unnarrowed t)
-                                 ("j" "journal" entry (file+datetree "journal.org") "* %?" :unnarrowed t)))
+                                 ("j" "journal" entry (file+datetree "journal.org") "* %?" :unnarrowed t))
+         org-archive-location (format "%sarchive.org::datetree/" org-directory))
   (when (featurep! :kvwu work) (setq!
                                 org-todo-keywords
                                 '((sequence
