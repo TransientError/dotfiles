@@ -38,7 +38,8 @@
 ;; Autosave!
 (setq super-save-auto-save-when-idle t)
 (super-save-mode +1)
-(add-hook 'doom-before-reload-hook (lambda () (when (string-match-p ".doom.d" (buffer-file-name)) (save-buffer))))
+(add-hook 'doom-before-reload-hook
+          (lambda () (when (and (buffer-file-name (string-match-p ".doom.d" (buffer-file-name))) (save-buffer)))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -116,7 +117,7 @@
          :localleader "f" #'ledger-mode-clean-buffer
          :localleader "y" #'ledger-copy-transaction-at-point
          :localleader "o" #'ledger-occur)))
-         
+
 
 ;; fasd
 (when (executable-find "fasd")
@@ -140,8 +141,8 @@
   (defun kvwu/calendar ()
     (interactive)
     (cfw:open-calendar-buffer
-      :contents-sources
-      (list (cfw:org-create-file-source "cal" kvwu/calendar-file "Blue"))))
+     :contents-sources
+     (list (cfw:org-create-file-source "cal" kvwu/calendar-file "Blue"))))
 
   (use-package! org-gcal
     :config
@@ -157,8 +158,8 @@
   (evil-make-intercept-map wordel-select-mode-map)
   (evil-set-initial-state  'wordel-mode 'insert)
   (evil-set-initial-state  'wordel-select-mode 'insert))
-  
-  
+
+
 
 (load! "modules/python.el")
 (load! "modules/javascript.el")
