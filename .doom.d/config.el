@@ -19,8 +19,10 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Liga Hack" :size 14)
-      doom-variable-pitch-font (font-spec :family "Liga Hack" :size 13 :weight 'bold))
+(let ((text-scale (cond ((string-equal system-type "windows-nt") 2.5)
+                        (t 1))))
+  (setq doom-font (font-spec :family "Liga Hack" :size (* 14 text-scale))
+        doom-variable-pitch-font (font-spec :family "Liga Hack" :size (* 13 text-scale) :weight 'bold)))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
