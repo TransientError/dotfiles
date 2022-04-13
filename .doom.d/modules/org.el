@@ -9,9 +9,13 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
     (org-set-effort nil (org-duration-from-minutes (* n mins-per-pomodoro)))))
 
 (setq org-directory
-      (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/OneDrive - Microsoft/org-roam/")
-            ((featurep! :kvwu roam) "~/Dropbox/org-roam/")
-            (t "~/Documents/org/")))
+      (cond
+       ((and (featurep! :kvwu work) (featurep! :kvwu roam) (kvwu/is-wsl))
+        "/mnt/c/Users/wukevin/OneDrive - Microsoft/org-roam/")
+       ((and (featurep! :kvwu work) (featurep! :kvwu roam) (string-equal "windows-nt" system-type))
+        "~/OneDrive - Microsoft/org-roam/")
+       ((featurep! :kvwu roam) "~/Dropbox/org-roam/")
+       (t "~/Documents/org/")))
 
 (map! :leader "X" nil ;; unmap org-capture because I use roam
       (:prefix ("X" . "quick open")
