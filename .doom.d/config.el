@@ -19,7 +19,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(let ((text-scale (cond ((string-equal system-type "windows-nt") 2.5)
+(let ((text-scale (cond ((string-equal system-type "windows-nt") 1)
                         (t 1))))
   (setq doom-font (font-spec :family "Liga Hack" :size (* 14 text-scale))
         doom-variable-pitch-font (font-spec :family "Liga Hack" :size (* 13 text-scale) :weight 'bold)))
@@ -41,7 +41,9 @@
 (setq super-save-auto-save-when-idle t)
 (super-save-mode +1)
 (add-hook 'doom-before-reload-hook
-          (lambda () (when (and (buffer-file-name (string-match-p ".doom.d" (buffer-file-name))) (save-buffer)))))
+          (defun kvwu/save-before-reload ()
+            (when (and buffer-file-name (string-match-p ".doom.d" buffer-file-name)) (save-buffer))))
+
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
