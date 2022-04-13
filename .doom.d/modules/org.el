@@ -9,7 +9,7 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
     (org-set-effort nil (org-duration-from-minutes (* n mins-per-pomodoro)))))
 
 (setq org-directory
-      (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/org-roam/")
+      (cond ((and (featurep! :kvwu work) (featurep! :kvwu roam)) "~/OneDrive - Microsoft/org-roam/")
             ((featurep! :kvwu roam) "~/Dropbox/org-roam/")
             (t "~/Documents/org/")))
 
