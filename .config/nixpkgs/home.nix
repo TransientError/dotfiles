@@ -94,6 +94,7 @@ in {
       color.diff.meta = 11;
       pull.rebase = true;
       rebase.autoStash = true;
+      merge.conflictstyle = "diff3";
     };
   };
 
