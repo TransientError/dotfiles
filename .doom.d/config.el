@@ -164,9 +164,12 @@
   (evil-set-initial-state  'wordel-select-mode 'insert))
 
 ;; ediff
-(after! (ediff doom-theme)
-  (set-face-foreground ediff-fine-diff-face-A (doom-color 'red))
-  (set-face-foreground ediff-fine-diff-face-B (doom-color 'green)))
+(after! ediff
+  (let ((black (doom-color 'base0)) (red (doom-color 'red)) (green (doom-color 'green)))
+    (set-face-attribute 'ediff-fine-diff-A nil :foreground black :background red)
+    (set-face-foreground ediff-current-diff-face-A red)
+    (set-face-attribute 'ediff-fine-diff-B nil :foreground black :background green)
+    (set-face-foreground ediff-current-diff-face-B green)))
 
 
 (load! "modules/python.el")
