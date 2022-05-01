@@ -163,6 +163,10 @@
   (evil-set-initial-state  'wordel-mode 'insert)
   (evil-set-initial-state  'wordel-select-mode 'insert))
 
+;; ediff
+(after! ediff doom-theme
+  (set-face-foreground ediff-fine-diff-face-A (doom-color 'red))
+  (set-face-foreground ediff-fine-diff-face-B (doom-color 'green)))
 
 
 (load! "modules/python.el")
