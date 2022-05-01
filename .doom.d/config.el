@@ -71,7 +71,7 @@
 (after! text-mode (when (executable-find "aspell") (setq! ispell-dictionary "en")))
 (add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
-(when (executable-find "aw-qt") (global-activity-watch-mode))
+;; (when (executable-find "aw-qt") (global-activity-watch-mode))
 (setq! enable-local-variables t
        native-comp-deferred-compilation t
        use-package-always-defer t)
@@ -129,7 +129,9 @@
   (use-package! fasd :after ivy :demand (global-fasd-mode)))
 
 ;; elisp
-(setq-hook! 'emacs-lisp-mode-hook tab-width 2 evil-shift-width 2)
+(after! elisp-mode
+  (unsetq-hook! 'emacs-lisp-mode-hook tab-width) ;; set in emacs-lisp doom config after elisp-mode
+  (setq-hook! 'emacs-lisp-mode-hook tab-width 2))
 
 ;; find file
 (after! ivy
