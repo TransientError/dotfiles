@@ -164,7 +164,7 @@
   (evil-set-initial-state  'wordel-select-mode 'insert))
 
 ;; ediff
-(after! ediff doom-theme
+(after! (ediff doom-theme)
   (set-face-foreground ediff-fine-diff-face-A (doom-color 'red))
   (set-face-foreground ediff-fine-diff-face-B (doom-color 'green)))
 
