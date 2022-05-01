@@ -24,7 +24,7 @@
                          smtpmail-default-smtp-server "smtp.gmail.com"
                          smtpmail-smtp-server "smtp.gmail.com"
                          smtpmail-smtp-service 587
-                         browse-url-browser-function #'browse-url-chrome)))
+                         browse-url-browser-function #'browse-url-firefox)))
 
   (add-to-list 'mm-discouraged-alternatives "text/html")
   (setq mu4e-bookmarks
