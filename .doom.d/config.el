@@ -93,13 +93,6 @@
 
 (load! "modules/org.el")
 
-;; tabnine
-(use-package! company-tabnine
-  :after company
-  :config
-  (add-to-list 'company-backends 'company-tabnine)
-  (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate)))
-
 ;; magit
 (after! magit (setq magit-save-repository-buffers 'dontask))
 (after! magit-blame
@@ -190,6 +183,24 @@
     (setq! hledger-jfile "~/Dropbox/ledgers/ledger.journal"
            hledger-currency-string "$")))
 
+;; copilot
+(use-package! copilot
+  :after company
+  :config
+  (customize-set-variable 'copilot-enable-predicates '(evil-insert-state-p))
+  (map! :desc "copilot" :map company-mode-map :i "TAB"
+        (defun kvwu/copilot-tab () (interactive)
+               (or (copilot-accept-completion) (company-indent-or-complete-common nil)))))
+
+;; tabnine
+(use-package! company-tabnine
+  :after company
+  :init
+  (defun kvwu/activate-tabnine ()
+    (interactive)
+    (add-to-list 'company-backends 'company-tabnine))
+  :config
+  (setq +lsp-company-backends '(company-tabnine)))
 
 
 (load! "modules/python.el")

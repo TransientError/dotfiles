@@ -69,6 +69,7 @@
 (package! ztree)
 (package! hledger-mode)
 (package! ledger-mode)
+(package! copilot :recipe (:host github :repo "zerolfx/copilot.el" :files ("dist" "copilot.el")))
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
