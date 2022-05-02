@@ -67,6 +67,8 @@
 (when IS-MAC (package! exec-path-from-shell))
 (package! wordel)
 (package! ztree)
+(package! hledger-mode)
+(package! ledger-mode)
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 

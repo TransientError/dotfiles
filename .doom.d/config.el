@@ -71,7 +71,7 @@
 (after! text-mode (when (executable-find "aspell") (setq! ispell-dictionary "en")))
 (add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
-;; (when (executable-find "aw-qt") (global-activity-watch-mode))
+(when (executable-find "aw-qt") (global-activity-watch-mode))
 (setq! enable-local-variables t
        native-comp-deferred-compilation t
        use-package-always-defer t)
@@ -112,16 +112,6 @@
 ;; journalctl
 (when (executable-find "journalctl")
   (after! journalctl (map! :nv "]]" #'journalctl-next-chunk "[[" #'journalctl-previous-chunk)))
-
-;; ledger
-(when (featurep! :kvwu ledger)
-  (after! evil (evil-set-initial-state 'ledger-reconcile-mode 'motion))
-  (map! :leader :desc "ledger" "X l" (cmd! () (find-file "~/Dropbox/ledgers/ledger.ledger"))
-        (:after ledger-mode :map ledger-mode-map
-         :localleader "f" #'ledger-mode-clean-buffer
-         :localleader "y" #'ledger-copy-transaction-at-point
-         :localleader "o" #'ledger-occur)))
-
 
 ;; fasd
 (when (executable-find "fasd")
@@ -172,6 +162,34 @@
     (set-face-foreground ediff-current-diff-face-A red)
     (set-face-attribute 'ediff-fine-diff-B nil :foreground black :background green)
     (set-face-foreground ediff-current-diff-face-B green)))
+
+;; hledger
+(when (featurep! :kvwu ledger)
+  (use-package! hledger-mode
+    :after ivy
+    :init
+    (set-company-backend! 'hledger-mode 'hledger-company)
+    (add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
+    (setq-hook! 'hledger-mode-hook +format-with 'ledger-mode)
+    (add-hook! 'hledger-mode-hook #'display-line-numbers--turn-on)
+    (defun kvwu/hledger-balance ()
+      (interactive)
+      (let* ((inhibit-read-only t)
+             (output-buffer (hledger-jdo (format "accounts -f %s" (buffer-file-name)) nil t))
+             (accounts (split-string (with-current-buffer output-buffer (buffer-string)))))
+        (ivy-read "" accounts :action
+                  (lambda (account) (hledger-jdo (format "register %s --auto -f %s" account (buffer-file-name)))))))
+    (map! :leader :desc "ledger" "X l" (cmd! () (find-file "~/Dropbox/ledgers/ledger.journal"))
+      (:after ledger-mode :map hledger-mode-map
+        :localleader "f" #'ledger-mode-clean-buffer)
+      (:after hledger-mode :map hledger-mode-map
+        :localleader "d" #'hledger-run-command
+        :localleader "p" (cmd! () (hledger-jdo (format "print --auto -f %s" (buffer-file-name))))
+        :localleader "r" #'kvwu/hledger-balance))
+    :config
+    (setq! hledger-jfile "~/Dropbox/ledgers/ledger.journal"
+           hledger-currency-string "$")))
+
 
 
 (load! "modules/python.el")
