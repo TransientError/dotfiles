@@ -183,6 +183,10 @@
     (setq! hledger-jfile "~/Dropbox/ledgers/ledger.journal"
            hledger-currency-string "$")))
 
+(use-package! flycheck-hledger
+  :when (featurep! :checkers syntax)
+  :after hledger-mode)
+
 ;; copilot
 (use-package! copilot
   :after company

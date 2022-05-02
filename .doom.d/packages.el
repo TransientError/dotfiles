@@ -67,8 +67,10 @@
 (when IS-MAC (package! exec-path-from-shell))
 (package! wordel)
 (package! ztree)
-(package! hledger-mode)
-(package! ledger-mode)
+(when (featurep! :kvwu ledger)
+  (package! hledger-mode)
+  (package! flycheck-hledger)
+  (package! ledger-mode))
 (package! copilot :recipe (:host github :repo "zerolfx/copilot.el" :files ("dist" "copilot.el")))
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
