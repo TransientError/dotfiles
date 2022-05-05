@@ -173,7 +173,9 @@
     (interactive)
     (add-to-list 'company-backends 'company-tabnine))
   :config
-  (setq +lsp-company-backends '(company-tabnine)))
+  (setq +lsp-company-backends '(company-tabnine))
+  (map! :desc "tabnine" :map company-mode-map :i "TAB"
+        (defun kvwu/tabnine-tab () (interactive) (company-indent-or-complete-common nil))))
 
 
 (load! "modules/python.el")
