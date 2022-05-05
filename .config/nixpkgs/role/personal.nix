@@ -14,8 +14,6 @@ in {
       cargo-update
       aria2
       # rustup is not really compatible with the glibc I'm using anymore
-      nodejs
-      nodePackages.npm
     ] ++ (if hardwareInfo.os == "linux" then [ sccache ] else [ ]);
 
   programs.git = { userEmail = "kvwu@transienterror.com"; };
