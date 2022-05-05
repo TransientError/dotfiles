@@ -15,6 +15,12 @@
 (defun kvwu/is-wsl ()
   (when (executable-find "uname") (string-match-p "-[Mm]icrosoft" (shell-command-to-string "uname -a"))))
 
+(defun kvwu/wsl-browser (browser)
+  (let ((program-files-path "/mnt/c/Program Files/"))
+    (pcase browser
+      ('firefox (concat program-files-path "/Mozilla Firefox/firefox.exe"))
+      ('chrome (concat program-files-path "Google/Chrome/Application/chrome.exe")))))
+
 (defun ap/garbage-collect ()
   "Run `garbage-collect' and print stats about memory usage."
   (interactive)

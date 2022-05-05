@@ -85,7 +85,7 @@
 ;; browse-url
 (when (and (featurep! :kvwu work) (kvwu/is-wsl))
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
+        browse-url-generic-program (kvwu/wsl-browser 'firefox)))
 
 ;; evil
 (after! evil (map! :map evil-normal-state-map "U" #'evil-redo :leader "w v" #'evil-window-vnew "w s" #'evil-window-new))
