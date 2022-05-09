@@ -84,8 +84,7 @@
 
 ;; browse-url
 (when (and (featurep! :kvwu work) (kvwu/is-wsl))
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program (kvwu/wsl-browser 'firefox)))
+  (setq browse-url-browser-function 'browse-url-generic browse-url-generic-program (kvwu/wsl-browser 'firefox)))
 
 ;; evil
 (after! evil (map! :map evil-normal-state-map "U" #'evil-redo :leader "w v" #'evil-window-vnew "w s" #'evil-window-new))
@@ -178,9 +177,9 @@
         (defun kvwu/tabnine-tab () (interactive) (company-indent-or-complete-common nil))))
 
 
-(load! "modules/python.el")
-(load! "modules/javascript.el")
-(load! "modules/rust.el")
+(when (featurep! :lang python) (load! "modules/python.el"))
+(when (featurep! :lang javascript) (load! "modules/javascript.el"))
+(when (featurep! :lang rust) (load! "modules/rust.el"))
 (when (featurep! :kvwu ledger) (load! "modules/hledger.el"))
 (when (featurep! :kvwu mail) (load! "modules/mail.el"))
 (when (featurep! :kvwu roam) (load! "modules/org-roam.el"))
