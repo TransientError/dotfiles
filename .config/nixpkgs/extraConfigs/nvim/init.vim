@@ -14,6 +14,7 @@ Plug 'mattn/emmet-vim'
 Plug 'cespare/vim-toml'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'easymotion/vim-easymotion'
+Plug 'jparise/vim-graphql'
 call plug#end()
 
 set colorcolumn=120
