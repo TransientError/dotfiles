@@ -175,6 +175,8 @@
   (map! :desc "tabnine" :map company-mode-map :i "TAB"
         (defun kvwu/tabnine-tab () (interactive) (company-indent-or-complete-common nil))))
 
+;; json
+(add-hook 'json-mode-hook #'rainbow-delimiters-mode)
 
 (when (featurep! :lang python) (load! "modules/python.el"))
 (when (featurep! :lang javascript) (load! "modules/javascript.el"))
