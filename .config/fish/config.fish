@@ -1,5 +1,5 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+  # Commands to run in interactive sessions can go here
   if test -z "$MSYSTEM" 
     bass '. $HOME/.nix-profile/etc/profile.d/nix.sh'
     bass '. $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh'
@@ -19,12 +19,12 @@ if status is-interactive
     abbr -g kdiff kitty +kitten diff
   end
 
+  bind \e\[1\;3C nextd-or-forward-word
+  bind \e\[1\;3D prevd-or-backward-word
 end
 
 if test "$TERM" = "dumb"
   function fish_prompt
     echo "\$"
-  end
 end
-
 
