@@ -10,7 +10,7 @@ let
   else
     defaultConfig;
 
-  hardwareInfo = (import utils/hardwareInfo.nix) {inherit lib;};
+  hardwareInfo = (import utils/hardwareInfo.nix) { inherit lib; };
 
   name = let envUser = builtins.getEnv "USER";
   in if builtins.stringLength envUser > 0 then envUser else "kvwu";
@@ -68,9 +68,7 @@ in {
     enable = true;
     extraConfig = builtins.readFile extraConfigs/nvim/init.vim;
 
-    plugins = with pkgs.vimPlugins; [
-      vim-nix
-    ];
+    plugins = with pkgs.vimPlugins; [ vim-nix ];
   };
 
   programs.git = {
@@ -94,7 +92,9 @@ in {
       color.diff.meta = 11;
       pull.rebase = true;
       rebase.autoStash = true;
-      merge.conflictstyle = "diff3";
+      merge.conflictstyle = "zdiff3";
+      url."git@github.com:".pushInsteadOf =
+        [ "https://github.com" "git://github.com" ];
     };
   };
 
@@ -112,7 +112,8 @@ in {
   };
 
   home.file.".config/kitty/theme.conf".source = extraConfigs/kitty/theme.conf;
-  home.file.".config/kitty/kitty.conf".source = extraConfigs/kitty/kitty-base.conf;
+  home.file.".config/kitty/kitty.conf".source =
+    extraConfigs/kitty/kitty-base.conf;
   home.file.".config/kitty/diff.conf".source = extraConfigs/kitty/diff.conf;
 
   imports = let
