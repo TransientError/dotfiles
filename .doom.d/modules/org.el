@@ -24,7 +24,8 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
        :desc "open todo" "t" (cmd! () (find-file (concat org-directory "todo.org")))
        (:unless (featurep! :kvwu work)
         :desc "open habits" "h"
-        (cmd! () (org-roam-node-visit (org-roam-node-from-title-or-alias (format-time-string "%Y-%m-habits")))))
+        (cmd! () (org-roam-node-visit (org-roam-node-from-title-or-alias (format-time-string "%Y-%m-habits"))))
+        :desc "open journal" "j" (cmd! () (find-file (concat org-directory "journal.org"))))
        (:when (featurep! :kvwu work)
         :desc "open personal" "p" (cmd! () (find-file "~/org-roam/personal.org")))))
 
