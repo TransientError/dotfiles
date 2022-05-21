@@ -1,4 +1,5 @@
-(setq kvwu/main-ledger-file "~/Dropbox/ledgers/ledger.journal")
+(setq kvwu/main-ledger-file "~/Dropbox/ledgers/ledger.journal"
+(map! :leader :desc "ledger" "X l" (cmd! () (find-file kvwu/main-ledger-file))))
 
 (use-package! hledger-mode
   :after ivy display-line-numbers
@@ -7,7 +8,6 @@
   (add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
   (setq-hook! 'hledger-mode-hook +format-with 'ledger-mode)
   (add-hook! 'hledger-mode-hook #'display-line-numbers-mode)
-  (map! :leader :desc "ledger" "X l" (cmd! () (find-file kvwu/main-ledger-file)))
   :config
   (setq! hledger-jfile kvwu/main-ledger-file
          hledger-currency-string "$")
