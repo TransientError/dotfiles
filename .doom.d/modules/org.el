@@ -29,6 +29,8 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
        (:when (featurep! :kvwu work)
         :desc "open personal" "p" (cmd! () (find-file "~/org-roam/personal.org")))))
 
+(map! :map org-capture-mode-map :i :desc "finalize and go" "C-c C-c" (cmd! () (org-capture-finalize t)))
+
 (use-package! org
   :config
   (setq! org-log-done 'time
