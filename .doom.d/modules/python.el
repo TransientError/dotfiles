@@ -1,5 +1,6 @@
 ;;; python.el -*- lexical-binding: t; -*-
 (after! python
+  (setq-hook! #'python-mode-hook tab-width 4)
   (defun pipx-install ()
     (interactive)
     (shell-command (concat "pipx install --force " (projectile-acquire-root))))
