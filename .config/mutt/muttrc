@@ -9,7 +9,7 @@ set trash=+[Gmail]/Trash
 mailboxes =Inbox ="[Gmail]/All Mail" ="[Gmail]/Trash"
 set header_cache=$HOME/.cache/mutt/header-cache
 
-set sendmail="/usr/bin/msmtp"
+set sendmail="/usr/local/bin/msmtp"
 
 set sort=threads
 set sort_aux=reverse-last-date-received

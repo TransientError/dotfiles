@@ -6,7 +6,7 @@ set folder=$HOME/.mail/gmail
 set spoolfile=+Inbox
 set header_cache=$HOME/.cache/mutt/header-cache
 
-set sendmail="/usr/bin/msmtp"
+set sendmail="/usr/local/bin/msmtp"
 
 set sort = threads
 set sort_aux = reverse-last-date-received
