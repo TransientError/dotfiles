@@ -36,7 +36,8 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
   (setq! org-log-done 'time
          org-capture-templates '(("t" "todo" entry (file+headline "todo.org" "Todo") "* TODO %?" :unnarrowed t)
                                  ("j" "journal" entry (file+olp+datetree "journal.org") "* %?" :unnarrowed t))
-         org-archive-location (format "%sarchive.org::datetree/" org-directory))
+         org-archive-location (format "%sarchive.org::datetree/" org-directory)
+         org-element-use-cache nil) ;; This feature is not really stable yet
   (when (featurep! :kvwu work) (setq!
                                 org-todo-keywords
                                 '((sequence
