@@ -75,6 +75,7 @@
 (package! copilot :recipe (:host github :repo "zerolfx/copilot.el" :files ("dist" "copilot.el")))
 (when (featurep! :kvwu work)
   (package! kusto-mode :recipe (:host github :repo "ration/kusto-mode.el" :files ("*.el"))))
+(package! org-protocol-capture-html)
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 

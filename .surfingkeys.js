@@ -1,12 +1,71 @@
 settings.scrollStepSize = 175;
 
-api.mapkey(';dI', '#1Download image to', function () {
-  api.Hints.create('img', function(element) {
-    api.RUNTIME('download', {
+api.mapkey(";dI", "#1Download image to", function () {
+  api.Hints.create("img", function (element) {
+    api.RUNTIME("download", {
       url: element.src,
       saveAs: true,
     });
   });
+});
+
+api.mapkey("ch", "capture", function () {
+  location.href =
+    "org-protocol://capture-html?template=w&url=" +
+    encodeURIComponent(location.href) +
+    "&title=" +
+    encodeURIComponent(document.title.split("http")[0] || "[untitled page]") +
+    "&body=" +
+    encodeURIComponent(
+      (function () {
+        var html = "";
+        if (typeof document.getSelection != "undefined") {
+          var sel = document.getSelection();
+          if (sel.rangeCount) {
+            var container = document.createElement("div");
+            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+              container.appendChild(sel.getRangeAt(i).cloneContents());
+            }
+            html = container.innerHTML;
+          }
+        } else if (typeof document.selection != "undefined") {
+          if (document.selection.type == "Text") {
+            html = document.selection.createRange().htmlText;
+          }
+        }
+        var relToAbs = function (href) {
+          var a = document.createElement("a");
+          a.href = href;
+          var abs = a.protocol + "//" + a.host + a.pathname + a.search + a.hash;
+          a.remove();
+          return abs;
+        };
+        var elementTypes = [
+          ["a", "href"],
+          ["img", "src"],
+        ];
+        var div = document.createElement("div");
+        div.innerHTML = html;
+        elementTypes.map(function (elementType) {
+          var elements = div.getElementsByTagName(elementType[0]);
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].setAttribute(
+              elementType[1],
+              relToAbs(elements[i].getAttribute(elementType[1]))
+            );
+          }
+        });
+        return div.innerHTML;
+      })()
+    );
+});
+
+api.mapkey("ce", "capture entire pages", function () {
+  location.href =
+    "org-protocol://capture-eww-readable?template=e&url=" +
+    encodeURIComponent(location.href) +
+    "&title=" +
+    encodeURIComponent(document.title.split("http")[0] || "[untitled page]");
 });
 
 // ---- Hints ----
@@ -30,10 +89,15 @@ Visual.style('cursor', 'background-color: #88C0D0;');
 -- DELETE LINE TO ENABLE THEME */
 
 // Doom One
-api.Hints.style('border: solid 2px #282C34; color:#98be65; background: initial; background-color: #2E3440;');
-api.Hints.style("border: solid 2px #282C34 !important; padding: 1px !important; color: #51AFEF !important; background: #2E3440 !important;", "text");
-api.Visual.style('marks', 'background-color: #98be6599;');
-api.Visual.style('cursor', 'background-color: #51AFEF;');
+api.Hints.style(
+  "border: solid 2px #282C34; color:#98be65; background: initial; background-color: #2E3440;"
+);
+api.Hints.style(
+  "border: solid 2px #282C34 !important; padding: 1px !important; color: #51AFEF !important; background: #2E3440 !important;",
+  "text"
+);
+api.Visual.style("marks", "background-color: #98be6599;");
+api.Visual.style("cursor", "background-color: #51AFEF;");
 
 // Monokai
 /* -- DELETE LINE TO ENABLE THEME
@@ -347,4 +411,3 @@ input {
   font-weight: var(--font-weight);
 }
 `;
-

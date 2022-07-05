@@ -35,9 +35,13 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
   :config
   (setq! org-log-done 'time
          org-capture-templates '(("t" "todo" entry (file+headline "todo.org" "Todo") "* TODO %?" :unnarrowed t)
-                                 ("j" "journal" entry (file+olp+datetree "journal.org") "* %?" :unnarrowed t))
+                                 ("j" "journal" entry (file+olp+datetree "journal.org") "* %?" :unnarrowed t)
+                                 ("e" "clip entire" entry (file+headline "notes.org" "Articles")
+                                  "* %a :website:\n\n%U %?\n\n%:initial")
+                                 ("w" "clip" entry (file+headline "notes.org" "Inbox") "* %a :website:\n\n%U %?\n\n%:initial"))
          org-archive-location (format "%sarchive.org::datetree/" org-directory)
          org-element-use-cache nil) ;; This feature is not really stable yet
+
   (when (featurep! :kvwu work) (setq!
                                 org-todo-keywords
                                 '((sequence
@@ -61,7 +65,9 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
                                   ("PROJ" . +org-todo-project)
                                   ("NO"   . +org-todo-cancel)
                                   ("CANCEL" . +org-todo-cancel))))
-  (map! :map org-mode-map :localleader :desc "estimate pomodoros" "c E" #'ndk/org-set-effort-in-pomodoros))
+  (map! :map org-mode-map :localleader :desc "estimate pomodoros" "c E" #'ndk/org-set-effort-in-pomodoros)
+  (require 'org-protocol-capture-html))
+  
 
 (use-package! org-agenda
   :after org
