@@ -4,12 +4,12 @@
 (add-hook! 'hledger-mode-hook #'display-line-numbers-mode)
 (set-company-backend! 'hledger-mode 'hledger-company)
 (setq-hook! 'hledger-mode-hook +format-with 'ledger-mode)
+(setq hledger-jfile kvwu/main-ledger-file)
 
 (use-package! hledger-mode
   :after ivy display-line-numbers
   :config
-  (setq! hledger-jfile kvwu/main-ledger-file
-         hledger-currency-string "$")
+  (setq! hledger-currency-string "$")
   (evil-make-intercept-map hledger-view-mode-map)
   (map!
    (:after ledger-mode :map hledger-mode-map
