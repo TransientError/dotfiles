@@ -73,6 +73,7 @@ in {
 
   programs.git = {
     enable = true;
+    package = pkgs.gitAndTools.gitFull;
 
     userName = "kvwu";
 
@@ -95,6 +96,16 @@ in {
       merge.conflictstyle = "zdiff3";
       url."git@github.com:".pushInsteadOf =
         [ "https://github.com" "git://github.com" ];
+      sendemail = {
+        confirm = "auto";
+        smtpServer = "smtp.gmail.com";
+        smtpServerPort = 587;
+        smtpEncryption = "tls";
+        smtpUser = "kgqw503@gmail.com";
+      };
+      include = {
+        path = "config.local";
+      }
     };
   };
 
