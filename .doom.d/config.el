@@ -94,11 +94,12 @@
 
 ;; magit
 (after! magit (setq magit-save-repository-buffers 'dontask))
-(after! magit-blame (setq magit-blame-styles '((margin
-                                                (margin-format    . (" %s%f" " %C %a" " %H"))
-                                                (margin-width     . 42)
-                                                (margin-face      . magit-blame-margin)
-                                                (margin-body-face . (magit-blame-dimmed))))))
+(after! magit-blame
+  (setq magit-blame-styles '((margin
+                              (margin-format    . (" %s%f" " %C %a" " %H"))
+                              (margin-width     . 42)
+                              (margin-face      . magit-blame-margin)
+                              (margin-body-face . (magit-blame-dimmed))))))
 
 ;; journalctl
 (when (executable-find "journalctl")
