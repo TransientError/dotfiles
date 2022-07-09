@@ -87,8 +87,7 @@ in {
       core = {
         pager = "diff-so-fancy | less --tabs=4 -RFX";
         editor = "nvim";
-        excludesfile = homeDir
-          + "/.config/nixpkgs/extraConfigs/git/gitignore_global";
+        excludesfile = homeDir + "/.config/nixpkgs/extraConfigs/git/gitignore_global";
       };
       color.diff.meta = 11;
       pull.rebase = true;
@@ -97,15 +96,9 @@ in {
       url."git@github.com:".pushInsteadOf =
         [ "https://github.com" "git://github.com" ];
       sendemail = {
-        confirm = "auto";
-        smtpServer = "smtp.gmail.com";
-        smtpServerPort = 587;
-        smtpEncryption = "tls";
-        smtpUser = "kgqw503@gmail.com";
+        smtpServer = homeDir + "/go/bin/sendgmail";
+        smtpServerOption = "-sender=kgqw503@gmail.com";
       };
-      include = {
-        path = "config.local";
-      }
     };
   };
 
