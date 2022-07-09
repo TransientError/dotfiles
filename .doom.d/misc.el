@@ -36,7 +36,7 @@
   (let* ((lines (split-string (shell-command-to-string (string-join `("rbw get" ,url ,account) " ")) "\n")))
     (car lines)))
 
-(defun kvwu/rbw-get-full-secret-plist (url account) 
+(defun kvwu/rbw-get-full-secret-plist (url &optional account)
   (let* ((lines (split-string (shell-command-to-string (string-join `("rbw get" ,url ,account "--full") " ")) "\n"))
          (props (cl-loop for line in lines
                         when (string-match-p ":" line)
