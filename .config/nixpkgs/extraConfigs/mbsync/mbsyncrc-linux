@@ -30,3 +30,28 @@ Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
+
+IMAPAccount protonmail
+Host 127.0.0.1
+Port 1143
+User kev.wu
+PassCmd "rbw get protonmail.com --full | rg hydroxide | choose 1"
+SSLType None
+
+IMAPStore protonmail-remote
+Account protonmail
+
+#You can change .mail to something else
+MaildirStore protonmail-local
+Path ~/.mail/protonmail/
+Inbox ~/.mail/protonmail/Inbox
+
+Channel protonmail
+Far :protonmail-remote:
+Near :protonmail-local:
+Patterns *
+Create Both
+SyncState *
+
+# Group protonmail
+# Channel inbox
