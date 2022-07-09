@@ -125,20 +125,15 @@
 
 ;; calendar
 (when (featurep! :kvwu calendar)
-  (setq kvwu/calendar-file "~/org/calendar.org")
   (defun kvwu/calendar ()
     (interactive)
     (cfw:open-calendar-buffer
      :contents-sources
-     (list (cfw:org-create-file-source "cal" kvwu/calendar-file "Blue"))))
-
-  (use-package! org-gcal
-    :config
-    (let* ((email "kgqw503@gmail.com") (plist (kvwu/rbw-get-full-secret-plist "accounts.google.com" email)))
-      (setq! org-gcal-client-id (plist-get plist 'calendar-client-id)
-             org-gcal-client-secret (plist-get plist 'calendar-client-secret)
-             org-gcal-fetch-file-alist `((,email . ,kvwu/calendar-file))
-             org-gcal-auto-archive nil))))
+     (list
+      (cfw:ical-create-source
+       "gcal"
+       (plist-get (kvwu/rbw-get-full-secret-plist "calendar.google.com") 'private-url)
+       "Blue")))))
 
 ;; wordel
 (after! (wordel evil)
