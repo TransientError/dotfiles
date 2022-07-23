@@ -11,7 +11,7 @@ api.mapkey(";dI", "#1Download image to", function () {
 
 api.mapkey("ch", "capture", function () {
   location.href =
-    "org-protocol://capture-html?template=w&url=" +
+    "org-protocol:///capture-html?template=w&url=" +
     encodeURIComponent(location.href) +
     "&title=" +
     encodeURIComponent(document.title.split("http")[0] || "[untitled page]") +
@@ -62,7 +62,7 @@ api.mapkey("ch", "capture", function () {
 
 api.mapkey("ce", "capture entire pages", function () {
   location.href =
-    "org-protocol://capture-eww-readable?template=e&url=" +
+    "org-protocol:///capture-eww-readable?template=e&url=" +
     encodeURIComponent(location.href) +
     "&title=" +
     encodeURIComponent(document.title.split("http")[0] || "[untitled page]");
