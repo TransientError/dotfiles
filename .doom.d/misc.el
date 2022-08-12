@@ -32,15 +32,17 @@
                     for free = (file-size-human-readable free)
                     concat (format "%s: %s + %s = %s\n" type used free total))))
 
-(defun kvwu/rbw-secret (url account)
-  (let* ((lines (split-string (shell-command-to-string (string-join `("rbw get" ,url ,account) " ")) "\n")))
-    (car lines)))
+(setq kvwu/secrets-dir (concat (getenv "HOME") "/.secrets"))
 
-(defun kvwu/rbw-get-full-secret-plist (url &optional account)
-  (let* ((lines (split-string (shell-command-to-string (string-join `("rbw get" ,url ,account "--full") " ")) "\n"))
-         (props (cl-loop for line in lines
-                        when (string-match-p ":" line)
-                        append (pcase-let ((`(,key ,value) (split-string line ": ")))
-                                 `(,(intern (s-replace " " "-" (downcase key))) ,value)))))
-    props))
+(defun kvwu/get-secret (secret-name)
+  (string-trim
+   (shell-command-to-string (concat "gpg -q --for-your-eyes-only --no-tty -d " kvwu/secrets-dir "/" secret-name))))
 
+(defun kvwu/is-interesting-file (path)
+  (not (member path '("." ".."))))
+
+(defun kvwu/list-secrets ()
+  "List the secrets we have in our secrets directory and copy the name into the kill-ring, for making development
+   easier"
+  (interactive)
+  (kill-new (ivy-read "" (seq-filter 'kvwu/is-interesting-file (directory-files kvwu/secrets-dir)))))

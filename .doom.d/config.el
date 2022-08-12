@@ -132,7 +132,7 @@
      (list
       (cfw:ical-create-source
        "gcal"
-       (plist-get (kvwu/rbw-get-full-secret-plist "calendar.google.com") 'private-url)
+       (kvwu/get-secret "google-calendar-private-url.txt.gpg")
        "Blue")))))
 
 ;; wordel

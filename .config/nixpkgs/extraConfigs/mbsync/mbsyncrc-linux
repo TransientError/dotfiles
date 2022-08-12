@@ -5,7 +5,7 @@ IMAPAccount gmail
 # Address to connect to
 Host imap.gmail.com
 User kgqw503@gmail.com
-PassCmd "rbw get accounts.google.com kgqw503@gmail.com --full | rg mbsync | choose 1"
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.config/mbsync/gmail-app-pass.txt.gpg"
 AuthMechs LOGIN
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
@@ -35,7 +35,7 @@ IMAPAccount protonmail
 Host 127.0.0.1
 Port 1143
 User kev.wu
-PassCmd "rbw get protonmail.com --full | rg hydroxide | choose 1"
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.config/mbsync/protonmail-bridge.txt.gpg"
 SSLType None
 
 IMAPStore protonmail-remote
