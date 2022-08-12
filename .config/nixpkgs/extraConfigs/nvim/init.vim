@@ -31,8 +31,6 @@ let g:material_theme_style = 'dark'
 set background=dark
 colorscheme material
 
-nmap == :Neoformat<CR>
-
 if (has("termguicolors"))
   set termguicolors
 endif
