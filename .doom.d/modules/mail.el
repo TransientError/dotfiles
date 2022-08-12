@@ -32,7 +32,9 @@
          mu4e-view-prefer-html nil
          mail-user-agent #'mu4e-user-agent
          mu4e-compose-context-policy 'ask-if-none
-         smtpmail-servers-requiring-authorization "127.0.0.1")
+         smtpmail-servers-requiring-authorization "127.0.0.1"
+         mu4e-get-mail-command "true"
+         mu4e-update-interval (* 15 60)) ; 15 minutes
 
   (cond (IS-MAC (setq! message-send-mail-function 'sendmail-send-it sendmail-program (executable-find "msmtp")))
         (IS-LINUX (setq! message-send-mail-function 'smtpmail-send-it
