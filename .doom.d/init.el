@@ -15,6 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 (when (file-exists-p (concat doom-private-dir "kvwu-personal-init.el"))
+  (load! "init-functions.el")
   (load! "kvwu-personal-init.el"))
 
 (doom! :input
@@ -34,7 +35,7 @@
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;(emoji +unicode)  ; 🙂
-       fill-column       ; a `fill-column' indicator
+       ; fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
@@ -120,7 +121,7 @@
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       (:when (featurep! :kvwu work) csharp)            ; unity, .NET, and mono shenanigans
+       (:when (personal-config-has-profile 'work) csharp)            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
@@ -150,7 +151,7 @@
        ;;nim               ; python + lisp at the speed of c
        nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (:cond ((featurep! :kvwu roam) (org +roam2)) (t org))
+       (:cond ((personal-config-has-profile 'roam) (org +roam2)) (t org))
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -173,7 +174,7 @@
        (yaml +lsp)              ; JSON, but readable
 
        :email
-       (:when (featurep! :kvwu mail) (mu4e +gmail +org))
+       (:when (personal-config-has-profile 'mail) (mu4e +gmail +org))
        ;; notmuch
        ;;(wanderlust +gmail)
 

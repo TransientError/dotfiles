@@ -12,7 +12,7 @@
         (headers-with-tag (lambda (tags) (format "#+title: ${title}\n#+filetags: %s\n" tags)))
         (mk-template-path (lambda (file-name) (concat (getenv "HOME") "/Dropbox/templates/" file-name)))
         (roam-daily-filename-template "%<%Y-%m-%d>.org"))
-    (if (featurep! :kvwu work)
+    (if (personal-config-has-profile 'work)
         (setq! org-roam-capture-templates `(("d" "default" plain ""
                                              :target (file+head ,filename-template ,default-headers) :unnarrowed t)
                                             ("m" "meetings" plain "* %u"

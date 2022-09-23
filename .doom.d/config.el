@@ -83,7 +83,7 @@
 (after! ws-butler (setq! ws-butler-keep-whitespace-before-point t))
 
 ;; browse-url
-(when (and (featurep! :kvwu work) (kvwu/is-wsl))
+(when (and (personal-config-has-profile 'work) (kvwu/is-wsl))
   (setq browse-url-browser-function 'browse-url-generic browse-url-generic-program (kvwu/wsl-browser 'firefox)))
 
 ;; evil
@@ -124,7 +124,7 @@
   (map! :desc "search for file" :leader "s f" #'kvwu/find-file))
 
 ;; calendar
-(when (featurep! :kvwu calendar)
+(when (personal-config-has-profile 'calendar)
   (defun kvwu/calendar ()
     (interactive)
     (cfw:open-calendar-buffer
@@ -174,9 +174,9 @@
 ;; json
 (add-hook 'json-mode-hook #'rainbow-delimiters-mode)
 
-(when (featurep! :lang python) (load! "modules/python.el"))
-(when (featurep! :lang javascript) (load! "modules/javascript.el"))
-(when (featurep! :lang rust) (load! "modules/rust.el"))
-(when (featurep! :kvwu ledger) (load! "modules/hledger.el"))
-(when (featurep! :kvwu mail) (load! "modules/mail.el"))
-(when (featurep! :kvwu roam) (load! "modules/org-roam.el"))
+(when (modulep! :lang python) (load! "modules/python.el"))
+(when (modulep! :lang javascript) (load! "modules/javascript.el"))
+(when (modulep! :lang rust) (load! "modules/rust.el"))
+(when (personal-config-has-profile 'ledger) (load! "modules/hledger.el"))
+(when (personal-config-has-profile 'mail) (load! "modules/mail.el"))
+(when (personal-config-has-profile 'roam) (load! "modules/org-roam.el"))

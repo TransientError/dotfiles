@@ -29,6 +29,6 @@
 
 
 (use-package! flycheck-hledger
-  :when (featurep! :checkers syntax)
+  :when (modulep! :checkers syntax)
   :after hledger-mode
   :demand t)
