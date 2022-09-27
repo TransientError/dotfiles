@@ -72,8 +72,7 @@
 (add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
 (when (executable-find "aw-qt") (global-activity-watch-mode))
-(setq! enable-local-variables t
-       native-comp-deferred-compilation t
+(setq! native-comp-deferred-compilation t
        use-package-always-defer t)
 
 ;; macos
