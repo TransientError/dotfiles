@@ -66,9 +66,12 @@ in {
 
   programs.neovim = {
     enable = true;
-    extraConfig = builtins.readFile extraConfigs/nvim/init.vim;
 
     plugins = with pkgs.vimPlugins; [ vim-nix ];
+  };
+  xdg.configFile.nvim = {
+    source = extraConfigs/nvim;
+    recursive = true;
   };
 
   programs.git = {
