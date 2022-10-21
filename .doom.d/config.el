@@ -173,6 +173,11 @@
 ;; json
 (add-hook 'json-mode-hook #'rainbow-delimiters-mode)
 
+;; lua
+(add-hook 'lua-mode-hook #'rainbow-delimiters-mode)
+(after! lua-mode
+  (set-formatter! 'stylua "stylua -" :modes '(lua-mode)))
+
 (when (modulep! :lang python) (load! "modules/python.el"))
 (when (modulep! :lang javascript) (load! "modules/javascript.el"))
 (when (modulep! :lang rust) (load! "modules/rust.el"))
