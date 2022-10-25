@@ -86,4 +86,10 @@ return require("packer").startup(function(use)
       { "neovim/nvim-lspconfig", module = "lspconfig" },
     },
   }
+  use {
+    "tpope/vim-fugitive",
+    config = function()
+      return vim.fn.exists "g:vscode" == 0
+    end,
+  }
 end)
