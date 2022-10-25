@@ -88,8 +88,29 @@ return require("packer").startup(function(use)
   }
   use {
     "tpope/vim-fugitive",
-    config = function()
+    cond = function()
       return vim.fn.exists "g:vscode" == 0
     end,
+    config = function ()
+      vim.keymap.set("n", "<leader>gg", ":Git<CR>")
+    end
+  }
+  use {
+    "nvim-telescope/telescope.nvim",
+    cond = function()
+      return vim.fn.exists "g:vscode" == 0
+    end,
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-fzf-native.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
+      vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
+      vim.keymap.set("n", "<leader><", builtin.buffers, {})
+      vim.keymap.set("n", "<leader>ha", builtin.help_tags, {})
+    end
   }
 end)
