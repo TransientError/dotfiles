@@ -69,10 +69,6 @@ in {
 
     plugins = with pkgs.vimPlugins; [ vim-nix ];
   };
-  xdg.configFile.nvim = {
-    source = extraConfigs/nvim;
-    recursive = true;
-  };
 
   programs.git = {
     enable = true;
