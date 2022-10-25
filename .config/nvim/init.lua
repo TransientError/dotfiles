@@ -37,4 +37,5 @@ else
   map.set("", "<leader>wd", ":q<CR>")
 
   map.set("", "<leader>fp", ":e ~/.config/nvim/init.lua<CR>")
+  map.set("", "<leader>qq", ":q!<CR>")
 end
