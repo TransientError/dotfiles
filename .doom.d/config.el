@@ -178,6 +178,10 @@
 (after! lua-mode
   (set-formatter! 'stylua "stylua -" :modes '(lua-mode)))
 
+;; csharp
+(when (personal-config-has-profile 'work)
+  (setq lsp-csharp-server-path "/usr/sbin/omnisharp"))
+
 (when (modulep! :lang python) (load! "modules/python.el"))
 (when (modulep! :lang javascript) (load! "modules/javascript.el"))
 (when (modulep! :lang rust) (load! "modules/rust.el"))
