@@ -110,9 +110,24 @@ function kvwu_cmp.setup()
       ["rust_analyzer"] = {
         procMacro = {
           enable = true,
+        },
+        imports = {
+          granularity = {
+            group = "module",
+          },
+          prefix = "self",
         }
       }
     }
+  }
+  -- idk I'm not that into deno
+  -- lspconfig["denols"].setup {
+  --   on_attach = on_attach,
+  --   capabilities = capabilities,
+  -- }
+  lspconfig["tsserver"].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
   }
 end
 
