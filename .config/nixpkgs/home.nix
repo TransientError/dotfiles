@@ -62,12 +62,11 @@ in {
       htop
       uq
       direnv
+      python310Packages.pynvim
     ];
 
   programs.neovim = {
     enable = true;
-
-    plugins = with pkgs.vimPlugins; [ vim-nix ];
   };
 
   programs.git = {
