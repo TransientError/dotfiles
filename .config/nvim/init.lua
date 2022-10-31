@@ -21,6 +21,11 @@ map.set("t", "<Esc>", "<C-\\><C-n>")
 if g.vscode then
   require "vscode"
 else
+  if g.neovide then
+    if vim.fn.hostname() == "apollo" then
+      opt.guifont = "Liga Hack:h8"
+    end
+  end
   utils.process_settings {
     opt = {
       number = true,
