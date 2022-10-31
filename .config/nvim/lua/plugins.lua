@@ -65,6 +65,8 @@ return require("packer").startup(function(use)
         update_focused_file = {
           enable = true,
         },
+        sync_root_with_cwd = true,
+        respect_buf_cwd = true,
       }
       vim.keymap.set({ "n", "v" }, "<leader>op", ":NvimTreeToggle<CR>")
     end,
