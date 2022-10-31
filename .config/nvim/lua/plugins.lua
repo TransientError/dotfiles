@@ -24,17 +24,22 @@ return require("packer").startup(function(use)
     end,
   }
   use "lambdalisue/suda.vim"
-  use "airblade/vim-gitgutter"
+  use {
+    "airblade/vim-gitgutter",
+    cond = function()
+      return vim.fn.glob ".git" ~= nil
+    end,
+  }
   use {
     "alvan/vim-closetag",
     config = function()
       vim.g.closetag_filenames = "*.html,*.xml,*.plist,*.*proj"
     end,
+    ft = { "html", "xml" },
   }
   use "tpope/vim-commentary"
   use { "dag/vim-fish", ft = "fish" }
-  use "junegunn/fzf.vim"
-  use "mattn/emmet-vim"
+  use { "mattn/emmet-vim", ft = { "html", "jsx" } }
   use { "cespare/vim-toml", ft = "toml" }
   use "vim-scripts/ReplaceWithRegister"
   use { "jparise/vim-graphql", ft = "graphql" }
@@ -89,11 +94,11 @@ return require("packer").startup(function(use)
   use {
     "tpope/vim-fugitive",
     cond = function()
-      return vim.fn.exists "g:vscode" == 0
+      return vim.fn.exists "g:vscode" == 0 and vim.fn.glob ".git" ~= nil
     end,
-    config = function ()
+    config = function()
       vim.keymap.set("n", "<leader>gg", ":Git<CR>")
-    end
+    end,
   }
   use {
     "nvim-telescope/telescope.nvim",
