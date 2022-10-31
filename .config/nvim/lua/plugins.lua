@@ -113,11 +113,35 @@ return require("packer").startup(function(use)
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      local builtin = require("telescope.builtin")
+      local builtin = require "telescope.builtin"
       vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
       vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
-      vim.keymap.set("n", "<leader><", builtin.buffers, {})
+      vim.keymap.set("n", "<leader>,", builtin.buffers, {})
       vim.keymap.set("n", "<leader>ha", builtin.help_tags, {})
-    end
+    end,
+  }
+  use {
+    "kevinhwang91/rnvimr",
+    cond = function()
+      return vim.fn.exists "g:neovide" == 1
+    end,
+    config = function()
+      vim.keymap.set("n", "<leader>.", ":RnvimrToggle<CR>")
+    end,
+  }
+  use {
+    "luochen1990/rainbow",
+    config = function()
+      vim.g.rainbow_active = 1
+      vim.g.rainbow_conf = {
+        guifgs = {'#b384d1', 'darkorange3', 'seagreen3', 'firebrick'}
+      }
+    end,
+  }
+  use {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup {}
+    end,
   }
 end)
