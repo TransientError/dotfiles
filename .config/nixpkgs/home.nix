@@ -90,6 +90,7 @@ in {
       color.diff.meta = 11;
       pull.rebase = true;
       rebase.autoStash = true;
+      push.autoSetupRemote = true;
       merge.conflictstyle = "zdiff3";
       url."git@github.com:".pushInsteadOf =
         [ "https://github.com" "git://github.com" ];
