@@ -46,3 +46,12 @@
    easier"
   (interactive)
   (kill-new (ivy-read "" (seq-filter 'kvwu/is-interesting-file (directory-files kvwu/secrets-dir)))))
+
+(after! evil
+  (defun kvwu/unescape ()
+    (interactive)
+    (let* ((selection (evil-visual-range))
+           (start (nth 0 selection))
+           (end (nth 1 selection)))
+      (replace-regexp-in-region (rx "\\" (group (or "\""))) "\\1" start end)
+      (replace-regexp-in-region (rx (opt "\\r") "\\n") "\n" start end))))
