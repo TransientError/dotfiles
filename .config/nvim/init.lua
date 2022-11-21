@@ -30,10 +30,14 @@ else
     opt = {
       number = true,
       relativenumber = true,
-      listchars = { tab = "▸▸", trail = "·"},
-      colorcolumn = '120',
+      listchars = { tab = "▸▸", trail = "·" },
+      colorcolumn = "120",
+    },
+    g = {
+      neoformat_enabled_cs = { "csharpier" },
     },
   }
+
 
   map.set("", "<leader>wh", ":wincmd h<CR>")
   map.set("", "<leader>wj", ":wincmd j<CR>")
