@@ -35,8 +35,7 @@ IMAPAccount protonmail
 Host 127.0.0.1
 Port 1143
 User kev.wu
-# Need to set this up
-# PassCmd "rbw get protonmail.com --full | rg hydroxide | choose 1"
+PassCmd "security find-generic-password -s protonmail -a protonmail -w"
 SSLType None
 
 IMAPStore protonmail-remote
