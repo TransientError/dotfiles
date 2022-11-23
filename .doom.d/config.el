@@ -74,6 +74,7 @@
 (when (executable-find "aw-qt") (global-activity-watch-mode))
 (setq! native-comp-deferred-compilation t
        use-package-always-defer t)
+(global-evil-fringe-mark-mode)
 
 ;; macos
 (when IS-MAC (exec-path-from-shell-initialize) (map! :leader :n "o f" #'toggle-frame-maximized))

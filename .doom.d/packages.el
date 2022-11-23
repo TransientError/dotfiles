@@ -76,6 +76,7 @@
 (when (personal-config-has-profile 'work)
   (package! kusto-mode :recipe (:host github :repo "ration/kusto-mode.el" :files ("*.el"))))
 (package! org-protocol-capture-html)
+(package! evil-fringe-mark)
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
