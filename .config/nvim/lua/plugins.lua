@@ -144,4 +144,10 @@ return require("packer").startup(function(use)
       require("nvim-autopairs").setup {}
     end,
   }
+  use {
+    "chentoast/marks.nvim",
+    config = function ()
+     require("marks").setup {}
+    end
+  }
 end)
