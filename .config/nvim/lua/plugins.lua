@@ -67,6 +67,14 @@ return require("packer").startup(function(use)
         },
         sync_root_with_cwd = true,
         respect_buf_cwd = true,
+        view = {
+          mappings = {
+            custom_only = false,
+            list = {
+              { key = "l", action = "cd" },
+            },
+          },
+        },
       }
       vim.keymap.set({ "n", "v" }, "<leader>op", ":NvimTreeToggle<CR>")
     end,
@@ -110,7 +118,6 @@ return require("packer").startup(function(use)
     requires = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
-      "nvim-treesitter/nvim-treesitter",
     },
     config = function()
       local builtin = require "telescope.builtin"
@@ -118,6 +125,23 @@ return require("packer").startup(function(use)
       vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
       vim.keymap.set("n", "<leader>,", builtin.buffers, {})
       vim.keymap.set("n", "<leader>ha", builtin.help_tags, {})
+    end,
+  }
+  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+  use {
+    "p00f/nvim-ts-rainbow",
+    after = { "nvim-treesitter" },
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        ensure_installed = { "python" },
+        highlight = {
+          enable = true,
+        },
+        rainbow = {
+          enable = true,
+          colors = { "#fac15e", "#9b64d0", "#406cf1" },
+        },
+      }
     end,
   }
   use {
@@ -134,7 +158,7 @@ return require("packer").startup(function(use)
     config = function()
       vim.g.rainbow_active = 1
       vim.g.rainbow_conf = {
-        guifgs = {'#b384d1', 'darkorange3', 'seagreen3', 'firebrick'}
+        guifgs = { "#fac15e", "#9b64d0", "#406cf1" },
       }
     end,
   }
@@ -146,8 +170,15 @@ return require("packer").startup(function(use)
   }
   use {
     "chentoast/marks.nvim",
-    config = function ()
-     require("marks").setup {}
-    end
+    config = function()
+      require("marks").setup {}
+    end,
+  }
+  use {
+    "petobens/poet-v",
+    ft = "python",
+    setup = function()
+      vim.g.poetv_executables = { "poetry" }
+    end,
   }
 end)

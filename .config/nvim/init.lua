@@ -16,9 +16,9 @@ utils.process_settings {
   },
 }
 
-map.set("t", "<Esc>", "<C-\\><C-n>")
 
 if g.vscode then
+
   require "vscode"
 else
   if g.neovide then
@@ -38,7 +38,7 @@ else
     },
   }
 
-
+  map.set("t", "<Esc>", "<C-\\><C-n>")
   map.set("", "<leader>wh", ":wincmd h<CR>")
   map.set("", "<leader>wj", ":wincmd j<CR>")
   map.set("", "<leader>wk", ":wincmd k<CR>")
@@ -46,7 +46,8 @@ else
   map.set("", "<leader>ws", ":wincmd s<CR>")
   map.set("", "<leader>wv", ":wincmd v<CR>")
   map.set("", "<leader>wd", ":q<CR>")
-  map.set("", "<leader>ot", ":split term://fish")
+  map.set("", "<leader>qq", ":qa!<CR>")
+  map.set("", "<leader>ot", ":split term://fish<CR>")
 
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>")
   map.set("", "<leader>qq", ":q!<CR>")
