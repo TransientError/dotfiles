@@ -65,9 +65,10 @@ in {
       python310Packages.pynvim
     ];
 
-  programs.neovim = {
-    enable = true;
-  };
+  /* ugh this causes some sort of linking error, so I can't have it in nix anymore */
+  /* programs.neovim = { */
+  /*   enable = true; */
+  /* }; */
 
   programs.git = {
     enable = true;
