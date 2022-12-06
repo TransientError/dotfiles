@@ -176,6 +176,9 @@ return require("packer").startup(function(use)
   }
   use {
     "petobens/poet-v",
+    cond = function()
+      return vim.fn.exists "g:vscode" == 0
+    end,
     ft = "python",
     setup = function()
       vim.g.poetv_executables = { "poetry" }
@@ -183,10 +186,14 @@ return require("packer").startup(function(use)
   }
   use {
     "nvim-telescope/telescope-project.nvim",
+    cond = function()
+      return vim.fn.exists "g:vscode" == 0
+    end,
     config = function()
-      local telescope = require('telescope')
+      local telescope = require "telescope"
       telescope.load_extension "project"
       vim.keymap.set("n", "<leader>pp", telescope.extensions.project.project)
     end,
+    after = 'telescope.nvim'
   }
 end)

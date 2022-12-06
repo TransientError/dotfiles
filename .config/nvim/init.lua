@@ -18,12 +18,13 @@ utils.process_settings {
 
 
 if g.vscode then
-
   require "vscode"
 else
   if g.neovide then
     if vim.fn.hostname() == "apollo" then
       opt.guifont = "Liga Hack:h8"
+    else
+      opt.guifont = "Liga Hack:h12"
     end
   end
   utils.process_settings {
