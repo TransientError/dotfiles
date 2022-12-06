@@ -181,4 +181,12 @@ return require("packer").startup(function(use)
       vim.g.poetv_executables = { "poetry" }
     end,
   }
+  use {
+    "nvim-telescope/telescope-project.nvim",
+    config = function()
+      local telescope = require('telescope')
+      telescope.load_extension "project"
+      vim.keymap.set("n", "<leader>pp", telescope.extensions.project.project)
+    end,
+  }
 end)
