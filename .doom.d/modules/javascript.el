@@ -9,5 +9,16 @@
   (setq! web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'"))
          web-mode-markup-indent-offset 2))
 
+(after! (dap-mode typescript-mode)
+  (dap-register-debug-template
+   "Typescript Launch"
+   (list :type "node"
+         :request "launch"
+         :args "${file}"
+         :runtimeArgs ["-nolazy""-r" "ts-node/register" "--loader" "ts-node/esm.mjs"]
+         :cwd "${fileDirname}"
+         :protocol "inspector"
+         :sourceMaps "true")))
+
 ;; typescript
 (setq-hook! typescript-mode-hook tab-width 2 typescript-indent-level 2)
