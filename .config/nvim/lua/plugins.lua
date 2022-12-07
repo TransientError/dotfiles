@@ -194,53 +194,23 @@ return require("packer").startup(function(use)
       telescope.load_extension "project"
       vim.keymap.set("n", "<leader>pp", telescope.extensions.project.project)
     end,
-    after = "telescope.nvim",
+    requires = { "nvim-telescope/telescope.nvim", module = "telescope" },
   }
   use {
     "mfussenegger/nvim-dap",
+    cond = function ()
+      return vim.fn.exists "g:vscode" == 0
+    end,
     config = function()
-      local dap = require "dap"
-      vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
-      vim.keymap.set("n", "<leader>dc", dap.continue)
-      vim.keymap.set("n", "<leader>dn", dap.step_over)
-      vim.keymap.set("n", "<leader>dsi", dap.step_into)
-      vim.keymap.set("n", "<leader>dx", dap.repl.open)
-
-      local hydra = require "hydra"
-      local hint = [[
-         _n_: step over   _c_: Continue/Start   _b_: Breakpoint     
-         _i_: step into   _X_: Quit                                
-         _o_: step out    _q_: exit
-        ]]
-
-      hydra {
-        hint = hint,
-        name = "dap",
-        mode = { "n", "x" },
-        body = "<leader>dh",
-        heads = {
-          { "n", dap.step_over, { silent = true } },
-          { "i", dap.step_into, { silent = true } },
-          { "o", dap.step_out, { silent = true } },
-          { "c", dap.continue, { silent = true } },
-          { "b", dap.toggle_breakpoint, { silent = true } },
-          { "X", dap.close, { silent = true } },
-          { "q", nil, { exit = true, nowait = true } },
-        },
-        config = {
-          color = 'pink',
-          invoke_on_body = true,
-          hint = {
-            position = 'bottom',
-            border = 'rounded'
-          }
-        }
-      }
+      require('kvwu-nvim-dap').setup()
     end,
     requires = { "anuvyklack/hydra.nvim" },
   }
   use {
     "mxsdev/nvim-dap-vscode-js",
+    cond = function()
+      return vim.fn.exists "g:vscode" == 0
+    end,
     requires = {
       "mfussenegger/nvim-dap",
       { "microsoft/vscode-js-debug", opt = true, run = "npm install --legacy-peer-deps && npm run compile" },
@@ -265,41 +235,12 @@ return require("packer").startup(function(use)
   }
   use {
     "rcarriga/nvim-dap-ui",
+    cond = function()
+      return vim.fn.exists "g:vscode" == 0
+    end,
     requires = { "mfussenegger/nvim-dap" },
     config = function()
-      local dap, dapui = require "dap", require "dapui"
-      dapui.setup {
-        layouts = {
-          {
-            elements = {
-              -- Elements can be strings or table with id and size keys.
-              { id = "scopes", size = 0.25 },
-              "breakpoints",
-              "stacks",
-              "watches",
-            },
-            size = 40, -- 40 columns
-            position = "right",
-          },
-          {
-            elements = {
-              "repl",
-              "console",
-            },
-            size = 0.25, -- 25% of total lines
-            position = "bottom",
-          },
-        },
-      }
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open {}
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close {}
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close {}
-      end
+      require('kvwu-dap-ui').setup()
     end,
   }
 end)
