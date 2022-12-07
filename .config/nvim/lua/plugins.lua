@@ -215,6 +215,7 @@ return require("packer").startup(function(use)
       "mfussenegger/nvim-dap",
       { "microsoft/vscode-js-debug", opt = true, run = "npm install --legacy-peer-deps && npm run compile" },
     },
+    ft = "typescript",
     config = function()
       require("dap-vscode-js").setup {
         adapters = { "pwa-node" },
