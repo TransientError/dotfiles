@@ -194,6 +194,80 @@ return require("packer").startup(function(use)
       telescope.load_extension "project"
       vim.keymap.set("n", "<leader>pp", telescope.extensions.project.project)
     end,
-    after = 'telescope.nvim'
+    after = "telescope.nvim",
+  }
+  use {
+    "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require "dap"
+      vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
+      vim.keymap.set("n", "<leader>dc", dap.continue)
+      vim.keymap.set("n", "<leader>dn", dap.step_over)
+      vim.keymap.set("n", "<leader>dsi", dap.step_into)
+      vim.keymap.set("n", "<leader>dx", dap.repl.open)
+    end,
+  }
+  use {
+    "mxsdev/nvim-dap-vscode-js",
+    requires = {
+      "mfussenegger/nvim-dap",
+      { "microsoft/vscode-js-debug", opt = true, run = "npm install --legacy-peer-deps && npm run compile" },
+    },
+    config = function()
+      require("dap-vscode-js").setup {
+        adapters = { "pwa-node" },
+      }
+
+      require("dap").configurations["typescript"] = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file",
+          runtimeArgs = { "--nolazy", "-r", "ts-node/register", "--loader", "ts-node/esm.mjs" },
+          cwd = "${fileDirname}",
+          args = "${file}",
+          sourceMaps = true,
+        },
+      }
+    end,
+  }
+  use {
+    "rcarriga/nvim-dap-ui",
+    requires = { "mfussenegger/nvim-dap" },
+    config = function()
+      local dap, dapui = require "dap", require "dapui"
+      dapui.setup {
+        layouts = {
+          {
+            elements = {
+              -- Elements can be strings or table with id and size keys.
+              { id = "scopes", size = 0.25 },
+              "breakpoints",
+              "stacks",
+              "watches",
+            },
+            size = 40, -- 40 columns
+            position = "right",
+          },
+          {
+            elements = {
+              "repl",
+              "console",
+            },
+            size = 0.25, -- 25% of total lines
+            position = "bottom",
+          },
+        },
+      }
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open {}
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close {}
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close {}
+      end
+    end,
   }
 end)
