@@ -47,11 +47,11 @@ return require("packer").startup(function(use)
   use {
     "wellle/targets.vim",
     config = function()
-      vim.api.nvim_create_autocmd("targets#mappings#user", {
-        group = "User",
-        pattern = "call",
-        command = vim.fn["targets#mappings#extend"] { a = { argument = { { o = "[({<[]", c = "[]}>)]", s = "," } } } },
-      })
+      vim.cmd [[
+         autocmd User targets#mappings#user call targets#mappings#extend({
+            \ 'a': {'argument': [{'o':'[({<[]', 'c':'[]}>)]', 's': ','}]}
+            \ })
+      ]]
     end,
   }
   use "ggandor/lightspeed.nvim"
