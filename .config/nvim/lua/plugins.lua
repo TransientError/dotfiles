@@ -13,18 +13,21 @@ return require("packer").startup(function(use)
   use {
     "nvim-lualine/lualine.nvim",
     config = require("kvwu-lualine").setup,
+    cond = not_vscode,
   }
   use {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup()
     end,
+    cond = not_vscode,
   }
   use {
     "sbdchd/neoformat",
     config = function()
       vim.keymap.set("", "<leader>cf", ":Neoformat<CR>")
     end,
+    cond = not_vscode,
   }
   use "tpope/vim-surround"
   use "lambdalisue/suda.vim"
@@ -41,7 +44,16 @@ return require("packer").startup(function(use)
   use { "cespare/vim-toml", ft = "toml" }
   use "vim-scripts/ReplaceWithRegister"
   use { "jparise/vim-graphql", ft = "graphql" }
-  use "wellle/targets.vim"
+  use {
+    "wellle/targets.vim",
+    config = function()
+      vim.api.nvim_create_autocmd("targets#mappings#user", {
+        group = "User",
+        pattern = "call",
+        command = vim.fn["targets#mappings#extend"] { a = { argument = { { o = "[({<[]", c = "[]}>)]", s = "," } } } },
+      })
+    end,
+  }
   use "ggandor/lightspeed.nvim"
   use "michaeljsmith/vim-indent-object"
   use {
@@ -130,11 +142,12 @@ return require("packer").startup(function(use)
     end,
     after = { "telescope.nvim" },
   }
-  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", cond = not_vscode }
   use {
     "p00f/nvim-ts-rainbow",
-    after = { "nvim-treesitter" },
+    cond = not_vscode,
     config = function()
+      local colors = require "material.colors"
       require("nvim-treesitter.configs").setup {
         ensure_installed = { "python", "lua", "typescript" },
         highlight = {
@@ -142,7 +155,15 @@ return require("packer").startup(function(use)
         },
         rainbow = {
           enable = true,
-          colors = { "#fac15e", "#9b64d0", "#406cf1" },
+          colors = {
+            colors.main.darkyellow,
+            colors.main.darkpurple,
+            colors.main.darkblue,
+            colors.main.darkyellow,
+            colors.main.darkgreen,
+            colors.main.darkorange,
+            colors.main.darkred,
+          },
         },
       }
     end,
@@ -154,15 +175,6 @@ return require("packer").startup(function(use)
     end,
     config = function()
       vim.keymap.set("n", "<leader>.", ":RnvimrToggle<CR>")
-    end,
-  }
-  use {
-    "luochen1990/rainbow",
-    config = function()
-      vim.g.rainbow_active = 1
-      vim.g.rainbow_conf = {
-        guifgs = { "#fac15e", "#9b64d0", "#406cf1" },
-      }
     end,
   }
   use {

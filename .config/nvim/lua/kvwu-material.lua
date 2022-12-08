@@ -19,6 +19,7 @@ function kvwu_material.setup()
       colors.editor.selection = "#2c2c2c"
       colors.main.red = "#ff5370"
       colors.editor.accent = colors.main.cyan
+      colors.syntax.type = colors.main.yellow
     end,
   }
   vim.cmd "colorscheme material"
