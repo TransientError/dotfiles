@@ -15,6 +15,8 @@ function kvwu_nvim_dap.setup()
          _o_: step out    _q_: exit
         ]]
 
+  vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+
   hydra {
     hint = hint,
     name = "dap",
