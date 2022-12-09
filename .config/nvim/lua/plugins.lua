@@ -3,6 +3,7 @@ local function not_vscode()
 end
 
 return require("packer").startup(function(use)
+  use "wbthomason/packer.nvim"
   use {
     "marko-cerovac/material.nvim",
     cond = not_vscode,
@@ -26,6 +27,7 @@ return require("packer").startup(function(use)
     "sbdchd/neoformat",
     config = function()
       vim.keymap.set("", "<leader>cf", ":Neoformat<CR>")
+      vim.g.neoformat_enabled_cs = { "csharpier" }
     end,
     cond = not_vscode,
   }
@@ -156,13 +158,13 @@ return require("packer").startup(function(use)
         rainbow = {
           enable = true,
           colors = {
-            colors.main.darkyellow,
-            colors.main.darkpurple,
-            colors.main.darkblue,
-            colors.main.darkyellow,
-            colors.main.darkgreen,
-            colors.main.darkorange,
-            colors.main.darkred,
+            colors.main.purple,
+            colors.main.yellow,
+            colors.main.blue,
+            colors.main.cyan,
+            colors.main.green,
+            colors.main.orange,
+            colors.main.red,
           },
         },
       }

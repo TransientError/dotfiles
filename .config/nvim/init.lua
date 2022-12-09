@@ -34,9 +34,6 @@ else
       listchars = { tab = "▸▸", trail = "·" },
       colorcolumn = "120",
     },
-    g = {
-      neoformat_enabled_cs = { "csharpier" },
-    },
   }
 
   map.set("t", "<Esc>", "<C-\\><C-n>")
@@ -47,10 +44,13 @@ else
   map.set("", "<leader>ws", ":wincmd s<CR>")
   map.set("", "<leader>wv", ":wincmd v<CR>")
   map.set("", "<leader>wd", ":q<CR>")
+  map.set("", "<leader>w=", ":wincmd =<CR>")
   map.set("", "<leader>qq", ":qa!<CR>")
   map.set("", "<leader>ot", ":split term://fish<CR>")
   map.set("", "<leader>bl", "<C-o>")
   map.set("", "<leader>hr", ":source ~/.config/nvim/init.lua<CR>:PackerCompile<CR>")
 
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>")
+
+  vim.api.nvim_create_autocmd("VimResized", { pattern = '*', command = "wincmd ="})
 end
