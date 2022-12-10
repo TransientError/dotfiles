@@ -16,7 +16,6 @@ utils.process_settings {
   },
 }
 
-
 if g.vscode then
   require "vscode"
 else
@@ -53,5 +52,5 @@ else
 
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>")
 
-  vim.api.nvim_create_autocmd("VimResized", { pattern = '*', command = "wincmd ="})
+  vim.api.nvim_create_autocmd("VimResized", { pattern = "*", command = "wincmd =" })
 end
