@@ -33,6 +33,7 @@ else
       relativenumber = true,
       listchars = { tab = "▸▸", trail = "·" },
       colorcolumn = "120",
+      tabstop = 4,
     },
   }
 

@@ -220,7 +220,12 @@ return require("packer").startup(function(use)
     ft = "typescript",
     requires = {
       "mfussenegger/nvim-dap",
-      { "microsoft/vscode-js-debug", opt = true, run = "npm install --legacy-peer-deps && npm run compile" },
+      {
+        "microsoft/vscode-js-debug",
+        opt = true,
+        run = "npm install --legacy-peer-deps && npm run compile",
+        lock = true,
+      },
     },
     config = function()
       require("dap-vscode-js").setup {
@@ -247,5 +252,37 @@ return require("packer").startup(function(use)
     end,
     after = { "nvim-dap" },
     config = require("kvwu-dap-ui").setup,
+  }
+  use {
+    "leoluz/nvim-dap-go",
+    cond = not_vscode,
+    ft = "go",
+    requires = "mfussenegger/nvim-dap",
+    config = function()
+      require("dap-go").setup()
+    end,
+  }
+  use {
+    "udalov/kotlin-vim",
+    ft = "kotlin",
+    cond = not_vscode,
+  }
+  use {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup {
+        show_current_context = true,
+      }
+    end,
+    ft = "python",
+    cond = not_vscode,
+  }
+  use {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    cond = not_vscode,
+    config = function()
+      require("dap-python").setup('/home/kvwu/.venvs/debugpy/bin/python')
+    end,
   }
 end)

@@ -115,9 +115,9 @@ function kvwu_cmp.setup()
             group = "module",
           },
           prefix = "self",
-        }
-      }
-    }
+        },
+      },
+    },
   }
   -- idk I'm not that into deno
   -- lspconfig["denols"].setup {
@@ -125,6 +125,16 @@ function kvwu_cmp.setup()
   --   capabilities = capabilities,
   -- }
   lspconfig["tsserver"].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  lspconfig["gopls"].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  lspconfig["kotlin_language_server"].setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
