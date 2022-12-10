@@ -177,7 +177,7 @@
 ;; lua
 (add-hook 'lua-mode-hook #'rainbow-delimiters-mode)
 (after! lua-mode
-  (set-formatter! 'stylua "stylua -" :modes '(lua-mode)))
+  (set-formatter! 'stylua (format "stylua -f %s/.config/stylua/stylua.toml -" (getenv "HOME"))  :modes '(lua-mode)))
 
 ;; csharp
 (when (personal-config-has-profile 'work)
