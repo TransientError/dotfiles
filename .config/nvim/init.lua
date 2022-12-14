@@ -12,6 +12,7 @@ utils.process_settings {
   opt = {
     expandtab = true,
     smartcase = true,
+    ignorecase = true,
     shiftwidth = 2,
   },
 }
@@ -48,7 +49,9 @@ else
   map.set("", "<leader>qq", ":qa!<CR>")
   map.set("", "<leader>ot", ":split term://fish<CR>")
   map.set("", "<leader>bl", "<C-o>")
-  map.set("", "<leader>hr", ":source ~/.config/nvim/init.lua<CR>:PackerCompile<CR>")
+  map.set("", "<leader>hrr", ":source % | PackerCompile<CR>")
+  map.set("", "<leader>hri", ":source % | PackerInstall<CR>")
+  map.set("", "<leader>hrs", ":source % | PackerSync<CR>")
 
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>")
 

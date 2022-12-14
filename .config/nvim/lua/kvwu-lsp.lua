@@ -109,28 +109,34 @@ function kvwu_lsp.setup(use)
         capabilities = capabilities,
         on_attach = on_attach,
       }
-      lspconfig["rust_analyzer"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          ["rust_analyzer"] = {
-            procMacro = {
-              enable = true,
-            },
-            imports = {
-              granularity = {
-                group = "module",
+
+      require("rust-tools").setup {
+        tools = {
+          inlay_hints = {
+            auto = true,
+            show_parameter_hints = false,
+            parameter_hints_prefix = "",
+            other_hints_prefix = "",
+          },
+        },
+        server = {
+          on_attach = on_attach,
+          settings = {
+            ["rust_analyzer"] = {
+              procMacro = {
+                enable = true,
               },
-              prefix = "self",
+              imports = {
+                granularity = {
+                  group = "module",
+                },
+                prefix = "self",
+              },
             },
           },
         },
       }
-      -- idk I'm not that into deno
-      -- lspconfig["denols"].setup {
-      --   on_attach = on_attach,
-      --   capabilities = capabilities,
-      -- }
+
       lspconfig["tsserver"].setup {
         on_attach = on_attach,
         capabilities = capabilities,
@@ -155,6 +161,7 @@ function kvwu_lsp.setup(use)
       { "hrsh7th/vim-vsnip", opt = true },
       { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
       { "neovim/nvim-lspconfig", module = "lspconfig" },
+      { "simrat39/rust-tools.nvim", module = "rust-tools" },
     },
   }
 end

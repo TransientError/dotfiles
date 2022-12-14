@@ -49,6 +49,7 @@ return require("packer").startup(function(use)
       require("marks").setup {}
     end,
   }
+  use "Pocco81/auto-save.nvim"
   require('kvwu-theme').setup(use, not_vscode)
   require('kvwu-debuggers').setup(use, not_vscode)
   require('kvwu-telescope').setup(use, not_vscode)

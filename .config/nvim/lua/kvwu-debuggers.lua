@@ -14,38 +14,7 @@ function kvwu_debuggers.setup(use, not_vscode)
       vim.keymap.set("n", "<leader>dsi", dap.step_into)
       vim.keymap.set("n", "<leader>dx", dap.repl.open)
 
-      local hydra = require "hydra"
-      local hint = [[
-         _n_: step over   _c_: Continue/Start   _b_: Breakpoint     
-         _i_: step into   _X_: Quit                                
-         _o_: step out    _q_: exit
-        ]]
-
       vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
-
-      hydra {
-        hint = hint,
-        name = "dap",
-        mode = { "n", "x" },
-        body = "<leader>dh",
-        heads = {
-          { "n", dap.step_over, { silent = true } },
-          { "i", dap.step_into, { silent = true } },
-          { "o", dap.step_out, { silent = true } },
-          { "c", dap.continue, { silent = true } },
-          { "b", dap.toggle_breakpoint, { silent = true } },
-          { "X", dap.close, { silent = true } },
-          { "q", nil, { exit = true, nowait = true } },
-        },
-        config = {
-          color = "pink",
-          invoke_on_body = true,
-          hint = {
-            position = "bottom",
-            border = "rounded",
-          },
-        },
-      }
     end,
     requires = { "anuvyklack/hydra.nvim" },
     module = "dap",
@@ -140,6 +109,38 @@ function kvwu_debuggers.setup(use, not_vscode)
       dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close {}
       end
+
+      local hydra = require "hydra"
+      local hint = [[
+         _n_: step over   _c_: Continue/Start   _b_: Breakpoint     
+         _i_: step into   _X_: Quit             _C_: Close session
+         _o_: step out    _q_: exit
+      ]]
+
+      hydra {
+        hint = hint,
+        name = "dap",
+        mode = { "n", "x" },
+        body = "<leader>dh",
+        heads = {
+          { "n", dap.step_over, { silent = true } },
+          { "i", dap.step_into, { silent = true } },
+          { "o", dap.step_out, { silent = true } },
+          { "c", dap.continue, { silent = true } },
+          { "b", dap.toggle_breakpoint, { silent = true } },
+          { "X", dap.close, { silent = true } },
+          { "q", nil, { exit = true, nowait = true } },
+          { "C", dapui.close, { silent = true } },
+        },
+        config = {
+          color = "pink",
+          invoke_on_body = true,
+          hint = {
+            position = "bottom",
+            border = "rounded",
+          },
+        },
+      }
     end,
   }
 end
