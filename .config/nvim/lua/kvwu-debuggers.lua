@@ -10,8 +10,6 @@ function kvwu_debuggers.setup(use, not_vscode)
       local dap = require "dap"
       vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
       vim.keymap.set("n", "<leader>dc", dap.continue)
-      vim.keymap.set("n", "<leader>dn", dap.step_over)
-      vim.keymap.set("n", "<leader>dsi", dap.step_into)
       vim.keymap.set("n", "<leader>dx", dap.repl.open)
 
       vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
@@ -82,9 +80,9 @@ function kvwu_debuggers.setup(use, not_vscode)
           {
             elements = {
               -- Elements can be strings or table with id and size keys.
-              { id = "scopes", size = 0.25 },
               "breakpoints",
               "stacks",
+              { id = "scopes", size = 0.25 },
               "watches",
             },
             size = 40, -- 40 columns
@@ -114,7 +112,7 @@ function kvwu_debuggers.setup(use, not_vscode)
       local hint = [[
          _n_: step over   _c_: Continue/Start   _b_: Breakpoint     
          _i_: step into   _X_: Quit             _C_: Close session
-         _o_: step out    _q_: exit
+         _o_: step out    _R_: Reset size       _q_: exit             
       ]]
 
       hydra {
@@ -131,6 +129,13 @@ function kvwu_debuggers.setup(use, not_vscode)
           { "X", dap.close, { silent = true } },
           { "q", nil, { exit = true, nowait = true } },
           { "C", dapui.close, { silent = true } },
+          {
+            "R",
+            function()
+              dapui.open { reset = true }
+            end,
+            { silent = true },
+          },
         },
         config = {
           color = "pink",
