@@ -36,7 +36,7 @@ return require("packer").startup(function(use)
       require("which-key").setup()
     end,
   }
-  require('kvwu-lsp').setup(use)
+  require("kvwu-lsp").setup(use)
   use {
     "windwp/nvim-autopairs",
     config = function()
@@ -50,12 +50,19 @@ return require("packer").startup(function(use)
     end,
   }
   use "Pocco81/auto-save.nvim"
-  require('kvwu-theme').setup(use, not_vscode)
-  require('kvwu-debuggers').setup(use, not_vscode)
-  require('kvwu-telescope').setup(use, not_vscode)
-  require('kvwu-treesitter').setup(use, not_vscode)
-  require('kvwu-navigation').setup(use, not_vscode)
-  require('kvwu-python').setup(use, not_vscode)
-  require('kvwu-misc-old-crap').setup(use, not_vscode)
-  require('kvwu-version-control').setup(use, not_vscode)
+  require("kvwu-theme").setup(use, not_vscode)
+  require("kvwu-debuggers").setup(use, not_vscode)
+  require("kvwu-telescope").setup(use, not_vscode)
+  require("kvwu-treesitter").setup(use, not_vscode)
+  require("kvwu-navigation").setup(use, not_vscode)
+  require("kvwu-python").setup(use, not_vscode)
+  require("kvwu-misc-old-crap").setup(use, not_vscode)
+  require("kvwu-version-control").setup(use, not_vscode)
+  use {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("toggleterm").setup()
+      vim.keymap.set("", "<leader>ot", ":ToggleTerm<CR>")
+    end,
+  }
 end)
