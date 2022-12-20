@@ -45,7 +45,7 @@ else
   map.set("", "<leader>wH", ":wincmd H<CR>")
   map.set("", "<leader>wJ", ":wincmd J<CR>")
   map.set("", "<leader>wK", ":wincmd K<CR>")
-  map.set("", "<leader>wL", ":wincmd l<CR>")
+  map.set("", "<leader>wL", ":wincmd L<CR>")
   map.set("", "<leader>ws", ":wincmd s<CR>")
   map.set("", "<leader>wv", ":wincmd v<CR>")
   map.set("", "<leader>wd", ":q<CR>")
