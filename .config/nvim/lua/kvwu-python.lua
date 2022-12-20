@@ -17,6 +17,7 @@ function kvwu_python.setup(use, not_vscode)
       require("indent_blankline").setup {
         show_current_context = true,
       }
+      vim.g.indent_blankline_filetype = { "python" }
     end,
     ft = "python",
     cond = not_vscode,
