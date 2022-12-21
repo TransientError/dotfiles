@@ -48,13 +48,15 @@ else
   map.set("", "<leader>wL", ":wincmd L<CR>")
   map.set("", "<leader>ws", ":wincmd s<CR>")
   map.set("", "<leader>wv", ":wincmd v<CR>")
-  map.set("", "<leader>wd", ":q<CR>")
+  map.set("", "<leader>wd", ":close<CR>")
   map.set("", "<leader>w=", ":wincmd =<CR>")
+  map.set("", "<leader>wmm", ":wincmd _<CR>")
   map.set("", "<leader>qq", ":qa!<CR>")
   map.set("", "<leader>bl", "<C-o>")
   map.set("", "<leader>hrr", ":source % | PackerCompile<CR>")
   map.set("", "<leader>hri", ":source % | PackerInstall<CR>")
   map.set("", "<leader>hrs", ":source % | PackerSync<CR>")
+  map.set("", "<Esc><Esc>", ":noh<CR>")
 
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>")
 
