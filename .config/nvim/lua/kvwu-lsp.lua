@@ -82,7 +82,7 @@ function kvwu_lsp.setup(use)
         vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
         vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, bufopts)
         vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+        vim.keymap.set("n", "gu", vim.lsp.buf.references, bufopts)
       end
 
       vim.keymap.set("n", "<C-k>", vim.diagnostic.open_float)
@@ -135,6 +135,14 @@ function kvwu_lsp.setup(use)
             },
           },
         },
+
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = "qf",
+          callback = function()
+            vim.keymap.set("n", "q", ":close<CR>", { buffer = true, noremap = true })
+            vim.keymap.set("n", "<Esc>", ":close<CR>", { buffer = true, noremap = true })
+          end,
+        }),
       }
 
       lspconfig["tsserver"].setup {

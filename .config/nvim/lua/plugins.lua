@@ -9,6 +9,7 @@ return require("packer").startup(function(use)
     config = function()
       vim.keymap.set("", "<leader>cf", ":Neoformat<CR>")
       vim.g.neoformat_enabled_cs = { "csharpier" }
+      vim.g.neoformat_enabled_python = { "black" }
     end,
     cond = not_vscode,
   }
@@ -61,8 +62,18 @@ return require("packer").startup(function(use)
   use {
     "akinsho/toggleterm.nvim",
     config = function()
-      require("toggleterm").setup()
+      require("toggleterm").setup {
+        -- this is buggy for me
+        shade_terminals = false,
+        hide_numbers = false,
+      }
       vim.keymap.set("", "<leader>ot", ":ToggleTerm<CR>")
+    end,
+  }
+  use {
+    "airblade/vim-rooter",
+    config = function()
+      vim.g.rooter_patterns = { ".git", "=nvim" }
     end,
   }
 end)
