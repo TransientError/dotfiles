@@ -83,6 +83,10 @@ function kvwu_lsp.setup(use)
         vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, bufopts)
         vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
         vim.keymap.set("n", "gu", vim.lsp.buf.references, bufopts)
+
+        local builtin = require "telescope.builtin"
+        vim.keymap.set("n", "<space>si", builtin.lsp_document_symbols, bufopts)
+        vim.keymap.set("n", "<space>sI", builtin.lsp_workspace_symbols, bufopts)
       end
 
       vim.keymap.set("n", "<C-k>", vim.diagnostic.open_float)
@@ -170,6 +174,7 @@ function kvwu_lsp.setup(use)
       { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
       { "neovim/nvim-lspconfig", module = "lspconfig" },
       { "simrat39/rust-tools.nvim", module = "rust-tools" },
+      { "nvim-telescope/telescope.nvim", module = "telescope" },
     },
   }
 end
