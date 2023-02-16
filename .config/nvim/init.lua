@@ -24,8 +24,10 @@ else
     if vim.fn.hostname() == "apollo" then
       opt.guifont = "Liga Hack:h8"
     else
-      opt.guifont = "Liga Hack:h12"
+      opt.guifont = "Liga_Hack:h12"
     end
+
+    map.set("", "<leader>qr", ":!pkill neovide; neovide<CR>", { noremap = true })
   end
   utils.process_settings {
     opt = {
@@ -62,4 +64,7 @@ else
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>", { noremap = true })
 
   vim.api.nvim_create_autocmd("VimResized", { pattern = "*", command = "wincmd =" })
+  vim.api.nvim_create_user_command("Opam", function()
+    utils.opam()
+  end, {})
 end

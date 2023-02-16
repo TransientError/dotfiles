@@ -23,7 +23,7 @@ function kvwu_lsp.setup(use)
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm { select = true },
+          ["<CR>"] = cmp.mapping.confirm { select = false },
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -91,12 +91,11 @@ function kvwu_lsp.setup(use)
 
       vim.keymap.set("n", "<C-k>", vim.diagnostic.open_float)
 
-      lspconfig["pyright"].setup { capabilities = capabilities, on_attach = on_attach }
-      lspconfig["sumneko_lua"].setup {
+      lspconfig["lua_ls"].setup {
         settings = {
           Lua = {
             runtime = { version = "LuaJIT" },
-            diagnostics = { globals = { "vim", "use" } },
+            diagnostics = { globals = { "vim", "use", "require" } },
             workspace = { library = vim.api.nvim_get_runtime_file("", true) },
             telemetry = { enable = false },
           },
@@ -139,30 +138,28 @@ function kvwu_lsp.setup(use)
             },
           },
         },
-
-        vim.api.nvim_create_autocmd("FileType", {
-          pattern = "qf",
-          callback = function()
-            vim.keymap.set("n", "q", ":close<CR>", { buffer = true, noremap = true })
-            vim.keymap.set("n", "<Esc>", ":close<CR>", { buffer = true, noremap = true })
-          end,
-        }),
       }
 
-      lspconfig["tsserver"].setup {
+      lspconfig["ocamllsp"].setup {
+        cmd = { "/home/kvwu/.opam/default/bin/ocamllsp" },
         on_attach = on_attach,
         capabilities = capabilities,
       }
 
-      lspconfig["gopls"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      }
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "qf",
+        callback = function()
+          vim.keymap.set("n", "q", ":close<CR>", { buffer = true, noremap = true })
+          vim.keymap.set("n", "<Esc>", ":close<CR>", { buffer = true, noremap = true })
+        end,
+      })
 
-      lspconfig["kotlin_language_server"].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      }
+      for _, server in ipairs { "pyright", "tsserver", "gopls", "kotlin_language_server", "hls", "julials", "jsonls" } do
+        lspconfig[server].setup {
+          on_attach = on_attach,
+          capabilities = capabilities,
+        }
+      end
     end,
     requires = {
       { "hrsh7th/cmp-path", opt = true },

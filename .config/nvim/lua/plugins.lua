@@ -7,9 +7,10 @@ return require("packer").startup(function(use)
   use {
     "sbdchd/neoformat",
     config = function()
-      vim.keymap.set("", "<leader>cf", ":Neoformat<CR>")
+      vim.keymap.set("", "<leader>cf", ":Neoformat<CR>", { noremap = true })
       vim.g.neoformat_enabled_cs = { "csharpier" }
       vim.g.neoformat_enabled_python = { "black" }
+      vim.g.neoformat_enabled_ocaml = { "ocamlformat" }
     end,
     cond = not_vscode,
   }
@@ -41,7 +42,12 @@ return require("packer").startup(function(use)
   use {
     "windwp/nvim-autopairs",
     config = function()
-      require("nvim-autopairs").setup {}
+      local npairs = require("nvim-autopairs")
+      npairs.setup {}
+
+      local Rule = require("nvim-autopairs.rule")
+      npairs.add_rule(Rule("`", "`", "-ocaml"))
+
     end,
   }
   use {
