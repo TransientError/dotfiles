@@ -1,7 +1,11 @@
 if status is-interactive
   # Commands to run in interactive sessions can go here
   if test -z "$MSYSTEM" 
-    bass '. $HOME/.nix-profile/etc/profile.d/nix.sh'
+    if test -e '$HOME/.nix-profile/etc/profile.d/nix.sh'
+      bass '. $HOME/.nix-profile/etc/profile.d/nix.sh'
+    else if test -d '/nix/var/nix/profiles/default/etc/profile.d/'
+      source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+    end
     bass '. $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh'
   end
 
@@ -21,6 +25,9 @@ if status is-interactive
 
   bind \e\[1\;3C nextd-or-forward-word
   bind \e\[1\;3D prevd-or-backward-word
+
+  abbr ls exa
+  abbr config 'git --git-dir $HOME/utils/dotfiles/.git --work-tree=$HOME'
 end
 
 if test "$TERM" = "dumb"
