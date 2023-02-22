@@ -27,7 +27,11 @@ if status is-interactive
   bind \e\[1\;3D prevd-or-backward-word
 
   abbr ls exa
-  abbr config 'git --git-dir $HOME/utils/dotfiles/.git --work-tree=$HOME'
+  if test -e $HOME/utils/dotfiles.git
+    abbr config 'git --git-dir $HOME/utils/dotfiles.git --work-tree=$HOME'
+  else
+    abbr config 'git --git-dir $HOME/utils/dotfiles/.git --work-tree=$HOME'
+  end
 end
 
 if test "$TERM" = "dumb"
