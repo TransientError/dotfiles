@@ -61,8 +61,7 @@ function kvwu_lsp.setup(use)
 
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources { { name = "path" } },
-        { name = "cmdline" },
+        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
       })
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -146,6 +145,14 @@ function kvwu_lsp.setup(use)
         capabilities = capabilities,
       }
 
+      local json_capabilities = vim.lsp.protocol.make_client_capabilities()
+      json_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+      lspconfig["jsonls"].setup {
+        on_attach = on_attach,
+        capabilities = json_capabilities,
+      }
+
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "qf",
         callback = function()
@@ -154,7 +161,7 @@ function kvwu_lsp.setup(use)
         end,
       })
 
-      for _, server in ipairs { "pyright", "tsserver", "gopls", "kotlin_language_server", "hls", "julials", "jsonls" } do
+      for _, server in ipairs { "pyright", "tsserver", "gopls", "kotlin_language_server", "hls", "julials" } do
         lspconfig[server].setup {
           on_attach = on_attach,
           capabilities = capabilities,
