@@ -84,7 +84,7 @@
 
 ;; browse-url
 (when (and (personal-config-has-profile 'work) (kvwu/is-wsl))
-  (setq browse-url-browser-function 'browse-url-generic browse-url-generic-program (kvwu/wsl-browser 'scoop-chrome)))
+  (setq browse-url-browser-function 'browse-url-generic browse-url-generic-program (kvwu/wsl-browser 'edge)))
 
 ;; evil
 (after! evil (map! :map evil-normal-state-map "U" #'evil-redo :leader "w v" #'evil-window-vnew "w s" #'evil-window-new))
