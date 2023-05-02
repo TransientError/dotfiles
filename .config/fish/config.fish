@@ -2,7 +2,11 @@ if status is-interactive
   # Commands to run in interactive sessions can go here
   if test -z "$MSYSTEM" 
     if test -d "$HOME/.nix-profile/etc/profile.d"
-      source "$HOME/.nix-profile/etc/profile.d/nix.fish"
+      if test -e "$HOME/.nix-profile/etc/profile.d/nix.fish"
+        source "$HOME/.nix-profile/etc/profile.d/nix.fish"
+      else
+        bass ". $HOME/.nix-profile/etc/profile.d/nix.sh"
+      end
     else if test -d '/nix/var/nix/profiles/default/etc/profile.d/'
       source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
     end
