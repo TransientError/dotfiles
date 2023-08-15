@@ -82,4 +82,11 @@ return require("packer").startup(function(use)
       vim.g.rooter_patterns = { ".git", "=nvim" }
     end,
   }
+  use {
+    'alvan/vim-closetag',
+    config = function()
+      vim.g.closetag_filenames = '*.html,*.xml,*.*csproj'
+    end
+  }
+  use 'AndrewRadev/tagalong.vim'
 end)

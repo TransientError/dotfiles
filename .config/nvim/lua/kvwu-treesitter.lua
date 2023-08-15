@@ -34,20 +34,6 @@ function kvwu_treesitter.setup(use, not_vscode)
       vim.treesitter.language.register("xml", "html")
     end,
   }
-  use {
-    "windwp/nvim-ts-autotag",
-    config = function()
-      require("nvim-treesitter.configs").setup {
-        autotag = {
-          enable = true,
-          filetypes = {
-            "html",
-            "xml",
-          },
-        },
-      }
-    end,
-  }
 end
 
 return kvwu_treesitter
