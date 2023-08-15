@@ -77,6 +77,10 @@
   (package! kusto-mode :recipe (:host github :repo "ration/kusto-mode.el" :files ("*.el"))))
 (package! org-protocol-capture-html)
 (package! evil-fringe-mark)
+(unpin! evil-collection)
+(package! evil-collection
+  :recipe (:repo "emacs-evil/evil-collection" :branch "master"))
+(package! org :pin "ca873f7")
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
