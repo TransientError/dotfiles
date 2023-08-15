@@ -4,19 +4,10 @@ function kvwu_python.setup(use, not_vscode)
   use {
     "petobens/poet-v",
     cond = function()
-      return vim.fn.exists "g:vscode" == 0
+      return vim.g.neovide and vim.bo.filetype == "python"
     end,
-    ft = "python",
     setup = function()
       vim.g.poetv_executables = { "poetry" }
-    end,
-    config = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "python",
-        callback = function()
-          vim.keymap.set("n", "<leader>mp", ":PoetvActivate | LspRestart<CR>")
-        end,
-      })
     end,
   }
   use {
