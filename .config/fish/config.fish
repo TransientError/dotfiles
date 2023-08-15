@@ -19,6 +19,10 @@ if status is-interactive
     eval (direnv hook fish)
   end
 
+  if type -q pyenv
+    pyenv init - | source
+  end
+
   if test "$TERM" = "xterm-kitty"
     abbr -g icat kitty +kitten icat
     abbr -g kssh kitty +kitten ssh
@@ -29,6 +33,11 @@ if status is-interactive
   bind \e\[1\;3D prevd-or-backward-word
 
   abbr ls exa
+
+  if test $DESKTOP_SESSION = "gnome"
+    abbr trash "gio trash"
+  end
+
   if test -e $HOME/utils/dotfiles.git
     abbr config 'git --git-dir $HOME/utils/dotfiles.git --work-tree=$HOME'
   else
