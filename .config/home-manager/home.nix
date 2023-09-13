@@ -49,7 +49,7 @@ in {
       parallel
       cargo-update
       dua
-      exa
+      eza
       diff-so-fancy
       fd
       fasd
