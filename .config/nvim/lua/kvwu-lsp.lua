@@ -104,6 +104,7 @@ function kvwu_lsp.setup(use)
       }
       lspconfig["omnisharp"].setup {
         cmd = { "dotnet", "/usr/lib/omnisharp-roslyn/OmniSharp.dll" },
+        handlers = { ["textDocument/definition"] = require('omnisharp_extended').handler },
         enable_roslyn_analyzers = true,
         organize_imports_on_format = true,
         enable_import_completion = true,
@@ -179,6 +180,7 @@ function kvwu_lsp.setup(use)
       { "neovim/nvim-lspconfig", module = "lspconfig" },
       { "simrat39/rust-tools.nvim", module = "rust-tools" },
       { "nvim-telescope/telescope.nvim", module = "telescope" },
+      { "Hoffs/omnisharp-extended-lsp.nvim", module = "omnisharp_extended" },
     },
   }
 end
