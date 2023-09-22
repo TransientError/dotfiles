@@ -34,7 +34,7 @@ if status is-interactive
 
   abbr ls eza
 
-  if test -q gio
+  if type -q gio
     abbr trash "gio trash"
   end
 
