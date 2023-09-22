@@ -13,7 +13,10 @@
   (evil-make-intercept-map hledger-view-mode-map)
   (map!
    (:after ledger-mode :map hledger-mode-map
-    :localleader "f" #'ledger-mode-clean-buffer)
+    :localleader "f" #'ledger-mode-clean-buffer
+    :localleader "a" #'ledger-post-align-postings
+    :localleader :n "s" #'ledger-sort-buffer
+    :localleader :v "s" #'ledger-sort-region)
    (:after hledger-mode :map hledger-mode-map
     :localleader "d" #'hledger-run-command
     :localleader "p" (defun kvwu/hledger-print ()
@@ -25,7 +28,7 @@
                               (output-buffer (hledger-jdo "accounts" nil t))
                               (accounts (split-string (with-current-buffer output-buffer (buffer-string)))))
                          (ivy-read "" accounts :action
-                                   (lambda (account) (hledger-jdo (format "register %s --auto" account)))))))))
+                                   (lambda (account) (hledger-jdo (format "aregister %s --auto" account)))))))))
 
 
 (use-package! flycheck-hledger
