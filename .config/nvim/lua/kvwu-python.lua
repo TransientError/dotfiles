@@ -2,18 +2,9 @@ local kvwu_python = {}
 
 function kvwu_python.setup(use, not_vscode)
   use {
-    "petobens/poet-v",
-    cond = function()
-      return vim.g.neovide and vim.bo.filetype == "python"
-    end,
-    setup = function()
-      vim.g.poetv_executables = { "poetry" }
-    end,
-  }
-  use {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
-      require("indent_blankline").setup {
+      require("ibl").setup {
         show_current_context = true,
       }
       vim.g.indent_blankline_filetype = { "python" }
