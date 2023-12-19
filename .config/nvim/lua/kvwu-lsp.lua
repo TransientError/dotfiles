@@ -104,7 +104,7 @@ function kvwu_lsp.setup(use)
       }
       lspconfig["omnisharp"].setup {
         cmd = { "dotnet", "/usr/lib/omnisharp-roslyn/OmniSharp.dll" },
-        handlers = { ["textDocument/definition"] = require('omnisharp_extended').handler },
+        handlers = { ["textDocument/definition"] = require("omnisharp_extended").handler },
         enable_roslyn_analyzers = true,
         organize_imports_on_format = true,
         enable_import_completion = true,
