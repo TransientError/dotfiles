@@ -4,9 +4,7 @@ function kvwu_python.setup(use, not_vscode)
   use {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
-      require("ibl").setup {
-        show_current_context = true,
-      }
+      require("ibl").setup()
       vim.g.indent_blankline_filetype = { "python" }
     end,
     ft = "python",
