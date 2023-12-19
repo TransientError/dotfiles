@@ -19,6 +19,10 @@
     :localleader :v "s" #'ledger-sort-region)
    (:after hledger-mode :map hledger-mode-map
     :localleader "d" #'hledger-run-command
+    :localleader "f" #'ledger-mode-clean-buffer
+    :localleader "a" #'ledger-post-align-postings
+    :localleader :n "s" #'ledger-sort-buffer
+    :localleader :v "s" #'ledger-sort-region
     :localleader "p" (defun kvwu/hledger-print ()
                        (interactive)
                        (let* ((inhibit-read-only t)) (hledger-jdo "print --auto")))
@@ -28,7 +32,7 @@
                               (output-buffer (hledger-jdo "accounts" nil t))
                               (accounts (split-string (with-current-buffer output-buffer (buffer-string)))))
                          (ivy-read "" accounts :action
-                                   (lambda (account) (hledger-jdo (format "aregister %s --auto" account)))))))))
+                                   (lambda (account) (hledger-jdo (format "register %s --auto" account)))))))))
 
 
 (use-package! flycheck-hledger
