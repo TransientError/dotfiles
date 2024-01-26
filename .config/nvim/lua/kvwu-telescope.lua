@@ -11,7 +11,10 @@ function kvwu_telescope.setup(use, not_vscode)
     },
     config = function()
       local builtin = require "telescope.builtin"
-      vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
+      vim.keymap.set("n", "<leader>pf", function()
+        local utils = require "telescope.utils"
+        builtin.find_files { cwd = utils.buffer_dir() }
+      end, {})
       vim.keymap.set("n", "<leader>fr", builtin.oldfiles, {})
       vim.keymap.set("n", "<leader>,", builtin.buffers, {})
       vim.keymap.set("n", "<leader>ha", builtin.help_tags, {})
