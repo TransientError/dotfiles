@@ -7,10 +7,17 @@ return require("packer").startup(function(use)
   use {
     "sbdchd/neoformat",
     config = function()
-      vim.keymap.set("", "<leader>cf", ":Neoformat<CR>", { noremap = true })
+      vim.keymap.set("", "<leader>cf", ":Neoformat<CR>")
       vim.g.neoformat_enabled_cs = { "csharpier" }
       vim.g.neoformat_enabled_python = { "black" }
       vim.g.neoformat_enabled_ocaml = { "ocamlformat" }
+      vim.g.neoformat_svelte_prettierv3 = {
+        exe = "prettier",
+        args = { "--plugin prettier-plugin-svelte" },
+        stdin = 1,
+        try_node_exe = 1,
+      }
+      vim.g.neoformat_enabled_svelte = { "prettierv3" }
     end,
     cond = not_vscode,
   }
@@ -42,12 +49,11 @@ return require("packer").startup(function(use)
   use {
     "windwp/nvim-autopairs",
     config = function()
-      local npairs = require("nvim-autopairs")
+      local npairs = require "nvim-autopairs"
       npairs.setup {}
 
-      local Rule = require("nvim-autopairs.rule")
+      local Rule = require "nvim-autopairs.rule"
       npairs.add_rule(Rule("`", "`", "-ocaml"))
-
     end,
   }
   use {
@@ -83,10 +89,11 @@ return require("packer").startup(function(use)
     end,
   }
   use {
-    'alvan/vim-closetag',
+    "alvan/vim-closetag",
     config = function()
-      vim.g.closetag_filenames = '*.html,*.xml,*.*csproj'
-    end
+      vim.g.closetag_filenames = "*.html,*.xml,*.tsx,*.csproj,*.vue,*.svelte"
+      vim.g.closetag_filetypes = "vue,html,htmldjango,svelte"
+    end,
   }
-  use 'AndrewRadev/tagalong.vim'
+  use "AndrewRadev/tagalong.vim"
 end)

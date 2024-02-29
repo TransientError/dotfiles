@@ -17,6 +17,12 @@ utils.process_settings {
   },
 }
 
+vim.filetype.add {
+  extension = {
+    j2 = "htmldjango",
+  },
+}
+
 if g.vscode then
   require "vscode"
 else

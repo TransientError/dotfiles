@@ -154,6 +154,12 @@ function kvwu_lsp.setup(use)
         capabilities = json_capabilities,
       }
 
+      lspconfig["volar"].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "vue" },
+      }
+
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "qf",
         callback = function()
@@ -162,7 +168,16 @@ function kvwu_lsp.setup(use)
         end,
       })
 
-      for _, server in ipairs { "pyright", "tsserver", "gopls", "kotlin_language_server", "hls", "julials", "cssls" } do
+      for _, server in ipairs {
+        "pyright",
+        "tsserver",
+        "gopls",
+        "kotlin_language_server",
+        "hls",
+        "julials",
+        "cssls",
+        "svelte",
+      } do
         lspconfig[server].setup {
           on_attach = on_attach,
           capabilities = capabilities,
