@@ -153,11 +153,13 @@
 ;; copilot
 (use-package! copilot
   :after company
+  :hook (prog-mode . copilot-mode)
   :config
   (customize-set-variable 'copilot-enable-predicates '(evil-insert-state-p))
   (map! :desc "copilot" :map company-mode-map :i "TAB"
         (defun kvwu/copilot-tab () (interactive)
-               (or (copilot-accept-completion) (company-indent-or-complete-common nil)))))
+               (or (copilot-accept-completion) (company-indent-or-complete-common nil)))
+        "<right>" (defun kvwu/copilot-right () (interactive) (copilot-accept-completion) (evil-insert 1))))
 
 ;; tabnine
 (use-package! company-tabnine

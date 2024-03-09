@@ -96,4 +96,5 @@ return require("packer").startup(function(use)
     end,
   }
   use "AndrewRadev/tagalong.vim"
+  use "github/copilot.vim"
 end)

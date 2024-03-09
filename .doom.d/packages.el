@@ -72,7 +72,7 @@
   (package! hledger-mode)
   (package! flycheck-hledger)
   (package! ledger-mode))
-(package! copilot :recipe (:host github :repo "zerolfx/copilot.el" :files ("dist" "copilot.el")))
+(package! copilot :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
 (when (personal-config-has-profile 'work)
   (package! kusto-mode :recipe (:host github :repo "ration/kusto-mode.el" :files ("*.el"))))
 (package! org-protocol-capture-html)
