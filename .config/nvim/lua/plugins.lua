@@ -35,7 +35,14 @@ return require("packer").startup(function(use)
       ]]
     end,
   }
-  use "ggandor/lightspeed.nvim"
+  use {
+    "ggandor/leap.nvim",
+    config = function()
+      vim.keymap.set("n", "s", "<Plug>(leap-forward)")
+      vim.keymap.set("n", "S", "<Plug>(leap-backward)")
+      vim.keymap.set("n", "gs", "<Plug>(leap-from-window)")
+    end,
+  }
   use {
     "folke/which-key.nvim",
     cond = function()
@@ -96,5 +103,10 @@ return require("packer").startup(function(use)
     end,
   }
   use "AndrewRadev/tagalong.vim"
-  use "github/copilot.vim"
+  use {
+    "github/copilot.vim",
+    config = function()
+      vim.keymap.set("i", "<right>", 'copilot#Accept("\\<right>")', { expr = true, replace_keycodes = false })
+    end,
+  }
 end)
