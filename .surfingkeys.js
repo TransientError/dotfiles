@@ -2,6 +2,7 @@ settings.scrollStepSize = 175;
 
 removeSearchAlias("b");
 addSearchAlias("b", "Brave", "https://search.brave.com/search?q=", "s", "https://search.brave.com/suggest?q=");
+settings.defaultSearchEngine = "b";
 
 api.mapkey(";dI", "#1Download image to", function () {
   api.Hints.create("img", function (element) {
