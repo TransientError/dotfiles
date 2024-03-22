@@ -1,7 +1,19 @@
 settings.scrollStepSize = 175;
 
 api.removeSearchAlias("b");
-api.addSearchAlias("b", "Brave", "https://search.brave.com/search?q=", "s", "https://search.brave.com/suggest?q=");
+api.addSearchAlias(
+  "b",
+  "Brave",
+  "https://search.brave.com/search?q=",
+  "s",
+  "https://search.brave.com/suggest?q=",
+  null,
+  "o",
+  {
+    favicon_url:
+      "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/favicon-32x32.B2iBzfXZ.png",
+  },
+);
 settings.defaultSearchEngine = "b";
 
 api.mapkey(";dI", "#1Download image to", function () {
@@ -55,12 +67,12 @@ api.mapkey("ch", "capture", function () {
           for (var i = 0; i < elements.length; i++) {
             elements[i].setAttribute(
               elementType[1],
-              relToAbs(elements[i].getAttribute(elementType[1]))
+              relToAbs(elements[i].getAttribute(elementType[1])),
             );
           }
         });
         return div.innerHTML;
-      })()
+      })(),
     );
 });
 
@@ -94,11 +106,11 @@ Visual.style('cursor', 'background-color: #88C0D0;');
 
 // Doom One
 api.Hints.style(
-  "border: solid 2px #282C34; color:#98be65; background: initial; background-color: #2E3440;"
+  "border: solid 2px #282C34; color:#98be65; background: initial; background-color: #2E3440;",
 );
 api.Hints.style(
   "border: solid 2px #282C34 !important; padding: 1px !important; color: #51AFEF !important; background: #2E3440 !important;",
-  "text"
+  "text",
 );
 api.Visual.style("marks", "background-color: #98be6599;");
 api.Visual.style("cursor", "background-color: #51AFEF;");
