@@ -65,7 +65,7 @@ else
   map.set("", "<leader>hri", ":source % | PackerInstall<CR>", { noremap = true })
   map.set("", "<leader>hrs", ":source % | PackerSync<CR>", { noremap = true })
   map.set("n", "<Esc><Esc>", ":noh<CR>", { noremap = true })
-  map.set("i", "<C-v>", '"+p')
+  map.set("i", "<C-v>", '<Esc>"+pi')
 
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>", { noremap = true })
 
