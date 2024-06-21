@@ -185,6 +185,13 @@
 (when (personal-config-has-profile 'work)
   (setq lsp-csharp-server-path "/usr/sbin/omnisharp"))
 
+;; fish
+;; Fish (and possibly other non-POSIX shells) is known to inject garbage
+;; output into some of the child processes that Emacs spawns. Many Emacs
+;; packages/utilities will choke on this output, causing unpredictable
+;; issues
+(setq shell-file-name (executable-find "bash"))
+
 (when (modulep! :lang python) (load! "modules/python.el"))
 (when (modulep! :lang javascript) (load! "modules/javascript.el"))
 (when (modulep! :lang rust) (load! "modules/rust.el"))
