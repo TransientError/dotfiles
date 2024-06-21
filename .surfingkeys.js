@@ -1,5 +1,6 @@
 settings.scrollStepSize = 175;
 settings.lurkingPattern = /https:\/\/github\.com|https:\/\/mail\.google\.com/;
+settings.showStatusMode = true;
 
 api.removeSearchAlias("b");
 api.addSearchAlias(
