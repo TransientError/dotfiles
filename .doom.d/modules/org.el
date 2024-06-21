@@ -24,13 +24,15 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
       (:prefix ("X" . "quick open")
        :desc "open refile" "r"
        (cmd! () (find-file (if (personal-config-has-profile 'work) "~/org-roam/refile.org" "~/Dropbox/todo.org")))
-       :desc "open todo" "t" (cmd! () (find-file (concat org-directory "todo.org")))
+       :desc "open todo" "t" (cmd! () (find-file (concat "~/Dropbox/" "todo.org")))
        (:unless (personal-config-has-profile 'work)
-        :desc "open habits" "h"
-        (cmd! () (org-roam-node-visit (org-roam-node-from-title-or-alias (format-time-string "%Y-%m-habits"))))
-        :desc "open journal" "j" (cmd! () (find-file (concat org-directory "journal.org"))))
+         :desc "open habits" "h"
+         (cmd! () (find-file "~/Dropbox/habit-tracker.org"))
+         :desc "open journal" "j" (cmd! () (find-file (concat org-directory "journal.org"))))
        (:when (personal-config-has-profile 'work)
-        :desc "open personal" "p" (cmd! () (find-file "~/org-roam/personal.org")))))
+         :desc "open personal" "p" (cmd! () (find-file "~/org-roam/personal.org")))
+       (:unless (personal-config-has-profile 'work)
+         :desc "open long term" "s" (cmd! () (find-file "~/Dropbox/long-term.org")))))
 
 (map! :map org-capture-mode-map :i :desc "finalize and go" "C-c C-c" (cmd! () (org-capture-finalize t)))
 
@@ -70,13 +72,40 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
                                                ("NO"   . +org-todo-cancel)
                                                ("CANCEL" . +org-todo-cancel))))
   (map! :map org-mode-map :localleader :desc "estimate pomodoros" "c E" #'ndk/org-set-effort-in-pomodoros)
-  (require 'org-protocol-capture-html))
-  
+  (require 'org-protocol-capture-html)
+  (add-to-list 'org-modules 'org-habit t))
+
 
 (use-package! org-agenda
-  :after org
+  :after org org-super-agenda
   :config
-  (setq! org-agenda-start-with-log-mode t org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+  ;; https://github.com/alphapapa/org-super-agenda/issues/50
+  (setq org-super-agenda-header-map (make-sparse-keymap))
+  (setq! org-agenda-start-with-log-mode t org-agenda-files (directory-files-recursively "~/Dropbox" "\\.org$")
+         org-super-agenda-groups '((:name "Today" :and (:time-grid t :not (:habit t)) :and (:scheduled today :not (:habit t)))
+                                   (:name "Intentional and Urgent" :priority "A")
+                                   (:name "Intentional and Not Urgent" :priority "B")
+                                   (:name "Not Intentional and Urgent" :priority "C")
+                                   (:name "Not Intentional and Not Urgent" :priority "D")
+                                   (:name "Habits" :habit t)))
+                                   
   (when (personal-config-has-profile 'work) (setq! org-agenda-custom-commands
                                                    '(("n" "Agenda and all TODOS" ((agenda "") (alltodo "")))
-                                                     ("w" "Serious agenda" ((agenda "work") (tags-todo "work")))))))
+                                                     ("w" "Serious agenda" ((agenda "work") (tags-todo "work"))))))
+  (add-hook 'org-agenda-mode-hook 'org-super-agenda-mode))
+
+(use-package! org-habit
+  :after org
+  :config
+  (setq! org-habit-show-habits t
+         org-habit-following-days 1
+         org-habit-preceding-days 7
+         org-habit-show-all-today t))
+
+(use-package! org-habit-stats
+  :after org
+  :config
+  (pushnew! evil-emacs-state-modes #'org-habit-stats-mode)
+  (map! :map org-habit-stats-mode-map
+        "j" #'org-habit-stats-view-next-habit
+        "k" #'org-habit-stats-view-previous-habit))

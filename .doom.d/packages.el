@@ -81,6 +81,8 @@
 (package! evil-collection
   :recipe (:repo "emacs-evil/evil-collection" :branch "master"))
 (package! org :pin "ca873f7")
+(package! org-super-agenda)
+(package! org-habit-stats)
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
