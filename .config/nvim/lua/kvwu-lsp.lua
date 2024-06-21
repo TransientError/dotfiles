@@ -177,6 +177,7 @@ function kvwu_lsp.setup(use)
         "julials",
         "cssls",
         "svelte",
+        "ccls"
       } do
         lspconfig[server].setup {
           on_attach = on_attach,
