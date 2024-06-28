@@ -55,19 +55,21 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
                                                 "PROJ(p)"  ; A project, which usually contains other tasks
                                                 "IN-PROGRESS(s)"  ; A task that is in progress
                                                 "REVIEW(r)"  ; task is being reviewed
+                                                "PENDING(e)"
                                                 "BLOCKED(b)"  ; Something external is holding up this task
                                                 "HOLD(h)"  ; This task is paused/on hold because of me
                                                 "IDEA(i)"  ; An unconfirmed and unapproved task or notion
+                                                "HAND-OFF(a)" ; handed off but still need to track
                                                 "|"
                                                 "DONE(d)"  ; Task successfully completed
-                                                "CANCELLED(c)" ; Task was cancelled, aborted or is no longer applicable
-                                                "HAND-OFF(a)"
-                                                "PUNT(u)"))
+                                                "CANCELLED(c)")) ; Task was cancelled, aborted or is no longer applicable
                                              org-todo-keyword-faces
                                              '(("IN_PROGRESS" . +org-todo-active)
                                                ("BLOCKED" . +org-todo-onhold)
                                                ("HOLD" . +org-todo-onhold)
                                                ("REVIEW" . +org-todo-onhold)
+                                               ("PENDING" . +org-todo-onhold)
+                                               ("HAND-OFF" . +org-todo-onhold)
                                                ("PROJ" . +org-todo-project)
                                                ("NO"   . +org-todo-cancel)
                                                ("CANCEL" . +org-todo-cancel))))

@@ -192,6 +192,16 @@
 ;; issues
 (setq shell-file-name (executable-find "bash"))
 
+;; mermaid
+(after! mermaid
+  (add-to-list 'auto-mode-alist '("\\.mmdc\\'" . mermaid-mode)))
+
+;; HACK: since some upstream changes, formatting a specific region seems broken, and
+;; calling `+format/region' raises: "with Symbol’s function definition is void:
+;; apheleia--get-formatters", ensure to autoload the required function.
+(use-package! apheleia
+  :commands (apheleia--get-formatters))
+
 (when (modulep! :lang python) (load! "modules/python.el"))
 (when (modulep! :lang javascript) (load! "modules/javascript.el"))
 (when (modulep! :lang rust) (load! "modules/rust.el"))
