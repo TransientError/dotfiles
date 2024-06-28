@@ -38,6 +38,11 @@ if status is-interactive
     abbr trash "gio trash"
   end
 
+  if test -q bun
+    set --export BUN_INSTALL "$HOME/.bun"
+    set --export PATH $BUN_INSTALL/bin $PATH
+  end
+
   if test -e $HOME/utils/dotfiles.git
     abbr config 'git --git-dir $HOME/utils/dotfiles.git --work-tree=$HOME'
   else
@@ -50,4 +55,5 @@ if test "$TERM" = "dumb"
     echo "\$"
   end
 end
+
 
