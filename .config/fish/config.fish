@@ -38,7 +38,7 @@ if status is-interactive
     abbr trash "gio trash"
   end
 
-  if test -q bun
+  if type -q bun
     set --export BUN_INSTALL "$HOME/.bun"
     set --export PATH $BUN_INSTALL/bin $PATH
   end
