@@ -83,6 +83,7 @@
 (package! org :pin "ca873f7")
 (package! org-super-agenda)
 (package! org-habit-stats)
+(package! i3wm-config-mode)
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
