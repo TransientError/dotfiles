@@ -1,5 +1,5 @@
 configuration {
-	modi: "ssh,calc,combi,filebrowser,run";
+	modi: "combi,drun,run,window,filebrowser,ssh,calc";
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/
@@ -31,12 +31,12 @@ configuration {
 	sorting-method: "fzf";
 /*	case-sensitive: false;*/
 /*	cycle: true;*/
-/*	sidebar-mode: false;*/
+	sidebar-mode: true;
 /*	eh: 1;*/
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
-	combi-modi: "drun,window";
+	combi-modi: "drun,window,run";
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/

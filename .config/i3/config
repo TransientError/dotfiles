@@ -27,7 +27,7 @@ bindsym $mod+b exec firefox
 # kill focused window
 bindsym $mod+q kill
 
-bindsym control+space exec --no-startup-id rofi -show run
+bindsym control+space exec --no-startup-id rofi -show 
 
 bindsym --release button2 kill
 bindsym button3 move scratchpad
@@ -55,6 +55,7 @@ bindsym F10 exec warpd --hint
 bindsym $mod+Control+Shift+Mod1+h exec warpd --hint
 bindsym Control+Shift+v exec copyq show
 bindsym Print exec flameshot gui
+bindcode --release 133 exec rofi -show window
 
 for_window [class="floating"] floating enable
 for_window [class="copyq"] floating enable
