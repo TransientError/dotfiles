@@ -30,6 +30,8 @@ bindsym $mod+q kill
 bindsym control+space exec --no-startup-id rofi -show run
 
 bindsym --release button2 kill
+bindsym button3 move scratchpad
+bindsym Control+button1 fullscreen toggle
 
 # toggle tiling / floating
 bindsym $mod+y floating toggle
