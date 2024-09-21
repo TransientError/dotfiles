@@ -2,21 +2,21 @@ settings.scrollStepSize = 175;
 settings.lurkingPattern = /https:\/\/github\.com|https:\/\/mail\.google\.com/;
 settings.showStatusMode = true;
 
-api.removeSearchAlias("b");
-api.addSearchAlias(
-  "b",
-  "Brave",
-  "https://search.brave.com/search?q=",
-  "s",
-  "https://search.brave.com/suggest?q=",
-  null,
-  "o",
-  {
-    favicon_url:
-      "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/favicon-32x32.B2iBzfXZ.png",
-  },
-);
-settings.defaultSearchEngine = "b";
+// api.removeSearchAlias("b");
+// api.addSearchAlias(
+//   "b",
+//   "Brave",
+//   "https://search.brave.com/search?q=",
+//   "s",
+//   "https://search.brave.com/suggest?q=",
+//   null,
+//   "o",
+//   {
+//     favicon_url:
+//       "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/favicon-32x32.B2iBzfXZ.png",
+//   },
+// );
+// settings.defaultSearchEngine = "b";
 
 api.mapkey(";dI", "#1Download image to", function () {
   api.Hints.create("img", function (element) {
