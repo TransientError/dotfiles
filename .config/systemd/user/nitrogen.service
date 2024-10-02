@@ -1,0 +1,9 @@
+[Unit]
+Description=Nitrogen
+
+[Service]
+Type=forking
+ExecStart=nitrogen --set-zoom-fill --random .local/share/wallpapers/nitrogen
+
+[Install]
+WantedBy=default.target

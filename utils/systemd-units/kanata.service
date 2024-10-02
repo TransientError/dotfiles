@@ -1,0 +1,9 @@
+[Unit]
+Description=Kanata
+
+[Service]
+Type=simple
+ExecStart=kanata --cfg /home/kvwu/.config/kanata/apollo.kbd
+
+[Install]
+WantedBy=default.target
