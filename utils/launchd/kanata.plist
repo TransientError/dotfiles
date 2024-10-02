@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+    <string>kanata</string>
+
+  <key>KeepAlive</key>
+    <dict>
+      <key>SuccessfulExit</key>
+        <false/>
+  </dict>
+
+  <key>ProcessType</key>
+    <string>Interactive</string>
+
+  <key>ProgramArguments</key>
+    <array>
+      <!-- echo "$(whoami) ALL=(ALL) NOPASSWD: $KANATA_PATH" | sudo tee "$SUDOERS_FILE" > /dev/null -->
+      <string>/Users/kvwu/.local/bin/kanata</string>
+      <string>--cfg</string>
+      <string>/Users/kvwu/.config/kanata/persephone.kbd</string>
+    </array>
+
+  <key>RunAtLoad</key>
+    <true/>
+
+  <key>StandardErrorPath</key>
+    <string>/Library/Application Support/kanata/var/log/kanata.log</string>
+
+  <key>StandardOutPath</key>
+    <string>/Library/Application Support/kanata/var/log/kanata.log</string>
+    
+</dict>
+</plist>
