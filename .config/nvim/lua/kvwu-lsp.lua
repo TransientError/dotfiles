@@ -170,7 +170,7 @@ function kvwu_lsp.setup(use)
 
       for _, server in ipairs {
         "pyright",
-        "tsserver",
+        "ts_ls",
         "gopls",
         "kotlin_language_server",
         "hls",
