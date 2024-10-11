@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-require "plugins"
 local utils = require "utils"
 
 local g = vim.g
@@ -74,3 +73,5 @@ else
     utils.opam()
   end, {})
 end
+
+require ("config.lazy")

@@ -1,10 +1,7 @@
-local kvwu_telescope = {}
-
-function kvwu_telescope.setup(use, not_vscode)
-  use {
+return {
+  {
     "nvim-telescope/telescope.nvim",
-    cond = not_vscode,
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
@@ -37,16 +34,13 @@ function kvwu_telescope.setup(use, not_vscode)
         },
       }
     end,
-  }
-  use {
+  },
+  {
     "nvim-telescope/telescope-project.nvim",
     config = function()
       local telescope = require "telescope"
       telescope.load_extension "project"
       vim.keymap.set("n", "<leader>pp", telescope.extensions.project.project)
     end,
-    after = { "telescope.nvim" },
   }
-end
-
-return kvwu_telescope
+}

@@ -1,9 +1,6 @@
-local kvwu_navigation = {}
-
-function kvwu_navigation.setup(use, not_vscode)
-  use {
+return {
+  {
     "nvim-tree/nvim-tree.lua",
-    cond = not_vscode,
     config = function()
       local function on_attach(bufnr)
         local api = require "nvim-tree.api"
@@ -28,8 +25,8 @@ function kvwu_navigation.setup(use, not_vscode)
     end,
     cmd = { "NvimTreeToggle" },
     keys = "<leader>op",
-  }
-  use {
+  },
+  {
     "kevinhwang91/rnvimr",
     cond = function()
       return vim.fn.exists "g:neovide" == 1
@@ -38,6 +35,5 @@ function kvwu_navigation.setup(use, not_vscode)
       vim.keymap.set("n", "<leader>.", ":RnvimrToggle<CR>")
     end,
   }
-end
+}
 
-return kvwu_navigation

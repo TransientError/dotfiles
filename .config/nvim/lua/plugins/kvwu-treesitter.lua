@@ -1,15 +1,11 @@
-local kvwu_treesitter = {}
-
-function kvwu_treesitter.setup(use, not_vscode)
-  use {
+return {
+  {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    cond = not_vscode,
     module = { "nvim-treesitter.query", "nvim-treesitter.configs" },
-  }
-  use {
+  },
+  {
     "p00f/nvim-ts-rainbow",
-    cond = not_vscode,
     config = function()
       local colors = require "material.colors"
       require("nvim-treesitter.configs").setup {
@@ -34,6 +30,5 @@ function kvwu_treesitter.setup(use, not_vscode)
       vim.treesitter.language.register("xml", "html")
     end,
   }
-end
+}
 
-return kvwu_treesitter

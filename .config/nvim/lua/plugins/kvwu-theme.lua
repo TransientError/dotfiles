@@ -1,9 +1,6 @@
-local kvwu_theme = {}
-
-function kvwu_theme.setup(use, not_vscode)
-  use {
+return {
+  {
     "marko-cerovac/material.nvim",
-    cond = not_vscode,
     config = function()
       vim.g.material_style = "darker"
       require("material").setup {
@@ -28,10 +25,8 @@ function kvwu_theme.setup(use, not_vscode)
       }
       vim.cmd "colorscheme material"
     end,
-    after = "lualine.nvim",
-    module = "material",
-  }
-  use {
+  },
+  {
     "nvim-lualine/lualine.nvim",
     config = function()
       local colors = require "material.colors"
@@ -68,8 +63,6 @@ function kvwu_theme.setup(use, not_vscode)
         },
       }
     end,
-    cond = not_vscode,
   }
-end
+}
 
-return kvwu_theme

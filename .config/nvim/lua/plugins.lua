@@ -1,10 +1,5 @@
-local function not_vscode()
-  return vim.fn.exists "g:vscode" == 0
-end
-
-return require("packer").startup(function(use)
-  use "wbthomason/packer.nvim"
-  use {
+return {
+  {
     "sbdchd/neoformat",
     config = function()
       vim.keymap.set("", "<leader>cf", ":Neoformat<CR>")
@@ -19,13 +14,12 @@ return require("packer").startup(function(use)
       }
       vim.g.neoformat_enabled_svelte = { "prettierv3" }
     end,
-    cond = not_vscode,
-  }
-  use "tpope/vim-surround"
-  use "lambdalisue/suda.vim"
-  use "tpope/vim-commentary"
-  use "vim-scripts/ReplaceWithRegister"
-  use {
+  },
+  "tpope/vim-surround",
+  "lambdalisue/suda.vim",
+  "tpope/vim-commentary",
+  "vim-scripts/ReplaceWithRegister",
+  {
     "wellle/targets.vim",
     config = function()
       vim.cmd [[
@@ -34,26 +28,22 @@ return require("packer").startup(function(use)
             \ })
       ]]
     end,
-  }
-  use {
+  },
+  {
     "ggandor/leap.nvim",
     config = function()
       vim.keymap.set("n", "s", "<Plug>(leap-forward)")
       vim.keymap.set("n", "S", "<Plug>(leap-backward)")
       vim.keymap.set("n", "gs", "<Plug>(leap-from-window)")
     end,
-  }
-  use {
+  },
+  {
     "folke/which-key.nvim",
-    cond = function()
-      return vim.fn.exists "g:vscode" == 0
-    end,
     config = function()
       require("which-key").setup()
     end,
-  }
-  require("kvwu-lsp").setup(use)
-  use {
+  },
+  {
     "windwp/nvim-autopairs",
     config = function()
       local npairs = require "nvim-autopairs"
@@ -62,23 +52,15 @@ return require("packer").startup(function(use)
       local Rule = require "nvim-autopairs.rule"
       npairs.add_rule(Rule("`", "`", "-ocaml"))
     end,
-  }
-  use {
+  },
+  {
     "chentoast/marks.nvim",
     config = function()
       require("marks").setup {}
     end,
-  }
-  use "Pocco81/auto-save.nvim"
-  require("kvwu-theme").setup(use, not_vscode)
-  require("kvwu-debuggers").setup(use, not_vscode)
-  require("kvwu-telescope").setup(use, not_vscode)
-  require("kvwu-treesitter").setup(use, not_vscode)
-  require("kvwu-navigation").setup(use, not_vscode)
-  require("kvwu-python").setup(use, not_vscode)
-  require("kvwu-misc-old-crap").setup(use, not_vscode)
-  require("kvwu-version-control").setup(use, not_vscode)
-  use {
+  },
+  "Pocco81/auto-save.nvim",
+  {
     "akinsho/toggleterm.nvim",
     config = function()
       require("toggleterm").setup {
@@ -88,25 +70,25 @@ return require("packer").startup(function(use)
       }
       vim.keymap.set("", "<leader>ot", ":ToggleTerm<CR>")
     end,
-  }
-  use {
+  },
+  {
     "airblade/vim-rooter",
     config = function()
       vim.g.rooter_patterns = { ".git", "=nvim" }
     end,
-  }
-  use {
+  },
+  {
     "alvan/vim-closetag",
     config = function()
       vim.g.closetag_filenames = "*.html,*.xml,*.tsx,*.csproj,*.vue,*.svelte"
       vim.g.closetag_filetypes = "vue,html,htmldjango,svelte"
     end,
-  }
-  use "AndrewRadev/tagalong.vim"
-  use {
+  },
+  "AndrewRadev/tagalong.vim",
+  {
     "github/copilot.vim",
     config = function()
       vim.keymap.set("i", "<right>", 'copilot#Accept("\\<right>")', { expr = true, replace_keycodes = false })
     end,
   }
-end)
+}
