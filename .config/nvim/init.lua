@@ -60,11 +60,7 @@ else
   map.set("", "<leader>wmm", ":wincmd _<CR>", { noremap = true })
   map.set("", "<leader>qq", ":qa!<CR>", { noremap = true })
   map.set("", "<leader>bl", "<C-o>", { noremap = true })
-  map.set("", "<leader>hrr", ":source % | PackerCompile<CR>", { noremap = true })
-  map.set("", "<leader>hri", ":source % | PackerInstall<CR>", { noremap = true })
-  map.set("", "<leader>hrs", ":source % | PackerSync<CR>", { noremap = true })
   map.set("n", "<Esc><Esc>", ":noh<CR>", { noremap = true })
-  map.set("i", "<C-v>", '<Esc>"+pi')
 
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>", { noremap = true })
 
@@ -74,4 +70,4 @@ else
   end, {})
 end
 
-require ("config.lazy")
+require "config.lazy"

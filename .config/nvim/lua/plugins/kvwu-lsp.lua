@@ -190,11 +190,11 @@ return {
       { "hrsh7th/cmp-buffer", lazy = true },
       { "hrsh7th/cmp-vsnip", lazy = true },
       { "hrsh7th/vim-vsnip", lazy = true },
-      { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
-      { "neovim/nvim-lspconfig", module = "lspconfig" },
-      { "simrat39/rust-tools.nvim", module = "rust-tools" },
-      { "nvim-telescope/telescope.nvim", module = "telescope" },
-      { "Hoffs/omnisharp-extended-lsp.nvim", module = "omnisharp_extended" },
+      { "hrsh7th/cmp-nvim-lsp", lazy = true },
+      { "neovim/nvim-lspconfig", lazy = true },
+      { "simrat39/rust-tools.nvim", lazy = true },
+      { "nvim-telescope/telescope.nvim", lazy = true },
+      { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
     },
   }
 }
