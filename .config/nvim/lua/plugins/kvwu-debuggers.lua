@@ -12,7 +12,7 @@ return {
 
       vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
     end,
-    dependencies = { "anuvyklack/hydra.nvim" },
+    dependencies = { "nvimtools/hydra.nvim" },
     module = "dap",
   },
   {
@@ -41,7 +41,7 @@ return {
       {
         "microsoft/vscode-js-debug",
         lazy = true,
-        build = "npm install --legacy-peer-deps && npm run compile",
+        build = "npm ci --legacy-peer-deps && npm run compile",
         pin = true,
       },
     },
@@ -137,7 +137,6 @@ return {
           invoke_on_body = true,
           hint = {
             position = "bottom",
-            border = "rounded",
           },
         },
       }
