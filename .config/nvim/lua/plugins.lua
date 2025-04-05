@@ -90,5 +90,6 @@ return {
     config = function()
       vim.keymap.set("i", "<right>", 'copilot#Accept("\\<right>")', { expr = true, replace_keycodes = false })
     end,
-  }
+  },
+  "rafamadriz/friendly-snippets"
 }
