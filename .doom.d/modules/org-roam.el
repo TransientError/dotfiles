@@ -5,7 +5,7 @@
 (use-package! org-roam
   :after org
   :init
-  (setq org-roam-directory (file-truename org-directory))
+  (setq org-roam-directory (file-truename org-directory) org-roam-db-update-on-save nil)
   :config
   (let ((filename-template "%<%Y%m%d%H%M%S>-${slug}.org")
         (default-headers "#+title: ${title}\n#+filetags: \n")

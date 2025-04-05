@@ -80,7 +80,6 @@
 (unpin! evil-collection)
 (package! evil-collection
   :recipe (:repo "emacs-evil/evil-collection" :branch "master"))
-(package! org :pin "ca873f7")
 (package! org-super-agenda)
 (package! org-habit-stats)
 (package! i3wm-config-mode)
