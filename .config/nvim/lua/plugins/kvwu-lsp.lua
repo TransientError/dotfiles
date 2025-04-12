@@ -1,7 +1,6 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    lazy = true,
     cond = function()
       return vim.fn.exists "g:vscode" == 0
     end,

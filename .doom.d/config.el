@@ -202,6 +202,9 @@
 (use-package! apheleia
   :commands (apheleia--get-formatters))
 
+
+(use-package! kbd-mode)
+
 (when (modulep! :lang python) (load! "modules/python.el"))
 (when (modulep! :lang javascript) (load! "modules/javascript.el"))
 (when (modulep! :lang rust) (load! "modules/rust.el"))

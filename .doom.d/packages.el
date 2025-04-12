@@ -83,6 +83,9 @@
 (package! org-super-agenda)
 (package! org-habit-stats)
 (package! i3wm-config-mode)
+(package! kbd-mode
+  :recipe (:host github
+           :repo "kmonad/kbd-mode"))
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 

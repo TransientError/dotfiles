@@ -27,9 +27,9 @@ if g.vscode then
 else
   if g.neovide then
     if vim.fn.hostname() == "apollo" then
-      opt.guifont = "Liga Hack:h8"
+      opt.guifont = "LigaHack Nerd Font:h8"
     else
-      opt.guifont = "Liga_Hack:h12"
+      opt.guifont = "LigaHack Nerd Font:h12"
     end
 
     map.set("", "<leader>qr", ":!pkill neovide; neovide<CR>", { noremap = true })
