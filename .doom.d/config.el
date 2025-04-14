@@ -21,7 +21,7 @@
 ;; font string. You generally only need these two:
 (let ((text-scale (cond ((string-equal system-type "windows-nt") 1)
                         (t 1))))
-  (setq doom-font (font-spec :family "Liga Hack" :size (* 14 text-scale))
+  (setq doom-font (font-spec :family "LigaHack Nerd Font" :size (* 14 text-scale))
         doom-variable-pitch-font (font-spec :family "Liga Hack" :size (* 13 text-scale) :weight 'bold)))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -202,8 +202,19 @@
 (use-package! apheleia
   :commands (apheleia--get-formatters))
 
-
 (use-package! kbd-mode)
+
+(defun kvwu/yank-image-from-win-clipboard-through-powershell()
+  (interactive)
+  (let* ((powershell "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe")
+         (file-name (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))
+         (file-path-wsl (concat "./images/" file-name)))
+
+    (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"C:/Users/wukevin/OneDrive - Microsoft/Pictures/Screenshots/" file-name "\\\")\""))
+    (rename-file (concat "/mnt/c/Users/wukevin/OneDrive - Microsoft/Pictures/Screenshots/" file-name) file-path-wsl)
+    (insert (concat "[[file:" file-path-wsl "]]"))
+    (message "insert DONE.")))
+
 
 (when (modulep! :lang python) (load! "modules/python.el"))
 (when (modulep! :lang javascript) (load! "modules/javascript.el"))
