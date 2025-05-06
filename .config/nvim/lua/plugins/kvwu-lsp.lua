@@ -49,10 +49,6 @@ return {
         },
       })
 
-      vim.lsp.config("powershell_es", {
-        bundle_path = os.getenv "USERPROFILE" .. "/utils/PowerShellEditorServices",
-      })
-
       local json_capabilities = vim.lsp.protocol.make_client_capabilities()
       json_capabilities.textDocument.completion.completionItem.snippetSupport = true
       vim.lsp.config("jsonls", {
@@ -71,7 +67,7 @@ return {
         }
       })
 
-      vim.lsp.enable { "lua_ls", "powershell_es", "ts_ls", "pyright" }
+      vim.lsp.enable { "lua_ls", "ts_ls", "pyright" }
     end,
   },
   {
