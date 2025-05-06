@@ -2,55 +2,41 @@ return {
   {
     "sbdchd/neoformat",
     config = function()
-      vim.keymap.set("", "<leader>cf", ":Neoformat<CR>")
+      vim.keymap.set("", "<leader>cf", ":Neoformat<CR>", { noremap = true })
       vim.g.neoformat_enabled_cs = { "csharpier" }
       vim.g.neoformat_enabled_python = { "black" }
       vim.g.neoformat_enabled_ocaml = { "ocamlformat" }
-      vim.g.neoformat_svelte_prettierv3 = {
-        exe = "prettier",
-        args = { "--plugin prettier-plugin-svelte" },
-        stdin = 1,
-        try_node_exe = 1,
-      }
-      vim.g.neoformat_enabled_svelte = { "prettierv3" }
     end,
   },
   "tpope/vim-surround",
-  "lambdalisue/suda.vim",
   "tpope/vim-commentary",
+  { "dag/vim-fish", ft = "fish" },
+  { "mattn/emmet-vim", ft = { "html", "xml" } },
   "vim-scripts/ReplaceWithRegister",
   {
-    "wellle/targets.vim",
-    config = function()
-      vim.cmd [[
-         autocmd User targets#mappings#user call targets#mappings#extend({
-            \ 'a': {'argument': [{'o':'[({<[]', 'c':'[]}>)]', 's': ','}]}
-            \ })
-      ]]
-    end,
+   "wellle/targets.vim",
+   config = function()
+     vim.cmd [[
+        autocmd User targets#mappings#user call targets#mappings#extend({
+           \ 'a': {'argument': [{'o':'[({<[]', 'c':'[]}>)]', 's': ','}]}
+           \ })
+     ]]
+   end,
   },
-  {
-    "ggandor/leap.nvim",
-    config = function()
-      vim.keymap.set("n", "s", "<Plug>(leap-forward)")
-      vim.keymap.set("n", "S", "<Plug>(leap-backward)")
-      vim.keymap.set("n", "gs", "<Plug>(leap-from-window)")
-    end,
-  },
+  "ggandor/lightspeed.nvim",
   {
     "folke/which-key.nvim",
+    cond = function()
+      return vim.fn.exists "g:vscode" == 0
+    end,
     config = function()
-      require("which-key").setup()
+      require("which-key").setup {}
     end,
   },
   {
     "windwp/nvim-autopairs",
     config = function()
-      local npairs = require "nvim-autopairs"
-      npairs.setup {}
-
-      local Rule = require "nvim-autopairs.rule"
-      npairs.add_rule(Rule("`", "`", "-ocaml"))
+      require("nvim-autopairs").setup {}
     end,
   },
   {
@@ -80,22 +66,13 @@ return {
   {
     "alvan/vim-closetag",
     config = function()
-      vim.g.closetag_filenames = "*.html,*.xml,*.tsx,*.csproj,*.vue,*.svelte"
-      vim.g.closetag_filetypes = "vue,html,htmldjango,svelte"
+      vim.g.closetag_filenames = "*.html,*.xml,*.*proj"
     end,
   },
   "AndrewRadev/tagalong.vim",
   {
-    "github/copilot.vim",
-    config = function()
-      vim.keymap.set("i", "<right>", 'copilot#Accept("\\<right>")', { expr = true, replace_keycodes = false })
-    end,
+    "williamboman/mason.nvim",
+    opts = {}
   },
-  {
-  "rafamadriz/friendly-snippets"
-  },
-  {
-  "kmonad/kmonad-vim",
-  },
-  { "eraserhd/parinfer-rust", build = "cargo build --release" }
+  "b0o/SchemaStore"
 }

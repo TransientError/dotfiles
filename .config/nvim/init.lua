@@ -61,6 +61,7 @@ else
   map.set("", "<leader>qq", ":qa!<CR>", { noremap = true })
   map.set("", "<leader>bl", "<C-o>", { noremap = true })
   map.set("n", "<Esc><Esc>", ":noh<CR>", { noremap = true })
+  map.set("", "<leader>l", ":Lazy<CR>", { noremap = true})
 
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>", { noremap = true })
 
