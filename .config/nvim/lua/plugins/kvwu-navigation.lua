@@ -19,7 +19,7 @@ return {
       end,
     },
     cmd = { "NvimTreeToggle" },
-    keys = { "<leader>op", ":NvimTreeToggle<CR>" },
+    keys = { { "<leader>op", ":NvimTreeToggle<CR>" } },
   },
   {
     "kevinhwang91/rnvimr",

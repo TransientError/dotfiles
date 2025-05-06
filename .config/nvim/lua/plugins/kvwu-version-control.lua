@@ -10,8 +10,10 @@ return {
       return vim.fn.exists "g:vscode" == 0 and vim.fn.glob ".git" ~= nil
     end,
     keys = {
-      "<leader>gg",
-      ":Git<CR>",
+      {
+        "<leader>gg",
+        ":Git<CR>",
+      },
     },
     init = function()
       vim.api.nvim_create_autocmd("FileType", {
