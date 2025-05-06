@@ -11,6 +11,11 @@ if status is-interactive
     bass ". $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
   end
 
+  if type -q pyenv
+    status is-interactive; and pyenv init --path | source
+    pyenv init - | source
+  end
+
   if type -q starship
     starship init fish | source
   end
