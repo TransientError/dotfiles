@@ -27,8 +27,10 @@ return {
       return vim.fn.exists "g:neovide" == 1
     end,
     keys = {
-      "<leader>.",
-      ":RnvimrToggle<CR>",
+      {
+        "<leader>.",
+        ":RnvimrToggle<CR>",
+      },
     },
   },
   {
