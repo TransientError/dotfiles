@@ -1,12 +1,11 @@
 return {
   {
     "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("ibl").setup()
+    opts = {},
+    init = function()
       vim.g.indent_blankline_filetype = { "python" }
     end,
     ft = "python",
   },
-  "michaeljsmith/vim-indent-object"
+  { "michaeljsmith/vim-indent-object", ft = { "python", "yaml" } },
 }
-

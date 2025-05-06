@@ -6,15 +6,34 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
     },
+    keys = {
+      {
+        "<leader>pf",
+        function()
+          require("telescope.builtin").find_files { cwd = require("telescope.utils").buffer_dir() }
+        end,
+      },
+      {
+        "<leader>fr",
+        function()
+          require("telescope.builtin").oldfiles()
+        end,
+      },
+      {
+        "<leader>,",
+        function()
+          require("telescope.builtin").buffers()
+        end,
+      },
+      {
+        "<leader>ha",
+        function()
+          require("telescope.builtin").help_tags()
+        end,
+      },
+      "<leader>/",
+    },
     config = function()
-      local builtin = require "telescope.builtin"
-      vim.keymap.set("n", "<leader>pf", function()
-        local utils = require "telescope.utils"
-        builtin.find_files { cwd = utils.buffer_dir() }
-      end, {})
-      vim.keymap.set("n", "<leader>fr", builtin.oldfiles, {})
-      vim.keymap.set("n", "<leader>,", builtin.buffers, {})
-      vim.keymap.set("n", "<leader>ha", builtin.help_tags, {})
       local telescope = require "telescope"
       local lga_actions = require "telescope-live-grep-args.actions"
 
@@ -37,10 +56,11 @@ return {
   },
   {
     "nvim-telescope/telescope-project.nvim",
+    keys = "<leader>pp",
     config = function()
       local telescope = require "telescope"
       telescope.load_extension "project"
       vim.keymap.set("n", "<leader>pp", telescope.extensions.project.project)
     end,
-  }
+  },
 }

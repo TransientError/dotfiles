@@ -1,30 +1,32 @@
 return {
   {
     "marko-cerovac/material.nvim",
-    config = function()
+    init = function()
       vim.g.material_style = "darker"
-      require("material").setup {
-        lualine_style = "default",
-        plugins = {
-          "dap",
-          "nvim-cmp",
-          "nvim-tree",
-          "telescope",
-          "which-key",
-          "gitsigns",
-        },
-        custom_colors = function(colors)
-          colors.editor.fg = "#eeffff"
-          colors.editor.fg_dark = colors.main.red
-          colors.syntax.colors = "#546e7a"
-          colors.editor.selection = "#2c2c2c"
-          colors.main.red = "#ff5370"
-          colors.editor.accent = colors.main.cyan
-          colors.syntax.type = colors.main.yellow
-        end,
-      }
       vim.cmd "colorscheme material"
     end,
+    lazy = false,
+    priority = 1000,
+    opts = {
+      lualine_style = "default",
+      plugins = {
+        "dap",
+        "nvim-cmp",
+        "nvim-tree",
+        "telescope",
+        "which-key",
+        "gitsigns",
+      },
+      custom_colors = function(colors)
+        colors.editor.fg = "#eeffff"
+        colors.editor.fg_dark = colors.main.red
+        colors.syntax.colors = "#546e7a"
+        colors.editor.selection = "#2c2c2c"
+        colors.main.red = "#ff5370"
+        colors.editor.accent = colors.main.cyan
+        colors.syntax.type = colors.main.yellow
+      end,
+    },
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -63,10 +65,11 @@ return {
         },
       }
     end,
+    dependencies = "mmarko-cerovac/material.nvim",
   },
   {
     url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
-    config = function ()
+    init = function()
       local colors = require "material.colors"
 
       vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = colors.main.red })
@@ -79,21 +82,20 @@ return {
 
       vim.g.rainbow_delimiters = {
         strategy = {
-          [''] = 'rainbow-delimiters.strategy.global',
+          [""] = "rainbow-delimiters.strategy.global",
         },
         query = {
-          [''] = 'rainbow-delimiters',
-          lua = 'rainbow-blocks',
+          [""] = "rainbow-delimiters",
+          lua = "rainbow-blocks",
         },
         priority = {
-          [''] = 110,
-          lua = 210
+          [""] = 110,
+          lua = 210,
         },
       }
     end,
     dependencies = {
-      "marko-cerovac/material.nvim"
-    }
-  }
+      "marko-cerovac/material.nvim",
+    },
+  },
 }
-

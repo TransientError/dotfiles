@@ -2,8 +2,10 @@ return {
 
   {
     "sbdchd/neoformat",
-    config = function()
-      vim.keymap.set("", "<leader>cf", ":Neoformat<CR>")
+    keys = {
+      { "<leader>cf", "<cmd>Neoformat<CR>" },
+    },
+    init = function()
       vim.g.neoformat_enabled_cs = { "csharpier" }
       vim.g.neoformat_enabled_python = { "black" }
       vim.g.neoformat_enabled_ocaml = { "ocamlformat" }
@@ -17,7 +19,10 @@ return {
     end,
   },
   "tpope/vim-surround",
-  "lambdalisue/suda.vim",
+  {
+    "lambdalisue/suda.vim",
+    cmd = { "SudaWrite" },
+  },
   "tpope/vim-commentary",
   "vim-scripts/ReplaceWithRegister",
   {
@@ -32,17 +37,15 @@ return {
   },
   {
     "ggandor/leap.nvim",
-    config = function()
-      vim.keymap.set("n", "s", "<Plug>(leap-forward)")
-      vim.keymap.set("n", "S", "<Plug>(leap-backward)")
-      vim.keymap.set("n", "gs", "<Plug>(leap-from-window)")
-    end,
+    keys = {
+      { "s", "<Plug>(leap-forward)" },
+      { "S", "<Plug>(leap-backward)" },
+      { "gs", "<Plug>(leap-from-window)" },
+    },
   },
   {
     "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup()
-    end,
+    opts = {},
   },
   {
     "windwp/nvim-autopairs",
@@ -55,34 +58,35 @@ return {
   },
   {
     "chentoast/marks.nvim",
-    opts = {}
+    opts = {},
   },
   "Pocco81/auto-save.nvim",
   {
     "akinsho/toggleterm.nvim",
-    config = function()
-      require("toggleterm").setup {
-        -- this is buggy for me
-        shade_terminals = false,
-        hide_numbers = false,
-      }
-      vim.keymap.set("", "<leader>ot", ":ToggleTerm<CR>")
-    end,
+    keys = {
+      { "<leader>ot", ":ToggleTerm<CR>" },
+    },
+    opts = {
+      -- this is buggy for me
+      shade_terminals = false,
+      hide_numbers = false,
+    },
   },
   {
     "airblade/vim-rooter",
-    config = function()
+    init = function()
       vim.g.rooter_patterns = { ".git", "=nvim" }
     end,
   },
   {
     "alvan/vim-closetag",
-    config = function()
+    ft = { "html", "xml", "typescript.tsx", "vue", "svelte" },
+    init = function()
       vim.g.closetag_filenames = "*.html,*.xml,*.tsx,*.csproj,*.vue,*.svelte"
       vim.g.closetag_filetypes = "vue,html,htmldjango,svelte"
     end,
   },
-  "AndrewRadev/tagalong.vim",
+  { "AndrewRadev/tagalong.vim", ft = { "html", "xml", "typescript.tsx", "vue", "svelte" } },
   {
     "github/copilot.vim",
     config = function()
@@ -90,13 +94,13 @@ return {
     end,
   },
   {
-  "rafamadriz/friendly-snippets"
+    "rafamadriz/friendly-snippets",
   },
   {
-  "kmonad/kmonad-vim",
+    "kmonad/kmonad-vim",
+    ft = "kbd",
   },
-  { "eraserhd/parinfer-rust", build = "cargo build --release" },
-  "b0o/SchemaStore",
-  {"williamboman/mason.nvim", opts = {}}
-
+  { "eraserhd/parinfer-rust", build = "cargo build --release", ft = "lisp" },
+  { "b0o/SchemaStore", ft = { "json", "jsonc", "yaml" } },
+  { "williamboman/mason.nvim", opts = {} },
 }
