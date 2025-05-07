@@ -1,3 +1,5 @@
+local utils = require "utils"
+
 return {
   {
     "nvim-tree/nvim-tree.lua",
@@ -23,9 +25,7 @@ return {
   },
   {
     "kevinhwang91/rnvimr",
-    cond = function()
-      return vim.fn.exists "g:neovide" == 1
-    end,
+    cond = utils.neovide,
     keys = {
       {
         "<leader>.",

@@ -29,4 +29,12 @@ function utils.opam()
   end
 end
 
+function utils.neovide()
+  return fn.exists "g:neovide" == 1
+end
+
+function utils.not_vscode()
+  return fn.exists "g:vscode" == 0
+end
+
 return utils

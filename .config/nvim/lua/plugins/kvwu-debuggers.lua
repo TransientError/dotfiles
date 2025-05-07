@@ -1,9 +1,9 @@
+local utils = require "utils"
+
 return {
   {
     "mfussenegger/nvim-dap",
-    cond = function()
-      return vim.fn.exists "g:vscode" == 0
-    end,
+    cond = utils.not_vscode,
     keys = {
       {
         "<leader>db",
@@ -45,9 +45,7 @@ return {
   },
   {
     "mxsdev/nvim-dap-vscode-js",
-    cond = function()
-      return vim.fn.exists "g:vscode" == 0
-    end,
+    cond = utils.not_vscode,
     ft = "typescript",
     dependencies = {
       "mfussenegger/nvim-dap",
@@ -78,9 +76,7 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
-    cond = function()
-      return vim.fn.exists "g:vscode" == 0
-    end,
+    cond = utils.not_vscode,
     keys = "<leader>dh",
     config = function()
       local dap, dapui = require "dap", require "dapui"

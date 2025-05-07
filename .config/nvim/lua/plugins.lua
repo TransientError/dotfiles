@@ -38,9 +38,9 @@ return {
   {
     "ggandor/leap.nvim",
     keys = {
-      { "s", "<Plug>(leap-forward)" },
-      { "S", "<Plug>(leap-backward)" },
-      { "gs", "<Plug>(leap-from-window)" },
+      { "s", "<Plug>(leap-forward)", mode = { "n", "v" } },
+      { "S", "<Plug>(leap-backward)", mode = { "n", "v" } },
+      { "gs", "<Plug>(leap-from-window)", mode = { "n", "v" } },
     },
   },
   {

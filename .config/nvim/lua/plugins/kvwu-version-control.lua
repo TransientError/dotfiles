@@ -1,3 +1,5 @@
+local utils = require "utils"
+
 return {
   {
     "lewis6991/gitsigns.nvim",
@@ -7,7 +9,7 @@ return {
   {
     "tpope/vim-fugitive",
     cond = function()
-      return vim.fn.exists "g:vscode" == 0 and vim.fn.glob ".git" ~= nil
+      return utils.not_vscode() and vim.fn.glob ".git" ~= nil
     end,
     keys = {
       {
