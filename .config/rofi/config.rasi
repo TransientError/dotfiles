@@ -1,5 +1,5 @@
 configuration {
-	modi: "combi,drun,run,window,filebrowser,ssh,calc";
+	modi: "combi,calc,filebrowser,ssh";
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/
@@ -52,7 +52,7 @@ configuration {
 /*	scrollbar-width: 8;*/
 /*	scroll-method: 0;*/
 /*	fake-background: "screenshot";*/
-/*	window-format: "{w}    {c}   {t}";*/
+    window-format: "{w}    {c}   {t}";
 /*	click-to-exit: true;*/
 /*	show-match: true;*/
 /*	color-normal: ;*/
