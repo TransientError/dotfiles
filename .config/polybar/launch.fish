@@ -6,7 +6,7 @@ polybar-msg cmd quit
 # Otherwise you can use the nuclear option:
 # killall -q polybar
 
-echo "---" | tee -a /tmp/polybar1.log /tmp/polybar2.log
+echo "---" | tee -a /tmp/polybar1.log 
 
 switch (hostname)
     case "frankie"
