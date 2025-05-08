@@ -31,7 +31,6 @@ bindsym $mod+q kill
 bindsym control+space exec --no-startup-id rofi -show 
 
 bindsym --release button2 kill
-bindsym button3 move scratchpad
 bindsym Control+button1 fullscreen toggle
 
 # toggle tiling / floating
@@ -52,8 +51,6 @@ bindsym $mod+Escape exec "~/.config/i3/lock.fish"
 include modes/resize.conf
 include modes/move.conf
 
-bindsym $mod+comma move scratchpad
-bindsym $mod+period scratchpad show
 bindsym F10 exec warpd --hint
 bindsym $mod+Control+Shift+Mod1+h exec warpd --hint
 bindsym Control+Shift+v exec copyq show
