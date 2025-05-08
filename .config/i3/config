@@ -60,6 +60,4 @@ bindcode --release 133 exec rofi -show window
 bindsym $mod+Shift+o exec picom-trans --current --toggle
 bindsym F11 exec python "/home/kvwu/.config/i3/i3_show_desktop/bg.py"
 
-for_window [class="floating"] floating enable
-for_window [class="copyq"] floating enable
-for_window [window_role="alert"] floating enable
+include rules.conf
