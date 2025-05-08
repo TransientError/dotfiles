@@ -71,7 +71,6 @@
 (after! text-mode (when (executable-find "aspell") (setq! ispell-dictionary "en")))
 (add-to-list 'prog-mode-hook #'display-fill-column-indicator-mode)
 (remove-hook 'write-file-functions #'whitespace-write-file-hook)
-(when (executable-find "aw-qt") (global-activity-watch-mode))
 (setq! native-comp-deferred-compilation t
        use-package-always-defer t)
 (global-evil-fringe-mark-mode)
@@ -87,7 +86,14 @@
   (setq browse-url-browser-function 'browse-url-generic browse-url-generic-program (kvwu/wsl-browser 'edge)))
 
 ;; evil
-(after! evil (map! :map evil-normal-state-map "U" #'evil-redo :leader "w v" #'evil-window-vnew "w s" #'evil-window-new))
+(after! evil
+  (map!
+   :map evil-normal-state-map
+   "U" #'evil-redo
+   :leader
+     "w v" #'evil-window-vnew
+     "w s" #'evil-window-new))
+
 (after! evil-multiedit (map! :map evil-multiedit-mode-map :vn "R" #'evil-multiedit-match-all))
 
 (load! "modules/org.el")
@@ -191,7 +197,7 @@
 ;; packages/utilities will choke on this output, causing unpredictable
 ;; issues
 (setq shell-file-name (executable-find "bash"))
-
+
 ;; mermaid
 (after! mermaid
   (add-to-list 'auto-mode-alist '("\\.mmdc\\'" . mermaid-mode)))

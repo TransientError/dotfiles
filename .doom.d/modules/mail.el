@@ -32,7 +32,7 @@
          mu4e-view-prefer-html nil
          mail-user-agent #'mu4e-user-agent
          mu4e-compose-context-policy 'ask-if-none
-         smtpmail-servers-requiring-authorization "127.0.0.1"
+         smtpmail-servers-requiring-authorization "smtp.gmail.com"
          mu4e-get-mail-command "true"
          mu4e-update-interval (* 15 60)) ; 15 minutes
 
@@ -40,7 +40,8 @@
         (IS-LINUX (setq! message-send-mail-function 'smtpmail-send-it
                          smtpmail-local-domain "gmail.com"
                          smtpmail-default-smtp-server "smtp.gmail.com"
-                         browse-url-browser-function #'browse-url-chrome)))
+                         browse-url-generic-program browse-url-firefox-program
+                         browse-url-browser-function #'browse-url-generic)))
 
   (add-to-list 'mm-discouraged-alternatives "text/html")
   (setq mu4e-bookmarks

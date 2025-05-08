@@ -52,7 +52,6 @@
 
 
 (package! company-tabnine)
-(when (executable-find "aw-qt") (package! activity-watch-mode))
 (package! org-tree-slide)
 (package! vimrc-mode)
 (package! ob-mermaid)
