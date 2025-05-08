@@ -1,8 +1,0 @@
-[Unit]
-Description=Run nitrogen every 30 minutes
-
-[Timer]
-OnUnitActiveSec=30min
-
-[Install]
-WantedBy=timers.target
