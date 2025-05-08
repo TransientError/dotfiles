@@ -31,10 +31,11 @@ bindsym $mod+q kill
 bindsym control+space exec --no-startup-id rofi -show 
 
 bindsym --release button2 kill
-bindsym Control+button1 fullscreen toggle
 
 # toggle tiling / floating
 bindsym $mod+y floating toggle
+bindsym $mod+comma focus mode_toggle
+bindsym $mod+p sticky toggle
 
 include navigation.conf
 include workspaces.conf
@@ -56,6 +57,7 @@ bindsym $mod+Control+Shift+Mod1+h exec warpd --hint
 bindsym Control+Shift+v exec copyq show
 bindsym Print exec flameshot gui
 bindcode --release 133 exec rofi -show window
+bindsym $mod+Shift+o exec picom-trans --current --toggle
 
 for_window [class="floating"] floating enable
 for_window [class="copyq"] floating enable
