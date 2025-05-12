@@ -22,7 +22,7 @@ bindsym XF86AudioPrev exec playerctl previous
 tiling_drag modifier titlebar
 floating_modifier Control+Shift
 
-bindsym $mod+t exec kitty
+bindsym $mod+t exec wezterm
 bindsym $mod+b exec zen-browser
 
 # kill focused window
