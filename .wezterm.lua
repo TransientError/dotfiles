@@ -19,6 +19,16 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   }
 elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
   config.color_scheme = "PaulMillr"
+  config.launch_menu = {
+    {
+      label = "Nushell",
+      args = { "nu" },
+    },
+    {
+      label = "Fish",
+      args = { "fish" },
+    },
+  }
 end
 
 config.font = wezterm.font "LigaHack Nerd Font"

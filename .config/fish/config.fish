@@ -53,6 +53,15 @@ if status is-interactive
   else
     abbr config 'git --git-dir $HOME/utils/dotfiles/.git --work-tree=$HOME'
   end
+
+  if type -q carapace
+    set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense'
+    carapace _carapace | source
+  end
+
+  if type -q zoxide
+    zoxide init fish | source
+  end
 end
 
 if test "$TERM" = "dumb"
