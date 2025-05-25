@@ -62,11 +62,11 @@ if status is-interactive
   if type -q zoxide
     zoxide init fish | source
   end
-end
 
-if test "$TERM" = "dumb"
-  function fish_prompt
-    echo "\$"
+  if test "$TERM" = "dumb"
+    function fish_prompt
+      echo "\$"
+    end
   end
 end
 
