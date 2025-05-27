@@ -5,6 +5,7 @@ return {
     keys = {
       { "<leader>cf", "<cmd>Neoformat<CR>" },
     },
+    cmd = "Neoformat",
     init = function()
       vim.g.neoformat_enabled_cs = { "csharpier" }
       vim.g.neoformat_enabled_python = { "black" }
@@ -25,16 +26,6 @@ return {
   },
   "tpope/vim-commentary",
   "vim-scripts/ReplaceWithRegister",
-  {
-    "wellle/targets.vim",
-    init = function()
-      vim.cmd [[
-         autocmd User targets#mappings#user call targets#mappings#extend({
-            \ 'a': {'argument': [{'o':'[({<[]', 'c':'[]}>)]', 's': ','}]}
-            \ })
-      ]]
-    end,
-  },
   {
     "ggandor/leap.nvim",
     keys = {
