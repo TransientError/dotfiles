@@ -9,6 +9,23 @@ return {
         replace = "cs",
       },
     },
+    keys = {
+      { "ys", "", desc = "add surround" },
+      { "ds", "", desc = "delete surround" },
+      { "cs", "", desc = "replace surround" },
+      {
+        "S",
+        function()
+          require("mini.surround").add "visual"
+        end,
+        mode = { "v" },
+        silent = true,
+      },
+    },
+    config = function(_, opts)
+      require("mini.surround").setup(opts)
+      vim.keymap.del("x", "ys")
+    end,
   },
   {
     "lambdalisue/suda.vim",
@@ -46,8 +63,15 @@ return {
     opts = {
       condition = function(buf)
         local path = vim.fn.expand "%:p"
-        local config = vim.fn.stdpath "config"
-        return vim.fn.getbufvar(buf, "&modifiable") == 1 and not string.find(path, "^" .. config)
+        local file_name = vim.fn.expand "%:t"
+        local configs = { vim.fn.stdpath "config", vim.env.USERPROFILE .. "\\.config\\wezterm" }
+        local config_files = { ".wezterm.lua" }
+        local is_in_config = vim.tbl_contains(configs, function(v)
+          return string.find(path, "^" .. v) ~= nil
+        end, { predicate = true })
+        local is_config_file = vim.list_contains(config_files, file_name)
+
+        return vim.fn.getbufvar(buf, "&modifiable") == 1 and not (is_in_config or is_config_file)
       end,
     },
   },
@@ -102,5 +126,16 @@ return {
         end,
       },
     },
+  },
+  {
+    "wellle/targets.vim",
+    event = "LazyFile",
+    init = function()
+      vim.cmd [[
+        autocmd User targets#mappings#user call targets#mappings#extend({
+           \ 'a': {'argument': [{'o':'[({<[]', 'c':'[]}>)]', 's': ','}]}
+           \ })
+     ]]
+    end,
   },
 }
