@@ -1,5 +1,15 @@
 return {
-  "tpope/vim-surround",
+  {
+    "echasnovski/mini.surround",
+    version = false,
+    opts = {
+      mappings = {
+        add = "ys",
+        delete = "ds",
+        replace = "cs",
+      },
+    },
+  },
   {
     "lambdalisue/suda.vim",
     cmd = { "SudaWrite" },
@@ -35,7 +45,7 @@ return {
     event = "LazyFile",
     opts = {
       condition = function(buf)
-        local path = vim.fn.expand "%:p:."
+        local path = vim.fn.expand "%:p"
         local config = vim.fn.stdpath "config"
         return vim.fn.getbufvar(buf, "&modifiable") == 1 and not string.find(path, "^" .. config)
       end,
