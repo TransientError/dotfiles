@@ -64,7 +64,7 @@ return {
       condition = function(buf)
         local path = vim.fn.expand "%:p"
         local file_name = vim.fn.expand "%:t"
-        local configs = { vim.fn.stdpath "config", vim.env.USERPROFILE .. "\\.config\\wezterm" }
+        local configs = { vim.fn.stdpath "config", vim.env.HOME .. "/.config/wezterm" }
         local config_files = { ".wezterm.lua" }
         local is_in_config = vim.tbl_contains(configs, function(v)
           return string.find(path, "^" .. v) ~= nil
