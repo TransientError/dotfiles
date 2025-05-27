@@ -1,5 +1,4 @@
 return {
-
   {
     "sbdchd/neoformat",
     keys = {
@@ -51,7 +50,16 @@ return {
     "chentoast/marks.nvim",
     opts = {},
   },
-  "Pocco81/auto-save.nvim",
+  {
+    "Pocco81/auto-save.nvim",
+    opts = {
+      condition = function(buf)
+        local path = vim.fn.expand "%:p:."
+        local config = vim.fn.stdpath "config"
+        return vim.fn.getbufvar(buf, "&modifiable") == 1 and not string.find(path, "^" .. config)
+      end,
+    },
+  },
   {
     "akinsho/toggleterm.nvim",
     keys = {
@@ -70,22 +78,19 @@ return {
     end,
   },
   {
-    "alvan/vim-closetag",
-    ft = { "html", "xml", "typescript.tsx", "vue", "svelte" },
-    init = function()
-      vim.g.closetag_filenames = "*.html,*.xml,*.tsx,*.csproj,*.vue,*.svelte"
-      vim.g.closetag_filetypes = "vue,html,htmldjango,svelte"
-    end,
+    "windwp/nvim-ts-autotag",
+    event = "LazyFile",
   },
-  { "AndrewRadev/tagalong.vim", ft = { "html", "xml", "typescript.tsx", "vue", "svelte" } },
   {
     "github/copilot.vim",
+    event = { "LazyFile", "VeryLazy" },
     config = function()
       vim.keymap.set("i", "<right>", 'copilot#Accept("\\<right>")', { expr = true, replace_keycodes = false })
     end,
   },
   {
     "rafamadriz/friendly-snippets",
+    event = "VeryLazy",
   },
   {
     "kmonad/kmonad-vim",
@@ -93,5 +98,5 @@ return {
   },
   { "eraserhd/parinfer-rust", build = "cargo build --release", ft = "lisp" },
   { "b0o/SchemaStore", ft = { "json", "jsonc", "yaml" } },
-  { "williamboman/mason.nvim", opts = {} },
+  { "williamboman/mason.nvim", opts = {}, event = "VeryLazy" },
 }

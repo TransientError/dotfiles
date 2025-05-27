@@ -3,8 +3,6 @@ local utils = require "utils"
 
 local g = vim.g
 local opt = vim.opt
-local fn = vim.fn
-local cmd = vim.cmd
 local map = vim.keymap
 
 utils.process_settings {
