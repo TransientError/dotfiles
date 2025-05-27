@@ -54,6 +54,10 @@ if status is-interactive
     abbr config 'git --git-dir $HOME/utils/dotfiles/.git --work-tree=$HOME'
   end
 
+  if type -q zoxide
+    zoxide init fish | source
+  end
+
   if type -q carapace
     set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense'
     carapace _carapace | source
