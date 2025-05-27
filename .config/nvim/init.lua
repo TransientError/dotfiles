@@ -67,9 +67,6 @@ else
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>", { noremap = true })
 
   vim.api.nvim_create_autocmd("VimResized", { pattern = "*", command = "wincmd =" })
-  vim.api.nvim_create_user_command("Opam", function()
-    utils.opam()
-  end, {})
 
   local uname = vim.fn.system("uname -a")
   if string.find(uname, "WSL") then
