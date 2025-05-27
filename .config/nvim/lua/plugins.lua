@@ -1,29 +1,9 @@
 return {
-  {
-    "sbdchd/neoformat",
-    keys = {
-      { "<leader>cf", "<cmd>Neoformat<CR>" },
-    },
-    cmd = "Neoformat",
-    init = function()
-      vim.g.neoformat_enabled_cs = { "csharpier" }
-      vim.g.neoformat_enabled_python = { "black" }
-      vim.g.neoformat_enabled_ocaml = { "ocamlformat" }
-      vim.g.neoformat_svelte_prettierv3 = {
-        exe = "prettier",
-        args = { "--plugin prettier-plugin-svelte" },
-        stdin = 1,
-        try_node_exe = 1,
-      }
-      vim.g.neoformat_enabled_svelte = { "prettierv3" }
-    end,
-  },
   "tpope/vim-surround",
   {
     "lambdalisue/suda.vim",
     cmd = { "SudaWrite" },
   },
-  "tpope/vim-commentary",
   "vim-scripts/ReplaceWithRegister",
   {
     "ggandor/leap.nvim",
@@ -51,7 +31,8 @@ return {
     opts = {},
   },
   {
-    "Pocco81/auto-save.nvim",
+    "pocco81/auto-save.nvim",
+    event = "LazyFile",
     opts = {
       condition = function(buf)
         local path = vim.fn.expand "%:p:."
@@ -99,4 +80,17 @@ return {
   { "eraserhd/parinfer-rust", build = "cargo build --release", ft = "lisp" },
   { "b0o/SchemaStore", ft = { "json", "jsonc", "yaml" } },
   { "williamboman/mason.nvim", opts = {}, event = "VeryLazy" },
+  {
+    "stevearc/conform.nvim",
+    opts = { formatters_by_ft = { lua = { "stylua" } } },
+    event = "LazyFile",
+    keys = {
+      {
+        "<leader>cf",
+        function()
+          require("conform").format { async = true }
+        end,
+      },
+    },
+  },
 }
