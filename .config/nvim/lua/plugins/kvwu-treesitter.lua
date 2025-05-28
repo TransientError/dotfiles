@@ -128,4 +128,8 @@ return {
       return utils.concat(move_mappings, swap_mappings, select_mappings)
     end,
   },
+  {
+    "windwp/nvim-ts-autotag",
+    event = "LazyFile",
+  },
 }
