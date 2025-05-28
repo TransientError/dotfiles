@@ -9,7 +9,7 @@ return {
       },
     },
     dependencies = {
-      { "gonstoll/wezterm-types", lazy = true },
+      { "TransientError/wezterm-types", lazy = true },
     },
   },
 }
