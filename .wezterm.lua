@@ -7,17 +7,7 @@ tabline.apply_to_config(config)
 config.window_decorations = "TITLE | RESIZE"
 config.tab_bar_at_bottom = true
 
-if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-  config.default_prog = { "pwsh" }
-  config.color_scheme = "Campbell (Gogh)"
-
-  config.launch_menu = {
-    {
-      label = "Powershell",
-      args = { "pwsh" },
-    },
-  }
-elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
+if wezterm.target_triple == "x86_64-unknown-linux-gnu" then
   config.color_scheme = "PaulMillr"
   config.launch_menu = {
     {
