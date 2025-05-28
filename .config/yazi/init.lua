@@ -1,4 +1,3 @@
-require("bookmarks"):setup({
-  last_directory = { enable = true, persist = false, mode = "dir" }
-})
-
+require("bookmarks"):setup {
+  last_directory = { enable = true, persist = false, mode = "dir" },
+}
