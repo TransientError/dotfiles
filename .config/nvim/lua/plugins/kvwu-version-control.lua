@@ -7,23 +7,27 @@ return {
     opts = {},
   },
   {
-    "tpope/vim-fugitive",
-    cond = function()
-      return utils.not_vscode() and vim.fn.glob ".git" ~= nil
-    end,
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+    },
+    cmd = "Neogit",
     keys = {
       {
         "<leader>gg",
-        ":Git<CR>",
+        "<cmd>Neogit<cr>",
+        silent = true,
       },
     },
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "fugitive",
-        callback = function()
-          vim.keymap.set("n", "pu", ":Git push<CR", { noremap = true, buffer = true })
-        end,
-      })
+    opts = function()
+      local colors = require "material.colors"
+      return {
+        highlight = {
+          bg_green = colors.editor.bg,
+          bg_red = colors.editor.bg,
+        },
+      }
     end,
   },
 }

@@ -12,4 +12,8 @@ return {
       { "TransientError/wezterm-types", lazy = true },
     },
   },
+  {
+    "rafcamlet/nvim-luapad",
+    cmd = { "Luapad", "LuaRun" },
+  },
 }

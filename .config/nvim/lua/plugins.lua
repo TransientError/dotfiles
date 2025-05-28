@@ -31,15 +31,6 @@ return {
     "lambdalisue/suda.vim",
     cmd = { "SudaWrite" },
   },
-  "vim-scripts/ReplaceWithRegister",
-  {
-    "ggandor/leap.nvim",
-    keys = {
-      { "s", "<Plug>(leap-forward)", mode = { "n", "v" } },
-      { "S", "<Plug>(leap-backward)", mode = { "n" } },
-      { "gs", "<Plug>(leap-from-window)", mode = { "n", "v" } },
-    },
-  },
   {
     "folke/which-key.nvim",
     opts = {},
@@ -97,13 +88,6 @@ return {
     event = "LazyFile",
   },
   {
-    "github/copilot.vim",
-    event = { "LazyFile", "VeryLazy" },
-    config = function()
-      vim.keymap.set("i", "<right>", 'copilot#Accept("\\<right>")', { expr = true, replace_keycodes = false })
-    end,
-  },
-  {
     "rafamadriz/friendly-snippets",
     event = "VeryLazy",
   },
@@ -137,5 +121,84 @@ return {
            \ })
      ]]
     end,
+  },
+  {
+    "gbprod/substitute.nvim",
+    opts = {},
+    keys = {
+      {
+        "gr",
+        function()
+          require("substitute").operator()
+        end,
+        mode = "n",
+        noremap = true,
+      },
+    },
+  },
+  {
+    "aaronik/treewalker.nvim",
+    opts = {},
+    keys = {
+      {
+        "<leader>sl",
+        "<cmd>Treewalker SwapRight<cr>",
+        silent = true,
+      },
+      {
+        "<leader>sh",
+        "<cmd>Treewalker SwapLeft<cr>",
+        silent = true,
+      },
+      {
+        "<leader>sj",
+        "<cmd>Treewalker SwapDown<cr>",
+        silent = true,
+      },
+      {
+        "<leader>sk",
+        "<cmd>Treewalker SwapUp<cr>",
+        silent = true,
+      },
+    },
+  },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "s",
+        function()
+          require("flash").jump()
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Flash",
+      },
+      {
+        "S",
+        function()
+          require("flash").treesitter()
+        end,
+        mode = { "n" },
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        function()
+          require("flash").remote()
+        end,
+        mode = { "o", "x" },
+        desc = "Flash Remote",
+      },
+      {
+        "R",
+        function()
+          require("flash").treesitter_search()
+        end,
+        mode = { "o", "x" },
+        desc = "Flash Treesitter Search",
+      },
+    },
   },
 }
