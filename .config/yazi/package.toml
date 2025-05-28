@@ -28,6 +28,21 @@ use = "yazi-rs/plugins:toggle-pane"
 rev = "864a021"
 hash = "f3853bbdd1da2fad09d059ab5464abfd"
 
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "70ed228"
+hash = "99a9bd21bc896710bbfce44f1ea00f74"
+
+[[plugin.deps]]
+use = "dedukun/relative-motions"
+rev = "ce2e890"
+hash = "23915860e59348bf4166778bb0e606f7"
+
+[[plugin.deps]]
+use = "DreamMaoMao/searchjump"
+rev = "fe884f4"
+hash = "b4c00ef6899a9563af8d577d0bb46998"
+
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
 rev = "b3950bf"
