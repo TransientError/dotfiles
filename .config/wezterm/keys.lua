@@ -1,4 +1,4 @@
-local wezterm = require "wezterm"
+local wezterm = require "wezterm" --[[@as Wezterm]]
 local M = {}
 
 function M.apply_to_config(config)
@@ -57,6 +57,11 @@ function M.apply_to_config(config)
       mods = "CTRL",
       action = wezterm.action.SpawnTab "CurrentPaneDomain",
     },
+    {
+      mods = "LEADER",
+      key = "/",
+      action = wezterm.action.Search { CaseInSensitiveString = '' },
+    }
   }
 
   for i = 0, 9, 1 do
