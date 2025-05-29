@@ -87,6 +87,7 @@
            :repo "kmonad/kbd-mode"))
 (package! graphql-mode)
 (package! copilot-chat)
+(package! evil-easymotion :disable t)
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 

@@ -108,7 +108,7 @@
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
-       tree-sitter       ; syntax and parsing, sitting in a tree
+       ;; tree-sitter       ; syntax and parsing, sitting in a tree
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
@@ -127,7 +127,7 @@
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
-       (emacs-lisp +tree-sitter)        ; drown in parentheses
+       emacs-lisp        ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
        ;;ess               ; emacs speaks statistics
        ;;faust             ; dsp, but you get to keep your soul

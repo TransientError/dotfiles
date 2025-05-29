@@ -95,7 +95,22 @@
    :leader
    "w v" #'evil-window-vnew
    "w s" #'evil-window-new)
+  (setq avy-timeout-seconds 0.3)
   (map! :n "s" #'evil-avy-goto-char-2 :n "S" #'evil-avy-goto-char-timer))
+
+(use-package! evil-surround
+  :demand t
+  :after evil
+  :config
+  (evil-define-command evil-sandwich (char)
+    (interactive (evil-surround-input-char))
+    (call-interactively
+        (pcase char
+            (?a #'evil-surround-region)
+            (?r #'evil-surround-change)
+            (?d #'evil-surround-delete))))
+  (map! :n "g s" 'evil-sandwich))
+
 
 
 (after! evil-multiedit (map! :map evil-multiedit-mode-map :vn "R" #'evil-multiedit-match-all))
