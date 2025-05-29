@@ -112,3 +112,6 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
         "j" #'org-habit-stats-view-next-habit
         "k" #'org-habit-stats-view-previous-habit))
 
+(use-package! org-mermaid
+  :config
+  (set ob-mermaid-cli-path "mmdc"))

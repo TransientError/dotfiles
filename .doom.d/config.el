@@ -66,6 +66,7 @@
 (load! "misc.el")
 
 ;; global
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 (map! :vni "C-v" #'yank)
 (setq-default fill-column 120)
 (after! text-mode (when (executable-find "aspell") (setq! ispell-dictionary "en")))
@@ -91,8 +92,10 @@
    :map evil-normal-state-map
    "U" #'evil-redo
    :leader
-     "w v" #'evil-window-vnew
-     "w s" #'evil-window-new))
+   "w v" #'evil-window-vnew
+   "w s" #'evil-window-new)
+  (map! :n "s" #'evil-avy-goto-char-2 :n "S" #'evil-avy-goto-char-timer))
+
 
 (after! evil-multiedit (map! :map evil-multiedit-mode-map :vn "R" #'evil-multiedit-match-all))
 
@@ -214,8 +217,8 @@
   (defun kvwu/yank-image-from-win-clipboard-through-powershell()
     (interactive)
     (let* ((powershell "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"))
-            (file-name (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))
-            (file-path-wsl (concat "./images/" file-name))
+      (file-name (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))
+      (file-path-wsl (concat "./images/" file-name))
 
       (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"C:/Users/wukevin/OneDrive - Microsoft/Pictures/Screenshots/" file-name "\\\")\""))
       (rename-file (concat "/mnt/c/Users/wukevin/OneDrive - Microsoft/Pictures/Screenshots/" file-name) file-path-wsl)
