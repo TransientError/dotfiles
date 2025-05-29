@@ -67,6 +67,10 @@ if status is-interactive
     zoxide init fish | source
   end
 
+  if type -q /opt/docfx/docfx
+    alias docfx /opt/docfx/docfx 
+  end
+
   if test "$TERM" = "dumb"
     function fish_prompt
       echo "\$"
