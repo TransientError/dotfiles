@@ -6,6 +6,7 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
+(setq use-package-compute-statistics t)
 (setq user-full-name "Kevin"
       user-mail-address "kvwu@transienterror.com")
 
@@ -163,24 +164,31 @@
 (use-package! copilot
   :after company
   :hook (prog-mode . copilot-mode)
+  :init
+  (setq copilot-indent-offset-warning-disable t)
   :config
   (customize-set-variable 'copilot-enable-predicates '(evil-insert-state-p))
-  (map! :desc "copilot" :map company-mode-map :i "TAB"
-        (defun kvwu/copilot-tab () (interactive)
-               (or (copilot-accept-completion) (company-indent-or-complete-common nil)))
-        "<right>" (defun kvwu/copilot-right () (interactive) (copilot-accept-completion) (evil-insert 1))))
+  (map! :desc "copilot" :map company-mode-map :i
+        "TAB" (defun kvwu/copilot-tab () (interactive)
+                     (or (copilot-accept-completion) (company-indent-or-complete-common nil)))
+        "<right>" (defun kvwu/copilot-right () (interactive) (copilot-accept-completion) (evil-insert 1))
+        "<C-right>" (copilot-accept-completion-by-word)
+        "<C-S-right>" (copilot-accept-completion-by-line)))
+
+(use-package! copilot-chat :after (org))
 
 ;; tabnine
-(use-package! company-tabnine
-  :after company
-  :init
-  (defun kvwu/activate-tabnine ()
-    (interactive)
-    (add-to-list 'company-backends 'company-tabnine))
-  :config
-  (setq +lsp-company-backends '(company-tabnine))
-  (map! :desc "tabnine" :map company-mode-map :i "TAB"
-        (defun kvwu/tabnine-tab () (interactive) (company-indent-or-complete-common nil))))
+(when (personal-config-has-profile 'tabnine)
+  (use-package! company-tabnine
+    :after company
+    :init
+    (defun kvwu/activate-tabnine ()
+      (interactive)
+      (add-to-list 'company-backends 'company-tabnine))
+    :config
+    (setq +lsp-company-backends '(company-tabnine))
+    (map! :desc "tabnine" :map company-mode-map :i "TAB"
+          (defun kvwu/tabnine-tab () (interactive) (company-indent-or-complete-common nil)))))
 
 ;; json
 (add-hook 'json-mode-hook #'rainbow-delimiters-mode)
@@ -200,7 +208,7 @@
 ;; packages/utilities will choke on this output, causing unpredictable
 ;; issues
 (setq shell-file-name (executable-find "bash"))
-
+;;
 ;; mermaid
 (after! mermaid
   (add-to-list 'auto-mode-alist '("\\.mmdc\\'" . mermaid-mode)))

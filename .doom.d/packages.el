@@ -86,6 +86,7 @@
   :recipe (:host github
            :repo "kmonad/kbd-mode"))
 (package! graphql-mode)
+(package! copilot-chat)
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
