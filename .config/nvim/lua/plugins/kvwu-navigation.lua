@@ -84,4 +84,21 @@ return {
       },
     },
   },
+  {
+    "mikavilpas/yazi.nvim",
+    cond = function ()
+      return vim.g.neovide
+    end,
+    event = "VeryLazy",
+    cmd = "Yazi",
+    init = function ()
+      vim.g.loaded_netrwPlugin = 1
+    end,
+    opts = {
+      open_for_directories = true,
+      keymaps = {
+        show_help = "<f1>"
+      }
+    }
+  }
 }
