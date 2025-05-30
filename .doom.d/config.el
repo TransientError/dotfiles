@@ -243,7 +243,12 @@
       (file-name (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))
       (file-path-wsl (concat "./images/" file-name))
 
-      (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"C:/Users/wukevin/OneDrive - Microsoft/Pictures/Screenshots/" file-name "\\\")\""))
+      (shell-command
+       (concat
+        powershell
+        " -command \"(Get-Clipboard -Format Image).Save(\\\"C:/Users/wukevin/OneDrive - Microsoft/Pictures/Screenshots/"
+        file-name
+        "\\\")\""))
       (rename-file (concat "/mnt/c/Users/wukevin/OneDrive - Microsoft/Pictures/Screenshots/" file-name) file-path-wsl)
       (insert (concat "[[file:" file-path-wsl "]]"))
       (message "insert DONE."))))
