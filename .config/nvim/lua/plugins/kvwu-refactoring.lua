@@ -18,32 +18,36 @@ return {
       {
         "<leader>ri",
         function()
-          refactoring.refactor "Inline Variable"
+          return refactoring.refactor "Inline Variable"
         end,
         mode = { "n", "v" },
         desc = "Inline Variable",
+        expr = true
       },
       {
         "<leader>rf",
         function()
-          refactoring.refactor "Extract Function"
+          return refactoring.refactor "Extract Function"
         end,
         mode = "v",
         desc = "Extract Function",
+        expr = true
       },
       {
         "<leader>rx",
         function()
-          ("refactoring").refactor "Extract Variable"
+          return refactoring.refactor "Extract Variable"
         end,
         mode = "v",
         desc = "Extract Variable",
+        expr = true
       },
       {
         "<leader>rp",
         function()
           refactoring.debug.printf { below = false }
         end,
+        desc = "printf"
       },
       {
         "<leader>rv",
@@ -51,12 +55,14 @@ return {
           refactoring.debug.print_var {}
         end,
         mode = { "n", "x" },
+        desc = "print variable"
       },
       {
         "<leader>rc",
         function()
           refactoring.debug.cleanup {}
         end,
+        desc = "Cleanup print statements"
       },
     }
   end,
