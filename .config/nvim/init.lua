@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 local utils = require "utils"
 
 local g = vim.g
@@ -53,6 +54,7 @@ else
   map.set("", "<leader>wL", ":wincmd L<CR>", { noremap = true })
   map.set("", "<leader>ws", ":wincmd s<CR>", { noremap = true })
   map.set("", "<leader>wv", ":wincmd v<CR>", { noremap = true })
+  map.set("", "<leader>wo", ":wincmd o<CR>", { noremap = true })
   map.set("", "<leader>wd", ":close<CR>", { noremap = true })
   map.set("", "<leader>w=", ":wincmd =<CR>", { noremap = true })
   map.set("", "<leader>wmm", ":wincmd _<CR>", { noremap = true })
