@@ -3,7 +3,7 @@
 (map! :leader :prefix "nr" "t" #'org-roam-tag-add "S" #'org-roam-ref-add)
 
 (use-package! org-roam
-  :after org
+  :defer-incrementally org
   :init
   (setq org-roam-directory (file-truename org-directory) org-roam-db-update-on-save nil)
   :config

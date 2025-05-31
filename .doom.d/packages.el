@@ -88,6 +88,7 @@
 (package! graphql-mode)
 (package! copilot-chat)
 (package! evil-easymotion :disable t)
+(package! benchmark-init)
 
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 

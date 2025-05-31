@@ -24,15 +24,16 @@ You can use interactively by typing `C-c C-x e` or by sending parameter as `M-3 
       (:prefix ("X" . "quick open")
        :desc "open refile" "r"
        (cmd! () (find-file (if (personal-config-has-profile 'work) "~/org-roam/refile.org" "~/Dropbox/todo.org")))
-       :desc "open todo" "t" (cmd! () (if (personal-config-has-profile 'work) (find-file (concat org-directory "todo.org")) (find-file (concat "~/Dropbox/" "todo.org")))
-                              (:unless (personal-config-has-profile 'work)
-                                :desc "open habits" "h"
-                                (cmd! () (find-file "~/Dropbox/habit-tracker.org"))
-                                :desc "open journal" "j" (cmd! () (find-file (concat org-directory "journal.org"))))
-                              (:when (personal-config-has-profile 'work)
-                                :desc "open personal" "p" (cmd! () (find-file "~/org-roam/personal.org")))
-                              (:unless (personal-config-has-profile 'work)
-                                :desc "open long term" "s" (cmd! () (find-file "~/Dropbox/long-term.org"))))))
+       :desc "open todo" "t"
+        (cmd! () (if (personal-config-has-profile 'work) (find-file (concat org-directory "todo.org")) (find-file (concat "~/Dropbox/" "todo.org"))))
+        (:unless (personal-config-has-profile 'work)
+          :desc "open habits" "h"
+          (cmd! () (find-file "~/Dropbox/habit-tracker.org"))
+          :desc "open journal" "j" (cmd! () (find-file (concat org-directory "journal.org"))))
+        (:when (personal-config-has-profile 'work)
+          :desc "open personal" "p" (cmd! () (find-file "~/org-roam/personal.org")))
+        (:unless (personal-config-has-profile 'work)
+          :desc "open long term" "s" (cmd! () (find-file "~/Dropbox/long-term.org")))))
 
 (map! :map org-capture-mode-map :i :desc "finalize and go" "C-c C-c" (cmd! () (org-capture-finalize t)))
 

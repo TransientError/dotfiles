@@ -2,7 +2,8 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
-
+(require 'benchmark-init)
+(add-hook 'after-init-hook #'benchmark-init/deactivate)
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -177,7 +178,7 @@
 
 ;; copilot
 (use-package! copilot
-  :after company
+  :defer-incrementally company
   :hook (prog-mode . copilot-mode)
   :init
   (setq copilot-indent-offset-warning-disable t)
