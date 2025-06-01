@@ -17,6 +17,14 @@ return {
       { add, desc = "add surround" },
       { delete, desc = "delete surround" },
       { change, desc = "replace surround" },
+      {
+        "S",
+        function()
+          require("mini.surround").add "visual"
+        end,
+        mode = "x",
+        silent = true,
+      },
     },
   },
   {
@@ -104,18 +112,18 @@ return {
       {
         "s",
         function()
-          require("flash").jump({
+          require("flash").jump {
             search = {
               ---@type Flash.Pattern.Mode
-              mode = function (str)
+              mode = function(str)
                 -- allow two spaces to target an empty line
                 if str == "  " then
                   return "^$"
                 end
                 return str
-              end
-            }
-          })
+              end,
+            },
+          }
         end,
         mode = { "n", "x", "o" },
         desc = "Flash",
@@ -145,5 +153,5 @@ return {
         desc = "Flash Treesitter Search",
       },
     },
-  }
+  },
 }

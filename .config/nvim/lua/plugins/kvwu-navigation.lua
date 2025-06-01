@@ -46,7 +46,7 @@ return {
     event = "VeryLazy",
     cmd = "Yazi",
     keys = {
-      { "<leader>fe", "<cmd>Yazi<CR>", mode = { "n" } },
+      { "<leader>y", "<cmd>Yazi<CR>", mode = { "n" } },
     },
     init = function()
       vim.g.loaded_netrwPlugin = 1

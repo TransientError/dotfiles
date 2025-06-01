@@ -31,7 +31,7 @@ else
       opt.guifont = "LigaHack Nerd Font:h12"
     end
 
-    map.set("", "<leader>qr", ":!pkill neovide; neovide<CR>", { noremap = true })
+    map.set("n", "<leader>qr", ":!set -l pid (pgrep neovide) && neovide &; disown && kill $pid<CR>", { noremap = true })
   end
   utils.process_settings {
     opt = {
@@ -61,26 +61,27 @@ else
   map.set("", "<leader>qq", ":qa!<CR>", { noremap = true })
   map.set("", "<leader>bl", "<C-o>", { noremap = true })
   map.set("", "<leader>bd", ":bdelete", { noremap = true })
+  map.set("", "<leader>bn", ":new", { noremap = true })
   map.set("n", "<Esc><Esc>", ":noh<CR>", { noremap = true })
-  map.set("", "<leader>l", ":Lazy<CR>", { noremap = true})
+  map.set("", "<leader>l", ":Lazy<CR>", { noremap = true })
 
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>", { noremap = true })
 
   vim.api.nvim_create_autocmd("VimResized", { pattern = "*", command = "wincmd =" })
 
-  local uname = vim.fn.system("uname -a")
+  local uname = vim.fn.system "uname -a"
   if string.find(uname, "WSL") then
     vim.g.clipboard = {
-      name = 'win32yank',
+      name = "win32yank",
       copy = {
-        ['+'] = 'win32yank.exe -i --crlf',
-        ['*'] = 'win32yank.exe -i --crlf'
+        ["+"] = "win32yank.exe -i --crlf",
+        ["*"] = "win32yank.exe -i --crlf",
       },
       paste = {
-        ['+'] = 'win32yank.exe -o --lf',
-        ['*'] = 'win32yank.exe -o --lf'
+        ["+"] = "win32yank.exe -o --lf",
+        ["*"] = "win32yank.exe -o --lf",
       },
-      cache_enabled = 0
+      cache_enabled = 0,
     }
   end
 end
