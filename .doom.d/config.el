@@ -106,11 +106,15 @@
   (evil-define-command evil-sandwich (char)
     (interactive (evil-surround-input-char))
     (call-interactively
-        (pcase char
-            (?a #'evil-surround-region)
-            (?r #'evil-surround-change)
-            (?d #'evil-surround-delete))))
+     (pcase char
+       (?a #'evil-surround-region)
+       (?r #'evil-surround-change)
+       (?d #'evil-surround-delete))))
   (map! :n "g s" 'evil-sandwich))
+
+(use-package! avy
+  :config
+  (setopt avy-all-windows t))
 
 
 
