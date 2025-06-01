@@ -1,3 +1,7 @@
+if require("utils").minimal() then
+  return {}
+end
+
 return {
   {
     "folke/lazydev.nvim",

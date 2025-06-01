@@ -1,3 +1,7 @@
+if require("utils").minimal() then
+  return {}
+end
+
 return {
   {
     "udalov/kotlin-vim",
@@ -6,6 +10,5 @@ return {
   { "jparise/vim-graphql", ft = "graphql" },
   { "cespare/vim-toml", ft = "toml" },
   { "dag/vim-fish", ft = "fish" },
-  { "mattn/emmet-vim", ft = { "html", "jsx", "xml" } }
+  { "mattn/emmet-vim", ft = { "html", "jsx", "xml" }, keys = { "<C-y>" } },
 }
-

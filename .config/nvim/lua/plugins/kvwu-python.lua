@@ -1,3 +1,8 @@
+local utils = require "utils"
+if utils.minimal() then
+  return {}
+end
+
 return {
   {
     "lukas-reineke/indent-blankline.nvim",

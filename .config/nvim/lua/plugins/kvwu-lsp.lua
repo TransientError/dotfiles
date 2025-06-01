@@ -1,3 +1,7 @@
+if require("utils").minimal() then
+  return {}
+end
+
 return {
   {
     "neovim/nvim-lspconfig",

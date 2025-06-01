@@ -1,31 +1,23 @@
+local add = "gsa"
+local delete = "gsd"
+local change = "gsc"
+
 return {
   {
     "echasnovski/mini.surround",
     version = false,
     opts = {
       mappings = {
-        add = "ys",
-        delete = "ds",
-        replace = "cs",
+        add = add,
+        delete = delete,
+        replace = change,
       },
     },
     keys = {
-      { "ys", "", desc = "add surround" },
-      { "ds", "", desc = "delete surround" },
-      { "cs", "", desc = "replace surround" },
-      {
-        "S",
-        function()
-          require("mini.surround").add "visual"
-        end,
-        mode = { "v" },
-        silent = true,
-      },
+      { add, desc = "add surround" },
+      { delete, desc = "delete surround" },
+      { change, desc = "replace surround" },
     },
-    config = function(_, opts)
-      require("mini.surround").setup(opts)
-      vim.keymap.del("x", "ys")
-    end,
   },
   {
     "windwp/nvim-autopairs",
@@ -100,4 +92,58 @@ return {
       },
     },
   },
+  {
+    "rafamadriz/friendly-snippets",
+    event = "VeryLazy",
+  },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "s",
+        function()
+          require("flash").jump({
+            search = {
+              ---@type Flash.Pattern.Mode
+              mode = function (str)
+                -- allow two spaces to target an empty line
+                if str == "  " then
+                  return "^$"
+                end
+                return str
+              end
+            }
+          })
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Flash",
+      },
+      {
+        "S",
+        function()
+          require("flash").treesitter()
+        end,
+        mode = { "n" },
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        function()
+          require("flash").remote()
+        end,
+        mode = { "o", "x" },
+        desc = "Flash Remote",
+      },
+      {
+        "R",
+        function()
+          require("flash").treesitter_search()
+        end,
+        mode = { "o", "x" },
+        desc = "Flash Treesitter Search",
+      },
+    },
+  }
 }

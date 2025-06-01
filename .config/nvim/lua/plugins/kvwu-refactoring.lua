@@ -1,3 +1,8 @@
+local utils = require "utils"
+if utils.minimal() then
+  return {}
+end
+
 return {
   "ThePrimeagen/refactoring.nvim",
   opts = { show_success_message = true },

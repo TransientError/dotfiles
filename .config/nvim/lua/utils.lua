@@ -17,10 +17,10 @@ function utils.process_settings(settings_table)
 end
 
 function utils.opam()
-  local opam_eval = vim.fn.system("opam env --shell=bash")
+  local opam_eval = vim.fn.system "opam env --shell=bash"
   local cmds = vim.split(opam_eval, "\n")
   for _, cmd in pairs(cmds) do
-    if cmd ~= '' then
+    if cmd ~= "" then
       local words = vim.split(cmd, "=")
       local trim = string.gsub(vim.split(words[2], ";")[1], "'", "")
       print(string.format("Set %s to %s", words[1], trim))
@@ -37,8 +37,12 @@ function utils.not_vscode()
   return fn.exists "g:vscode" == 0
 end
 
+function utils.minimal()
+  return vim.g.vscode == 1 or vim.g.started_by_firenvim == true
+end
+
 ---@generic T
----@param ... (T[]|T)[] 
+---@param ... (T[]|T)[]
 ---@return T[]
 function utils.concat(...)
   local t = {}

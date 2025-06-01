@@ -1,3 +1,7 @@
+local utils = require "utils"
+if utils.minimal() then
+  return {}
+end
 return {
   {
     "nvim-telescope/telescope.nvim",

@@ -1,4 +1,7 @@
 local utils = require "utils"
+if utils.minimal() then
+  return {}
+end
 
 return {
   {
@@ -24,16 +27,6 @@ return {
     keys = { { "<leader>op", ":NvimTreeToggle<CR>" } },
   },
   {
-    "kevinhwang91/rnvimr",
-    cond = utils.neovide,
-    keys = {
-      {
-        "<leader>.",
-        ":RnvimrToggle<CR>",
-      },
-    },
-  },
-  {
     "brenton-leighton/multiple-cursors.nvim",
     opts = {}, -- This causes the plugin setup function to be called
     keys = {
@@ -43,45 +36,6 @@ return {
       { "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = { "n", "i" }, desc = "Add or remove cursor" },
 
       { "<M-d>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = { "n", "x" }, desc = "Jump to next cword" },
-    },
-  },
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    opts = {},
-    keys = {
-      {
-        "s",
-        function()
-          require("flash").jump()
-        end,
-        mode = { "n", "x", "o" },
-        desc = "Flash",
-      },
-      {
-        "S",
-        function()
-          require("flash").treesitter()
-        end,
-        mode = { "n" },
-        desc = "Flash Treesitter",
-      },
-      {
-        "r",
-        function()
-          require("flash").remote()
-        end,
-        mode = { "o", "x" },
-        desc = "Flash Remote",
-      },
-      {
-        "R",
-        function()
-          require("flash").treesitter_search()
-        end,
-        mode = { "o", "x" },
-        desc = "Flash Treesitter Search",
-      },
     },
   },
   {

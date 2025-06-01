@@ -1,3 +1,7 @@
+if require("utils").minimal() then
+  return {}
+end
+
 return {
   {
     "lambdalisue/suda.vim",
@@ -51,14 +55,16 @@ return {
     event = "LazyFile",
   },
   {
-    "rafamadriz/friendly-snippets",
-    event = "VeryLazy",
-  },
-  {
     "kmonad/kmonad-vim",
     ft = "kbd",
   },
   { "eraserhd/parinfer-rust", build = "cargo build --release", ft = "lisp" },
   { "b0o/SchemaStore", ft = { "json", "jsonc", "yaml" } },
-  { "williamboman/mason.nvim", opts = {}, event = "VeryLazy" },
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    keys = { { "<leader>m", "<cmd>Mason<CR>" } },
+    opts = {},
+    event = "VeryLazy",
+  },
 }
