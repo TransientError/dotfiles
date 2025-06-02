@@ -60,8 +60,8 @@ else
   map.set("", "<leader>wmm", ":wincmd _<CR>", { noremap = true })
   map.set("", "<leader>qq", ":qa!<CR>", { noremap = true })
   map.set("", "<leader>bl", "<C-o>", { noremap = true })
-  map.set("", "<leader>bd", ":bdelete", { noremap = true })
-  map.set("", "<leader>bn", ":new", { noremap = true })
+  map.set("", "<leader>bd", ":bdelete<cr>", { noremap = true })
+  map.set("", "<leader>bn", ":new<cr>", { noremap = true })
   map.set("n", "<Esc><Esc>", ":noh<CR>", { noremap = true })
   map.set("", "<leader>l", ":Lazy<CR>", { noremap = true })
 

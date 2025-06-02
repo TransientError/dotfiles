@@ -40,10 +40,15 @@ return {
     opts = {
       filesystem = {
         bind_to_cwd = true,
+        window = {
+          mappings = {
+            ["l"] = "set_root",
+            ["/"] = "noop",
+          },
+        },
       },
       window = {
         mappings = {
-          ["l"] = "set_root",
           ["s"] = {
             function(state)
               utils.flash_jump()
