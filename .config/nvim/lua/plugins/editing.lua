@@ -19,9 +19,7 @@ return {
       { change, desc = "replace surround" },
       {
         "S",
-        function()
-          require("mini.surround").add "visual"
-        end,
+        ":<C-u>lua require('mini.surround').add 'visual'<CR>",
         mode = "x",
         silent = true,
       },
