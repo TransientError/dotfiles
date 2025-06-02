@@ -90,6 +90,11 @@
 (package! evil-easymotion :disable t)
 (package! benchmark-init)
 
+;; Attempt to install pdf-tools as part of build when updating
+(package! pdf-tools
+  :pin "30b50544e55b8dbf683c2d932d5c33ac73323a16"
+  :recipe (:host github :repo "vedang/pdf-tools" :post-build (pdf-tools-install)))
+
 (when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
 ;; No longer used but kept here for reference

@@ -108,7 +108,7 @@
     (call-interactively
      (pcase char
        (?a #'evil-surround-region)
-       (?r #'evil-surround-change)
+       (?c #'evil-surround-change)
        (?d #'evil-surround-delete))))
   (map! :n "g s" 'evil-sandwich))
 
