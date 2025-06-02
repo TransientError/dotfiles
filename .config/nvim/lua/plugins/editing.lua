@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local add = "gsa"
 local delete = "gsd"
 local change = "gsc"
@@ -14,7 +16,7 @@ return {
       },
     },
     keys = {
-      { add, desc = "add surround" },
+      { add, desc = "add surround", mode = { "n", "x" } },
       { delete, desc = "delete surround" },
       { change, desc = "replace surround" },
       {
@@ -110,18 +112,7 @@ return {
       {
         "s",
         function()
-          require("flash").jump {
-            search = {
-              ---@type Flash.Pattern.Mode
-              mode = function(str)
-                -- allow two spaces to target an empty line
-                if str == "  " then
-                  return "^$"
-                end
-                return str
-              end,
-            },
-          }
+          utils.flash_jump()
         end,
         mode = { "n", "x", "o" },
         desc = "Flash",
@@ -131,7 +122,7 @@ return {
         function()
           require("flash").treesitter()
         end,
-        mode = { "n" },
+        mode = { "n", "x", "o" },
         desc = "Flash Treesitter",
       },
       {

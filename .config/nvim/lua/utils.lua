@@ -71,4 +71,22 @@ function utils.merge(...)
   return t
 end
 
+function utils.flash_jump()
+  require("flash").jump {
+    search = {
+      ---@type Flash.Pattern.Mode
+      mode = function(str)
+        -- allow two spaces to target an empty line
+        if str == "  " then
+          return "^$"
+        end
+        return str
+      end,
+    },
+    jump = {
+      autojump = true,
+    },
+  }
+end
+
 return utils

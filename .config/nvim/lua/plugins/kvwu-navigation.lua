@@ -6,6 +6,7 @@ end
 return {
   {
     "nvim-tree/nvim-tree.lua",
+    enabled = false,
     opts = {
       update_focused_file = {
         enable = true,
@@ -25,6 +26,36 @@ return {
     },
     cmd = { "NvimTreeToggle" },
     keys = { { "<leader>op", ":NvimTreeToggle<CR>" } },
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+      "s1n7ax/nvim-window-picker",
+    },
+    lazy = false,
+    opts = {
+      filesystem = {
+        bind_to_cwd = true,
+      },
+      window = {
+        mappings = {
+          ["l"] = "set_root",
+          ["s"] = {
+            function(state)
+              utils.flash_jump()
+            end,
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      require("neo-tree").setup(opts)
+      vim.keymap.set("n", "<leader>op", "<cmd>Neotree toggle<CR>", { desc = "Neotree: Toggle" })
+    end,
   },
   {
     "brenton-leighton/multiple-cursors.nvim",
