@@ -28,7 +28,7 @@ else
     if vim.fn.hostname() == "apollo" then
       opt.guifont = "LigaHack Nerd Font:h8"
     else
-      opt.guifont = "LigaHack Nerd Font:h12"
+      opt.guifont = "LigaHack Nerd Font:h10"
     end
 
     map.set("n", "<leader>qr", ":!set -l pid (pgrep neovide) && neovide &; disown && kill $pid<CR>", { noremap = true })

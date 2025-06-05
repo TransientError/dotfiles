@@ -1,4 +1,4 @@
-local utils = require("utils")
+local utils = require "utils"
 
 local add = "gsa"
 local delete = "gsd"
@@ -38,7 +38,15 @@ return {
   },
   {
     "stevearc/conform.nvim",
-    opts = { formatters_by_ft = { lua = { "stylua" } } },
+    opts = {
+      formatters_by_ft = { lua = { "stylua" }, toml = { "topiary" }, python = { "black" } },
+      formatters = {
+        topiary = {
+          command = "topiary",
+          args = { "format", "--language", "toml" },
+        },
+      },
+    },
     event = "LazyFile",
     keys = {
       {
