@@ -19,6 +19,9 @@ return {
           },
           ["https://www.google.com/"] = {
             takeover = "never"
+          },
+          ["https://discord.com/"] = {
+            takeover = "never"
           }
         }
       }

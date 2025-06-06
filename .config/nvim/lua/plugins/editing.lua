@@ -115,40 +115,60 @@ return {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    opts = {},
-    keys = {
-      {
-        "s",
-        function()
-          utils.flash_jump()
-        end,
-        mode = { "n", "x", "o" },
-        desc = "Flash",
-      },
-      {
-        "S",
-        function()
-          require("flash").treesitter()
-        end,
-        mode = { "n", "x", "o" },
-        desc = "Flash Treesitter",
-      },
-      {
-        "r",
-        function()
-          require("flash").remote()
-        end,
-        mode = { "o", "x" },
-        desc = "Flash Remote",
-      },
-      {
-        "R",
-        function()
-          require("flash").treesitter_search()
-        end,
-        mode = { "o", "x" },
-        desc = "Flash Treesitter Search",
+    opts = {
+      modes = {
+        search = {
+          enabled = true,
+        },
       },
     },
+    keys = {
+      -- {
+      --   "s",
+      --   function()
+      --     utils.flash_jump()
+      --   end,
+      --   mode = { "n", "x", "o" },
+      --   desc = "Flash",
+      -- },
+      -- {
+      --   "S",
+      --   function()
+      --     require("flash").treesitter()
+      --   end,
+      --   mode = { "n", "x", "o" },
+      --   desc = "Flash Treesitter",
+      -- },
+      -- {
+      --   "r",
+      --   function()
+      --     require("flash").remote()
+      --   end,
+      --   mode = { "o", "x" },
+      --   desc = "Flash Remote",
+      -- },
+      -- {
+      --   "R",
+      --   function()
+      --     require("flash").treesitter_search()
+      --   end,
+      --   mode = { "o", "x" },
+      --   desc = "Flash Treesitter Search",
+      -- },
+    },
+  },
+  {
+    "ggandor/leap.nvim",
+    lazy = false,
+    config = function()
+      vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
+      vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-from-window)")
+      vim.keymap.set({ "x", "o" }, "r", function()
+        require("leap.remote").action()
+      end)
+      vim.keymap.set({ "n", "x", "o" }, "R", function()
+        require("leap.treesitter").select()
+      end)
+    end,
   },
 }
