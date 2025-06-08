@@ -1,8 +1,9 @@
 local utils = require "utils"
 
-local add = "gsa"
-local delete = "gsd"
-local change = "gsc"
+local surround_prefix = "gj"
+local add = surround_prefix .. "a"
+local delete = surround_prefix .. "d"
+local change = surround_prefix.. "c"
 
 return {
   {
@@ -163,7 +164,7 @@ return {
     config = function()
       vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
       vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-from-window)")
-      vim.keymap.set({ "x", "o" }, "r", function()
+      vim.keymap.set({ "n", "x", "o" }, "gs", function()
         require("leap.remote").action()
       end)
       vim.keymap.set({ "n", "x", "o" }, "R", function()
