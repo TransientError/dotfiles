@@ -8,7 +8,7 @@ return {
     event = "InsertEnter",
     cmd = { "Copilot" },
     opts = function()
-      local prefix = vim.fn.has "mac" and "D" or "C"
+      local prefix = vim.fn.has "mac" == 1 and "D" or "C"
       return {
         suggestion = {
           auto_trigger = true,
@@ -17,6 +17,9 @@ return {
             accept_line = string.format("<%s-S-right>", prefix),
           },
         },
+        panel = {
+          auto_refresh = true,
+        }
       }
     end,
     keymap = {

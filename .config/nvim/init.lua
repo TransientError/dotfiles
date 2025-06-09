@@ -59,6 +59,7 @@ else
   map.set("", "<leader>w=", ":wincmd =<CR>", { noremap = true })
   map.set("", "<leader>wmm", ":wincmd _<CR>", { noremap = true })
   map.set("", "<leader>qq", ":qa!<CR>", { noremap = true })
+  map.set("", "<leader>hs", ":new | :set ft=lua<CR>", { noremap = true })
   map.set("", "<leader>bl", "<C-o>", { noremap = true })
   map.set("", "<leader>bd", ":bdelete<cr>", { noremap = true })
   map.set("", "<leader>bn", ":new<cr>", { noremap = true })
