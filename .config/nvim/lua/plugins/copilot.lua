@@ -13,13 +13,26 @@ return {
         suggestion = {
           auto_trigger = true,
           keymap = {
-            accept = "<right>",
             accept_word = string.format("<%s-right>", prefix),
             accept_line = string.format("<%s-S-right>", prefix),
           },
         },
       }
     end,
+    keymap = {
+      {
+        "<right>",
+        function()
+          local suggestion = require "copilot.suggestion"
+          if suggestion.is_visible() then
+            suggestion.accept()
+          else
+            return "<right>"
+          end
+        end,
+        mode = "i",
+      },
+    },
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",

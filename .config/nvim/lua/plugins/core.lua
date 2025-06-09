@@ -1,5 +1,3 @@
-local utils = require "utils"
-
 local surround_prefix = "gj"
 local add = surround_prefix .. "a"
 local delete = surround_prefix .. "d"
@@ -17,9 +15,9 @@ return {
       },
     },
     keys = {
-      { add, desc = "add surround", mode = { "n", "x" } },
-      { delete, desc = "delete surround" },
-      { change, desc = "replace surround" },
+      { add, desc = "add surround", mode = { "n", "x", "o" } },
+      { delete, desc = "delete surround", mode = { "n", "x", "o" } },
+      { change, desc = "replace surround", mode = { "n", "x", "o" } },
       {
         "S",
         ":<C-u>lua require('mini.surround').add 'visual'<CR>",
@@ -30,33 +28,15 @@ return {
   },
   {
     "windwp/nvim-autopairs",
+    event = "InsertEnter",
     config = function()
       local npairs = require "nvim-autopairs"
-      npairs.setup {}
+      npairs.setup {
+        check_ts = true,
+      }
       local Rule = require "nvim-autopairs.rule"
       npairs.add_rule(Rule("`", "`", "-ocaml"))
     end,
-  },
-  {
-    "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = { lua = { "stylua" }, toml = { "topiary" }, python = { "black" } },
-      formatters = {
-        topiary = {
-          command = "topiary",
-          args = { "format", "--language", "toml" },
-        },
-      },
-    },
-    event = "LazyFile",
-    keys = {
-      {
-        "<leader>cf",
-        function()
-          require("conform").format { async = true }
-        end,
-      },
-    },
   },
   {
     "wellle/targets.vim",
@@ -69,21 +49,24 @@ return {
      ]]
     end,
   },
-  -- {
-  --   "gbprod/substitute.nvim",
-  --   opts = {},
-  --   keys = {
-  --     {
-  --       "gr",
-  --       function()
-  --         require("substitute").operator()
-  --       end,
-  --       mode = "n",
-  --       noremap = true,
-  --     },
-  --   },
-  -- },
-  { "echasnovski/mini.operators", version = "*", opts = {}, event = "VeryLazy" },
+  {
+    "echasnovski/mini.operators",
+    version = "*",
+    opts = {
+      sort = {
+        prefix = "",
+      },
+      multiply = {
+        prefix = "",
+      },
+    },
+    keys = {
+      { "g=", modes = { "n", "x", "o" }, desc = "evaluate" },
+      { "gr", modes = { "n", "x", "o" }, desc = "replace" },
+      { "gx", modes = { "n", "x", "o" }, desc = "exchange" },
+    },
+    event = "VeryLazy",
+  },
   {
     "aaronik/treewalker.nvim",
     opts = {},
@@ -123,40 +106,6 @@ return {
           enabled = true,
         },
       },
-    },
-    keys = {
-      -- {
-      --   "s",
-      --   function()
-      --     utils.flash_jump()
-      --   end,
-      --   mode = { "n", "x", "o" },
-      --   desc = "Flash",
-      -- },
-      -- {
-      --   "S",
-      --   function()
-      --     require("flash").treesitter()
-      --   end,
-      --   mode = { "n", "x", "o" },
-      --   desc = "Flash Treesitter",
-      -- },
-      -- {
-      --   "r",
-      --   function()
-      --     require("flash").remote()
-      --   end,
-      --   mode = { "o", "x" },
-      --   desc = "Flash Remote",
-      -- },
-      -- {
-      --   "R",
-      --   function()
-      --     require("flash").treesitter_search()
-      --   end,
-      --   mode = { "o", "x" },
-      --   desc = "Flash Treesitter Search",
-      -- },
     },
   },
   {
