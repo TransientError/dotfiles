@@ -19,11 +19,13 @@ if wezterm.target_triple == "x86_64-unknown-linux-gnu" then
       args = { "fish" },
     },
   }
+elseif wezterm.target_triple == "aarch64-apple-darwin" then
+  config.enable_kitty_keyboard = true
+  config.enable_csi_u_key_encoding = true
 end
 
 config.font = wezterm.font "LigaHack Nerd Font"
 config.font_size = 11
-
 
 local keys = require "keys"
 keys.apply_to_config(config)

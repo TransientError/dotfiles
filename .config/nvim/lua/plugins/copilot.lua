@@ -7,16 +7,19 @@ return {
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
     cmd = { "Copilot" },
-    opts = {
-      suggestion = {
-        auto_trigger = true,
-        keymap = {
-          accept = "<right>",
-          accept_word = "<C-right>",
-          accept_line = "<C-S-right>",
+    opts = function()
+      local prefix = vim.fn.has "mac" and "D" or "C"
+      return {
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<right>",
+            accept_word = string.format("<%s-right>", prefix),
+            accept_line = string.format("<%s-S-right>", prefix),
+          },
         },
-      },
-    },
+      }
+    end,
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
