@@ -3,7 +3,7 @@ local utils = require "utils"
 local surround_prefix = "gj"
 local add = surround_prefix .. "a"
 local delete = surround_prefix .. "d"
-local change = surround_prefix.. "c"
+local change = surround_prefix .. "c"
 
 return {
   {
@@ -69,20 +69,21 @@ return {
      ]]
     end,
   },
-  {
-    "gbprod/substitute.nvim",
-    opts = {},
-    keys = {
-      {
-        "gr",
-        function()
-          require("substitute").operator()
-        end,
-        mode = "n",
-        noremap = true,
-      },
-    },
-  },
+  -- {
+  --   "gbprod/substitute.nvim",
+  --   opts = {},
+  --   keys = {
+  --     {
+  --       "gr",
+  --       function()
+  --         require("substitute").operator()
+  --       end,
+  --       mode = "n",
+  --       noremap = true,
+  --     },
+  --   },
+  -- },
+  { "echasnovski/mini.operators", version = "*", opts = {}, event = "VeryLazy" },
   {
     "aaronik/treewalker.nvim",
     opts = {},
@@ -170,6 +171,8 @@ return {
       vim.keymap.set({ "n", "x", "o" }, "R", function()
         require("leap.treesitter").select()
       end)
+      vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
     end,
   },
+  { "echasnovski/mini.splitjoin", version = "*", opts = {}, event = "VeryLazy" },
 }
