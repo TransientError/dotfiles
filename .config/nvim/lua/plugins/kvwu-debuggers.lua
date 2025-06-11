@@ -34,7 +34,7 @@ return {
     "mfussenegger/nvim-dap-python",
     ft = "python",
     config = function ()
-      require("dap-python").setup("/home/kvwu/.venvs/debugpy/bin/python")
+      require("dap-python").setup("python3")
     end
   },
   {

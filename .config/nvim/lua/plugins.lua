@@ -67,4 +67,8 @@ return {
     opts = {},
     event = "VeryLazy",
   },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+  }
 }

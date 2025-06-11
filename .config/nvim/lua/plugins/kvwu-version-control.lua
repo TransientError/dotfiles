@@ -42,7 +42,6 @@ return {
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
     },
     cmd = "Neogit",
     keys = {
@@ -63,6 +62,10 @@ return {
         },
       }
     end,
+  },
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" },
   },
   {
     "tpope/vim-fugitive",

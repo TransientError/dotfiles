@@ -108,6 +108,7 @@ return {
           mode = "tabs",
           right_mouse_command = nil,
           middle_mouse_command = "bdelete! %d",
+          always_show_bufferline = false,
         },
         highlights = {
           fill = {
