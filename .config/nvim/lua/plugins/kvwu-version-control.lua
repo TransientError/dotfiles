@@ -75,15 +75,18 @@ return {
           file_panel = {
             ["S"] = false,
             { "n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
+            { "n", "<leader>wd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
             { "n", "c", "<cmd>Git commit<cr>", { desc = "Commit changes" } },
             { "n", "p", "<cmd>Git pull<cr>", { desc = "pull changes" } },
             { "n", "P", "<cmd>Git push<cr>", { desc = "push changes" } },
           },
           view = {
             { "n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
+            { "n", "<leader>wd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
           },
           file_history_panel = {
             { "n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
+            { "n", "<leader>wd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
           },
         },
       }
