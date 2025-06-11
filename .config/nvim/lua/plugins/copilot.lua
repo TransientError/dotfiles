@@ -13,16 +13,17 @@ return {
         suggestion = {
           auto_trigger = true,
           keymap = {
+            accept = false,
             accept_word = string.format("<%s-right>", prefix),
             accept_line = string.format("<%s-S-right>", prefix),
           },
         },
         panel = {
           auto_refresh = true,
-        }
+        },
       }
     end,
-    keymap = {
+    keys = {
       {
         "<right>",
         function()
@@ -30,7 +31,7 @@ return {
           if suggestion.is_visible() then
             suggestion.accept()
           else
-            return "<right>"
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<right>", true, false, true), "n", true)
           end
         end,
         mode = "i",

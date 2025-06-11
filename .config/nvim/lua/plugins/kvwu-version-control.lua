@@ -7,7 +7,36 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    opts = {},
+    opts = function()
+      local gs = require "gitsigns"
+      return {
+        on_attach = function(bufnr)
+          local function map(mode, lhs, rhs, desc)
+            vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+          end
+
+          map("n", "]c", function()
+            if vim.wo.diff then
+              vim.cmd.normal { "]c", bang = true }
+            else
+              gs.nav_hunk "next"
+            end
+          end, "Next Hunk")
+          map("n", "[c", function()
+            if vim.wo.diff then
+              vim.cmd.normal { "[c", bang = true }
+            else
+              gs.nav_hunk "prev"
+            end
+          end, "Previous Hunk")
+          map("n", "<localleader>ghs", gs.stage_hunk, "Stage Hunk")
+          map("n", "<localleader>gs", gs.stage_buffer, "Stage buffer")
+          map("n", "<localleader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+          map("n", "<localleader>ghr", gs.reset_hunk, "Reset Hunk")
+          map("n", "<localleader>gr", gs.reset_buffer, "Reset Buffer")
+        end,
+      }
+    end,
   },
   {
     "NeogitOrg/neogit",

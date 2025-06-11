@@ -20,4 +20,14 @@ return {
       },
     },
   },
+  {
+    "hedyhli/outline.nvim",
+    keys = {
+      { "<leader>oo", "<cmd>Outline<cr>", desc = "Toggle Outline" },
+    },
+    cmd = {
+      "Outline",
+    },
+    opts = {},
+  },
 }

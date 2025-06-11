@@ -113,7 +113,7 @@ return {
     lazy = false,
     config = function()
       vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
-      vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-from-window)")
+      vim.keymap.set({ "n", "o" }, "S", "<Plug>(leap-from-window)")
       vim.keymap.set({ "n", "x", "o" }, "gs", function()
         require("leap.remote").action()
       end)
