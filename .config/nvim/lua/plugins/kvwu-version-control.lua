@@ -37,6 +37,9 @@ return {
         end,
       }
     end,
+    dependencies = {
+      "tpope/vim-repeat",
+    },
   },
   {
     "NeogitOrg/neogit",
@@ -66,6 +69,13 @@ return {
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" },
+    keys = {
+      {
+        "<leader>gd",
+        "<cmd>DiffviewOpen<cr>",
+        desc = "Open Diffview",
+      },
+    },
   },
   {
     "tpope/vim-fugitive",
