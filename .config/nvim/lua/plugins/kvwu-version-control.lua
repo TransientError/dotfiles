@@ -75,6 +75,9 @@ return {
           file_panel = {
             ["S"] = false,
             { "n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
+            { "n", "c", "<cmd>Git commit<cr>", { desc = "Commit changes" } },
+            { "n", "p", "<cmd>Git pull<cr>", { desc = "pull changes" } },
+            { "n", "P", "<cmd>Git push<cr>", { desc = "push changes" } },
           },
           view = {
             { "n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
@@ -96,6 +99,32 @@ return {
   {
     "tpope/vim-fugitive",
     cmd = { "Git" },
+    keys = {
+      {
+        "<leader>gC",
+        "<cmd>Git commit<cr>",
+        silent = true,
+        desc = "git commit",
+      },
+      {
+        "<leader>gp",
+        "<cmd>Git pull<cr>",
+        silent = true,
+        desc = "git pull",
+      },
+      {
+        "<leader>gP",
+        "<cmd>Git push<cr>",
+        silent = true,
+        desc = "git push",
+      },
+      {
+        "<leader>gs",
+        "<cmd>Git switch -c ",
+        silent = true,
+        desc = "git new branch",
+      },
+    }
   },
   {
     "akinsho/git-conflict.nvim",
