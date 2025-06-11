@@ -68,7 +68,20 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" },
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory" },
+    opts = function()
+      return {
+        keymaps = {
+          file_panel = {
+            ["S"] = false,
+            {"n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" }},
+          },
+          view = {
+            {"n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" }},
+          },
+        },
+      }
+    end,
     keys = {
       {
         "<leader>gd",
