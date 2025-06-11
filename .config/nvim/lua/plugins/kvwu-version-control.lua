@@ -29,10 +29,10 @@ return {
               gs.nav_hunk "prev"
             end
           end, "Previous Hunk")
-          map("n", "<localleader>ghs", gs.stage_hunk, "Stage Hunk")
+          map({ "n", "v" }, "<localleader>ghs", gs.stage_hunk, "Stage Hunk")
           map("n", "<localleader>gs", gs.stage_buffer, "Stage buffer")
-          map("n", "<localleader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
-          map("n", "<localleader>ghr", gs.reset_hunk, "Reset Hunk")
+          map({ "n", "v" }, "<localleader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+          map({ "n", "v" }, "<localleader>ghr", gs.reset_hunk, "Reset Hunk")
           map("n", "<localleader>gr", gs.reset_buffer, "Reset Buffer")
         end,
       }
@@ -74,10 +74,13 @@ return {
         keymaps = {
           file_panel = {
             ["S"] = false,
-            {"n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" }},
+            { "n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
           },
           view = {
-            {"n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" }},
+            { "n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
+          },
+          file_history_panel = {
+            { "n", "<leader>gd", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
           },
         },
       }
