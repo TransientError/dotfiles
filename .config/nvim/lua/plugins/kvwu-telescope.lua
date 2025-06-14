@@ -45,6 +45,13 @@ return {
       vim.keymap.set("n", "<leader>/", telescope.extensions.live_grep_args.live_grep_args)
 
       telescope.setup {
+        defaults = {
+          mappings = {
+            n = {
+              ["q"] = require("telescope.actions").close,
+            },
+          },
+        },
         extensions = {
           live_grep_args = {
             auto_quoting = true,

@@ -50,4 +50,26 @@ return {
     },
     cmd = { "AerialNavToggle" },
   },
+  {
+    "folke/trouble.nvim",
+    opts = {},
+    cmd = { "Trouble" },
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle fitler.buf=0<cr>",
+        desc = "Document Diagnostics",
+      },
+      {
+        "<leader>xl",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List",
+      },
+      {
+        "<leader>xq",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List",
+      },
+    },
+  },
 }

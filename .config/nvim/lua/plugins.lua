@@ -70,5 +70,21 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {},
-  }
+  },
+  {
+    "folke/snacks.nvim",
+    lazy = false,
+    opts = {
+      bigfile = {},
+      lazygit = {},
+    },
+    keys = {
+      {
+        "<leader>gg",
+        function()
+          require("snacks").lazygit()
+        end,
+      },
+    },
+  },
 }
