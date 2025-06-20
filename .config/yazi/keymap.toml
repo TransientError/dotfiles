@@ -30,8 +30,13 @@ desc = "Open with command"
 
 [[manager.prepend_keymap]]
 on = "s"
-run = "plugin searchjump -- autocd"
-desc = "search jump"
+run = "plugin keyjump -- global once"
+desc = "key jump"
+
+[[manager.prepend_keymap]]
+on = "R"
+run = "plugin keyjump -- select"
+desc = "key jump - select"
 
 [[manager.prepend_keymap]]
 on = "F"
