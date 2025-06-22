@@ -81,7 +81,7 @@ return {
         analyze_open_documents_only = true,
       })
 
-      vim.lsp.enable { "lua_ls", "ts_ls", "pyright", "yamlls" }
+      vim.lsp.enable { "lua_ls", "ts_ls", "pyright", "yamlls", "omnisharp" }
     end,
   },
   {

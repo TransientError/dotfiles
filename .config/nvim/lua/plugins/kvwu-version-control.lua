@@ -145,6 +145,7 @@ return {
       local Hydra = require "hydra"
       Hydra {
         name = "Git Conflict",
+        color = "amaranth",
         mode = { "n" },
         body = "<leader>gc",
         heads = {
