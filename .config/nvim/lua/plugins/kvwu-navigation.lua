@@ -44,6 +44,7 @@ return {
           mappings = {
             ["l"] = "set_root",
             ["/"] = "noop",
+            ["v"] = "open_vsplit",
           },
         },
       },
