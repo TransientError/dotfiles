@@ -137,6 +137,16 @@ return {
         },
       })
 
+      cmp.setup.filetype("markdown", {
+        sources = cmp.config.sources {
+          { name = "render-markdown" },
+          { name = "vsnip" },
+        },
+        {
+          { name = "buffer" },
+        },
+      })
+
       cmp.setup.cmdline({ "/", "?" }, { mapping = cmp.mapping.preset.cmdline(), sources = { { name = "buffer" } } })
 
       cmp.setup.cmdline(":", {
