@@ -48,6 +48,11 @@ use = "DreamMaoMao/keyjump"
 rev = "2cf7963"
 hash = "b68f6cfcbea6971ad65c39ba91112b0f"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:piper"
+rev = "42f64c0"
+hash = "2143a53182dbbe935a1abd1623424aa5"
+
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
 rev = "b3950bf"

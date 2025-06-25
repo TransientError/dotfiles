@@ -33,7 +33,7 @@ on = "s"
 run = "plugin keyjump -- global once"
 desc = "key jump"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "R"
 run = "plugin keyjump -- select"
 desc = "key jump - select"
