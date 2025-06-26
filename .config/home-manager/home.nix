@@ -98,6 +98,10 @@ in {
         smtpServer = homeDir + "/go/bin/sendgmail";
         smtpServerOption = "-sender=kgqw503@gmail.com";
       };
+      merge.tool = "diffview";
+      mergetool.prompt = false;
+      mergetool.keepBackup = false;
+      mergetool.diffview.cmd = "nvim -n -c \"DiffviewOpen\" \"$MERGE\"";
     };
   };
 
