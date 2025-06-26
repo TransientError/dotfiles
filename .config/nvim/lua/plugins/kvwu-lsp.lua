@@ -103,7 +103,6 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm { select = true },
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -158,16 +157,20 @@ return {
       vim.lsp.config("*", {
         capabilities = capabilities,
       })
+
+      local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end,
     dependencies = {
-      { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
+      { "hrsh7th/cmp-nvim-lsp", lazy = true },
       { "hrsh7th/cmp-path", lazy = true },
       { "hrsh7th/cmp-cmdline", lazy = true },
       { "ray-x/cmp-treesitter", lazy = true },
       { "hrsh7th/cmp-buffer", lazy = true },
       { "hrsh7th/cmp-vsnip", lazy = true },
       { "hrsh7th/vim-vsnip", lazy = true },
-      { "Hoffs/omnisharp-extended-lsp.nvim", module = "omnisharp_extended" },
+      { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
+      { "windwp/nvim-autopairs", lazy = true },
     },
   },
 }
