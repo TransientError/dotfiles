@@ -8,21 +8,9 @@ return {
     config = function ()
       vim.g.firenvim_config = {
         localSettings = {
-          ["https://mail.proton.me"] = {
-            selector = "#rooster-editor"
-          },
-          ["https://web.whatsapp.com/"] = {
+          [".*"] = {
             takeover = "never"
           },
-          ["https://messages.google.com/"] = {
-            takeover = "never"
-          },
-          ["https://www.google.com/"] = {
-            takeover = "never"
-          },
-          ["https://discord.com/"] = {
-            takeover = "never"
-          }
         }
       }
       vim.keymap.set("i", "<C-v>", '"+p')
