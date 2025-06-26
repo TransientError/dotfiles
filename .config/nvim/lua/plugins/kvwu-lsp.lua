@@ -32,7 +32,7 @@ return {
             vim.keymap.set("n", "gi", builtin.lsp_implementations, bufopts)
           end
 
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+          vim.keymap.set("n", "K", require("lsp_signature").toggle_float_win, bufopts)
           vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
           vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
           vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, bufopts)
@@ -171,6 +171,12 @@ return {
       { "hrsh7th/vim-vsnip", lazy = true },
       { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
       { "windwp/nvim-autopairs", lazy = true },
+      { "ray-x/lsp_signature.nvim", lazy = true },
     },
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "InsertEnter",
+    opts = {},
   },
 }
