@@ -111,7 +111,12 @@ return {
   {
     "ggandor/leap.nvim",
     lazy = false,
-    config = function()
+    opts = {
+      safe_labels = "sfnut/'",
+      labels = "sfnjklhodweimbuyvrgtaqpcxz/'"
+    },
+    config = function(_, opts)
+      require("leap").opts = opts
       vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
       vim.keymap.set({ "n", "o" }, "S", "<Plug>(leap-from-window)")
       vim.keymap.set({ "n", "x", "o" }, "gs", function()
