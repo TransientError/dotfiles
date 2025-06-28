@@ -195,4 +195,24 @@ return {
       auto_close_after = nil,
     },
   },
+  {
+    "hrsh7th/vim-vsnip",
+    event = "InsertEnter",
+    config = function()
+      vim.keymap.set("i", "<Tab>", function()
+        if vim.fn["vsnip#available"](1) == 1 then
+          return "<Plug>(vsnip-expand-or-jump)"
+        else
+          return "<Tab>"
+        end
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", "<S-Tab>", function()
+        if vim.fn["vsnip#available"](1) == 1 then
+          return "<Plug>(vsnip-expand-or-jump)"
+        else
+          return "<S-Tab>"
+        end
+      end, { expr = true, silent = true })
+    end,
+  }
 }
