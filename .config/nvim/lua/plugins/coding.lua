@@ -2,7 +2,13 @@ return {
   {
     "stevearc/conform.nvim",
     opts = {
-      formatters_by_ft = { lua = { "stylua" }, toml = { "topiary" }, python = { "black" }, csharp = { "csharpier" } },
+      formatters_by_ft = {
+        lua = { "stylua" },
+        toml = { "topiary" },
+        python = { "black" },
+        csharp = { "csharpier" },
+        json = { "prettier" },
+      },
       formatters = {
         topiary = {
           command = "topiary",

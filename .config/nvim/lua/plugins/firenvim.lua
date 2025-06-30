@@ -13,7 +13,6 @@ return {
           },
         }
       }
-      vim.keymap.set("i", "<C-v>", '"+p')
     end
   },
 }
