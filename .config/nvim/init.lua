@@ -44,6 +44,9 @@ else
   }
 
   map.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+  map.set("n", "<leader><leader>", ":", { noremap = true })
+  map.set("n", "<C-v>", '"+p', { noremap = true })
+  map.set("i", "<C-v>", '<Esc>"+pa', { noremap = true })
   map.set("", "<leader>wh", ":wincmd h<CR>", { noremap = true })
   map.set("", "<leader>wj", ":wincmd j<CR>", { noremap = true })
   map.set("", "<leader>wk", ":wincmd k<CR>", { noremap = true })
