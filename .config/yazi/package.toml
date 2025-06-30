@@ -15,28 +15,28 @@ hash = "9209d17be3c792eda9ad60b447c4db1e"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "864a021"
-hash = "f0c4b41b5d19a3144958383333eff6e7"
+rev = "2ad42fa"
+hash = "a9d553bd19a3cd7f4eab3abaac5d67ff"
 
 [[plugin.deps]]
 use = "hankertrix/augment-command"
-rev = "051a8c6"
-hash = "280c6a14d8635f50d876ebed9b48b18b"
+rev = "d939163"
+hash = "e32ba0947f8ba9bc53aacfd96bd50884"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "864a021"
-hash = "f3853bbdd1da2fad09d059ab5464abfd"
+rev = "2ad42fa"
+hash = "d6f60c24d8c0cf57a855bf46115b2502"
 
 [[plugin.deps]]
 use = "boydaihungst/mediainfo"
-rev = "70ed228"
-hash = "99a9bd21bc896710bbfce44f1ea00f74"
+rev = "b74b7b8"
+hash = "4b6ac1a6fd7ba02a945070ad39fc1999"
 
 [[plugin.deps]]
 use = "dedukun/relative-motions"
-rev = "ce2e890"
-hash = "23915860e59348bf4166778bb0e606f7"
+rev = "9d26460"
+hash = "6c0568cfa966a5d4ac496c926975a613"
 
 [[plugin.deps]]
 use = "DreamMaoMao/searchjump"
@@ -50,7 +50,7 @@ hash = "b68f6cfcbea6971ad65c39ba91112b0f"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:piper"
-rev = "42f64c0"
+rev = "2ad42fa"
 hash = "2143a53182dbbe935a1abd1623424aa5"
 
 [[flavor.deps]]
