@@ -59,7 +59,6 @@ in {
       # need to figure out how to get runtime dependency to work
       # duplicity
       htop
-      uq
       direnv
       python310Packages.pynvim
     ];
