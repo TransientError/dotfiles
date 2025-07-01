@@ -23,7 +23,7 @@ tiling_drag modifier titlebar
 floating_modifier Control+Shift
 
 bindsym $mod+t exec wezterm
-bindsym $mod+b exec floorp
+bindsym $mod+b exec floorp --profile ~/.floorp/fpcuhunq.default
 bindsym Control+p [class="floorp"] exec xdotool keyup "ctrl+p"; exec xdotool key "ctrl+shift+bracketright"
 
 # kill focused window
