@@ -12,10 +12,16 @@ return {
       plugins = {
         "dap",
         "nvim-cmp",
-        "nvim-tree",
         "telescope",
         "which-key",
         "gitsigns",
+        "neo-tree",
+        "nvim-navic",
+        "nvim-web-devicons",
+        "trouble",
+        "nvim-notify",
+        "rainbow-delimiters",
+        "indent-blankline",
       },
       custom_colors = function(colors)
         colors.editor.fg = "#eeffff"
@@ -63,6 +69,15 @@ return {
             },
           },
         },
+        winbar = {
+          lualine_c = {
+            {
+              "navic",
+              color_correction = nil,
+              navic_opts = nil,
+            },
+          },
+        },
       }
     end,
     dependencies = "mmarko-cerovac/material.nvim",
@@ -72,13 +87,13 @@ return {
     init = function()
       local colors = require "material.colors"
 
-      vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = colors.main.red })
-      vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = colors.main.yellow })
-      vim.api.nvim_set_hl(0, "RainbowDelimiterBlue", { fg = colors.main.blue })
-      vim.api.nvim_set_hl(0, "RainbowDelimiterOrange", { fg = colors.main.orange })
-      vim.api.nvim_set_hl(0, "RainbowDelimiterGreen", { fg = colors.main.green })
-      vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { fg = colors.main.purple })
-      vim.api.nvim_set_hl(0, "RainbowDelimiterCyan", { fg = colors.main.cyan })
+      -- vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = colors.main.red })
+      -- vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = colors.main.yellow })
+      -- vim.api.nvim_set_hl(0, "RainbowDelimiterBlue", { fg = colors.main.blue })
+      -- vim.api.nvim_set_hl(0, "RainbowDelimiterOrange", { fg = colors.main.orange })
+      -- vim.api.nvim_set_hl(0, "RainbowDelimiterGreen", { fg = colors.main.green })
+      -- vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { fg = colors.main.purple })
+      -- vim.api.nvim_set_hl(0, "RainbowDelimiterCyan", { fg = colors.main.cyan })
 
       vim.g.rainbow_delimiters = {
         strategy = {
@@ -112,9 +127,9 @@ return {
         },
         highlights = {
           fill = {
-            bg = colors.editor.bg
-          }
-        }
+            bg = colors.editor.bg,
+          },
+        },
       }
     end,
     config = function(_, opts)
