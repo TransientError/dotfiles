@@ -1,0 +1,15 @@
+keymap:
+  - name: Krita
+    application: 
+      only: krita
+    remap:
+      BTN_EXTRA: C-M-Shift-w
+      BTN_SIDE: C-M-Shift-r
+      F24: C-M-Shift-g
+  - name: Mouse
+    remap: 
+      BTN_EXTRA: C-c
+      BTN_SIDE: C-v
+      F24: leftmeta
+      F22: enter
+      F23: C-z
