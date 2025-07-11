@@ -85,16 +85,6 @@ return {
   {
     url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
     init = function()
-      local colors = require "material.colors"
-
-      -- vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = colors.main.red })
-      -- vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = colors.main.yellow })
-      -- vim.api.nvim_set_hl(0, "RainbowDelimiterBlue", { fg = colors.main.blue })
-      -- vim.api.nvim_set_hl(0, "RainbowDelimiterOrange", { fg = colors.main.orange })
-      -- vim.api.nvim_set_hl(0, "RainbowDelimiterGreen", { fg = colors.main.green })
-      -- vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { fg = colors.main.purple })
-      -- vim.api.nvim_set_hl(0, "RainbowDelimiterCyan", { fg = colors.main.cyan })
-
       vim.g.rainbow_delimiters = {
         strategy = {
           [""] = "rainbow-delimiters.strategy.global",

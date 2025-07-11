@@ -41,7 +41,7 @@ return {
           vim.keymap.set("n", "<leader>si", builtin.lsp_document_symbols, bufopts)
           vim.keymap.set("n", "<leader>sI", builtin.lsp_workspace_symbols, bufopts)
 
-          if client.name == "jsonls" then
+          if client.name == "jsonls" or client.name == "yamlls" then
             require("nvim-navic").attach(client, ev.buf)
           end
         end,
@@ -79,23 +79,35 @@ return {
 
       vim.lsp.config("omnisharp", {
         cmd = { "omnisharp", "-z", "--languageserver" },
-        enable_roslyn_analyzers = true,
-        organize_imports_on_format = true,
-        enable_import_completion = true,
-        analyze_open_documents_only = true,
+        settings = {
+          RoslynExtensionsOptions = {
+            EnableAnalyzersSupport = true,
+            EnableImportCompletion = true,
+            AnalyzeOpenDocumentsOnly = true,
+            EnableDecompilationSupport = true,
+          },
+        }
       })
 
       vim.lsp.enable { "lua_ls", "ts_ls", "pyright", "yamlls", "omnisharp" }
     end,
     dependencies = {
-      "SmiteshP/nvim-navic",
-    }
+      { "SmiteshP/nvim-navic", lazy = true },
+      { "ray-x/lsp_signature.nvim", lazy = true },
+    },
   },
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     config = function()
       local cmp = require "cmp"
+      local confirm_or_fallback = function(fallback)
+        if cmp.visible() and cmp.get_active_entry() then
+          cmp.confirm { select = false, behavior = cmp.ConfirmBehavior.Replace }
+        else
+          fallback()
+        end
+      end
       cmp.setup {
         snippet = {
           expand = function(args)
@@ -111,26 +123,14 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping {
-            i = function(fallback)
-              if cmp.visible() and cmp.get_active_entry() then
-                cmp.confirm { select = false, behavior = cmp.ConfirmBehavior.Replace }
-              else
-                fallback()
-              end
-            end,
+            i = confirm_or_fallback,
             s = cmp.mapping.confirm { select = true },
             c = cmp.mapping.confirm { select = false, behavior = cmp.ConfirmBehavior.Replace },
           },
           ["<C-CR>"] = cmp.mapping(function(_)
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "i", true)
           end, { "i" }),
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
+          ["<Tab>"] = cmp.mapping(confirm_or_fallback, { "i", "s" }),
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
@@ -192,7 +192,6 @@ return {
       { "hrsh7th/vim-vsnip", lazy = true },
       { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
       { "windwp/nvim-autopairs", lazy = true },
-      { "ray-x/lsp_signature.nvim", lazy = true },
     },
   },
   {
@@ -221,5 +220,5 @@ return {
         end
       end, { expr = true, silent = true })
     end,
-  }
+  },
 }
