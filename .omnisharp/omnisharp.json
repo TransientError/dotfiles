@@ -1,0 +1,13 @@
+{
+  "RosylynExtensionsOptions": {
+    "enableDecompilationSupport": true,
+    "documentAnalysisTimeoutMs": 10000,
+    "enableAnalyzersSupport": true,
+    "enableImportCompletion": true,
+    "inlineHintsOptions": {
+      "enableForParameters": true,
+      "enableForTypes": true,
+      "forImplicitVariableTypes": true
+    }
+  }
+}
