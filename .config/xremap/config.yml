@@ -13,3 +13,10 @@ keymap:
       F24: leftmeta
       F22: enter
       F23: C-z
+  - name: Floorp
+    application:
+      only: /floorp/
+    remap:
+      C-i: C-e
+      C-p: C-Shift-rightbrace
+

@@ -24,7 +24,6 @@ floating_modifier Control+Shift
 
 bindsym $mod+t exec wezterm
 bindsym $mod+b exec floorp --profile ~/.floorp/fpcuhunq.default
-bindsym Control+p [class="floorp"] exec xdotool keyup "ctrl+p"; exec xdotool key "ctrl+shift+bracketright"
 
 # kill focused window
 bindsym $mod+q kill
@@ -63,3 +62,4 @@ bindsym F11 exec python "/home/kvwu/.config/i3/i3_show_desktop/bg.py"
 bindsym $mod+Shift+i exec emacsclient --eval "(emacs-everywhere)"
 
 include rules.conf
+
