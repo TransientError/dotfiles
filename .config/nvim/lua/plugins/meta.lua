@@ -20,4 +20,16 @@ return {
     "rafcamlet/nvim-luapad",
     cmd = { "Luapad", "LuaRun" },
   },
+  {
+    "yuki-uthman/vimpad.nvim",
+    ft = "vim",
+    keys = {
+      {
+        "<localleader>pt",
+        "<Plug>(vimpad-toggle)",
+        desc = "Toggle Vimpad",
+        ft = "vim",
+      }
+    }
+  }
 }
