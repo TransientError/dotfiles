@@ -15,8 +15,10 @@ if status is-interactive
 
   if test -e $HOME/utils/dotfiles.git
     abbr config 'git --git-dir $HOME/utils/dotfiles.git --work-tree=$HOME'
+    abbr lconfig 'lazygit -g $HOME/utils/dotfiles.git -w $HOME'
   else
     abbr config 'git --git-dir $HOME/utils/dotfiles/.git --work-tree=$HOME'
+    abbr lconfig 'lazygit -g $HOME/utils/dotfiles/.git -w $HOME'
   end
 
   if type -q /opt/docfx/docfx
