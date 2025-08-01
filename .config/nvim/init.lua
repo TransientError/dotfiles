@@ -91,4 +91,5 @@ else
   end
 end
 
+vim.g.material_style = "darker"
 require "config.lazy"
