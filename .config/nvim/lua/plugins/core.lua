@@ -113,7 +113,8 @@ return {
     lazy = false,
     opts = {
       safe_labels = "sfnut/'",
-      labels = "sfnjklhodweimbuyvrgtaqpcxz/'"
+      labels = "sfnjklhodweimbuyvrgtaqpcxz/'",
+      keys = {},
     },
     config = function(_, opts)
       require("leap").opts = opts
@@ -123,7 +124,9 @@ return {
         require("leap.remote").action()
       end)
       vim.keymap.set({ "n", "x", "o" }, "R", function()
-        require("leap.treesitter").select()
+        require("leap.treesitter").select {
+          opts = require("leap.user").with_traversal_keys("R", "r"),
+        }
       end)
       vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
     end,

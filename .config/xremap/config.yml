@@ -1,18 +1,23 @@
 keymap:
-  - name: Krita
-    application: 
-      only: krita
-    remap:
-      BTN_EXTRA: C-M-Shift-w
-      BTN_SIDE: C-M-Shift-r
-      F24: C-M-Shift-g
-  - name: Mouse
+  - name: Mouse G502
     remap: 
       BTN_EXTRA: C-c
       BTN_SIDE: C-v
       F24: leftmeta
       F22: enter
       F23: C-z
+    device:
+      only: "G502"
+
+  - name: Krita G502
+    application: 
+      only: krita
+    device:
+      only: "G502"
+    remap:
+      BTN_EXTRA: C-M-Shift-w
+      BTN_SIDE: C-M-Shift-r
+      F24: C-M-Shift-g
   - name: Floorp
     application:
       only: /floorp/
@@ -20,3 +25,25 @@ keymap:
       C-i: C-e
       C-p: C-Shift-rightbrace
 
+  - name: Krita SOAI
+    application:
+      only: krita
+    device:
+      only: ["SOAI USB Gaming Mouse"]
+    remap:
+      BTN_EXTRA: C-M-Shift-w
+      BTN_SIDE: C-M-Shift-r
+      F10: C-z
+      F9: C-M-Shift-g
+      F8: C-Shift-e
+
+  - name: Mouse SOAI
+    device:
+      only: "SOAI USB Gaming Mouse"
+    remap:
+      F12: enter
+
+  - name: Mouse 
+    remap:
+      BTN_EXTRA: C-c
+      BTN_SIDE: C-v

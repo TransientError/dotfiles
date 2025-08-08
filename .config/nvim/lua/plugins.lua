@@ -47,7 +47,7 @@ return {
   {
     "airblade/vim-rooter",
     init = function()
-      vim.g.rooter_patterns = { ".git", "=nvim", "=fish", "^.config", "^explore" }
+      vim.g.rooter_patterns = { ".git", "=nvim", "=fish", "^.config", "^explore", "=stuff", "=org-roam" }
     end,
   },
   {

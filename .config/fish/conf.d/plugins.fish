@@ -31,9 +31,4 @@ if status is-interactive
   if type -q zoxide
     zoxide init fish | source
   end
-
-  if type -q carapace
-    set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense'
-    carapace _carapace | source
-  end
 end

@@ -19,6 +19,7 @@ if wezterm.target_triple == "x86_64-unknown-linux-gnu" then
       args = { "fish" },
     },
   }
+  config.enable_wayland = false
 elseif wezterm.target_triple == "aarch64-apple-darwin" then
   config.enable_kitty_keyboard = true
   config.enable_csi_u_key_encoding = true

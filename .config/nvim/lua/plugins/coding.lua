@@ -8,6 +8,8 @@ return {
         python = { "black" },
         csharp = { "csharpier" },
         json = { "prettier" },
+        yaml = { "prettier" },
+        jsonc = { "prettier" },
       },
       formatters = {
         topiary = {
