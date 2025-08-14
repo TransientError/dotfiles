@@ -241,6 +241,11 @@
 
 (use-package! kbd-mode)
 
+(use-package! pdf-tools
+  :defer-incrementally t
+  :config
+  (pdf-tools-install))
+
 (when (personal-config-has-profile 'work)
   (defun kvwu/yank-image-from-win-clipboard-through-powershell()
     (interactive)
