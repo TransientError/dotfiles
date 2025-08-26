@@ -50,7 +50,7 @@
                                         ;(unpin! t)
 
 
-
+(package! rainbow-delimiters)
 (package! company-tabnine)
 (package! org-tree-slide)
 (package! vimrc-mode)

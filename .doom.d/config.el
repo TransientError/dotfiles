@@ -211,8 +211,10 @@
           (defun kvwu/tabnine-tab () (interactive) (company-indent-or-complete-common nil)))))
 
 ;; json
-(add-hook 'json-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'json-mode-hook #'rainbow-delimiters-mode
 
+;; elisp
+ (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode))
 ;; lua
 (add-hook 'lua-mode-hook #'rainbow-delimiters-mode)
 (after! lua-mode
@@ -244,7 +246,9 @@
 (use-package! pdf-tools
   :defer-incrementally t
   :config
-  (pdf-tools-install))
+  (condition-case nil
+      (pdf-info-check-epdfinfo)
+    (error (pdf-tools-install t))))
 
 (when (personal-config-has-profile 'work)
   (defun kvwu/yank-image-from-win-clipboard-through-powershell()
