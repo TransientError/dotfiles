@@ -1,4 +1,5 @@
-if require("utils").minimal() then
+local utils = require("utils")
+if utils.minimal() or not utils.profiles_contain("meta") then
   return {}
 end
 

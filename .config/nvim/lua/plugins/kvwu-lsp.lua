@@ -1,4 +1,5 @@
-if require("utils").minimal() then
+local utils = require "utils"
+if utils.minimal() or not utils.profiles_contain("lsp") then
   return {}
 end
 
@@ -89,7 +90,7 @@ return {
         }
       })
 
-      vim.lsp.enable { "lua_ls", "ts_ls", "pyright", "yamlls", "omnisharp" }
+      vim.lsp.enable { "lua_ls", "ts_ls", "pyright", "yamlls", "omnisharp", "jsonls" }
     end,
     dependencies = {
       { "SmiteshP/nvim-navic", lazy = true },
@@ -159,7 +160,7 @@ return {
 
       cmp.setup.filetype("markdown", {
         sources = cmp.config.sources {
-          { name = "render-markdown" },
+          -- { name = "render-markdown" },
           { name = "vsnip" },
         },
         {

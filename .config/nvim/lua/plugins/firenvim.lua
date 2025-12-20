@@ -1,3 +1,7 @@
+if not (require "utils").profiles_contain("firenvim") then
+  return {}
+end
+
 return {
   {
     "glacambre/firenvim",

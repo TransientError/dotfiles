@@ -1,4 +1,5 @@
-if require("utils").minimal() then
+local utils = require("utils")
+if utils.minimal() then
   return {}
 end
 

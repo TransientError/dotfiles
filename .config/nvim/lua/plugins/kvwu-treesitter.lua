@@ -23,6 +23,7 @@ return {
       })
 
       vim.treesitter.language.register("powershell", "ps1")
+      -- vim.treesitter.language.register("json", "jsonc")
     end,
   },
   {

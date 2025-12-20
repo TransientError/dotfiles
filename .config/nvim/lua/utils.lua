@@ -41,6 +41,16 @@ function utils.minimal()
   return vim.g.vscode == 1 or vim.g.started_by_firenvim == true
 end
 
+function utils.profiles_contain(profile)
+  local profiles = require("kvwu-config").profiles
+  for _, v in ipairs(profiles) do
+    if v == profile then
+      return true
+    end
+  end
+  return false
+end
+
 ---@generic T
 ---@param ... (T[]|T)[]
 ---@return T[]

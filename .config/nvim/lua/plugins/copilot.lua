@@ -1,4 +1,5 @@
-if require("utils").minimal() then
+local utils = require "utils"
+if utils.minimal() or not utils.profiles_contain("copilot") then
   return {}
 end
 
@@ -43,6 +44,9 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    keys = {
+      { "<leader>oc", "<cmd>CopilotChatToggle<cr>", desc = "Copilot Chat" },
+    },
     cmd = {
       "CopilotChat",
       "CopilotChatOpen",
@@ -52,6 +56,17 @@ return {
       "CopilotChatLoad",
       "CopilotChatPrompts",
     },
-    opts = {},
+    opts = {
+      model = "claude-sonnet-4",
+      sticky = {
+        "#buffer"
+      },
+      prompts = {
+        generate = {
+          description = "generate boilerplate",
+          system_prompt = "Generate boilerplate for this file. Find more information in the comments",
+        },
+      }
+    },
   },
 }

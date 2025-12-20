@@ -1,4 +1,7 @@
 local utils = require "utils"
+if utils.minimal() or not utils.profiles_contain("dap") then
+  return {}
+end
 
 return {
   {
