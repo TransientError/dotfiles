@@ -91,6 +91,12 @@ return {
             { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
           },
         },
+        view = {
+          merge_tool = {
+            layout = "diff4_mixed",
+            winbar_info = true,
+          }
+        }
       }
     end,
     keys = {
