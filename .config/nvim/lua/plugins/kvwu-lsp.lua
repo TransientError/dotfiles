@@ -7,7 +7,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     init = function()
-      vim.opt.completeopt = { "menuone", "noselect", "menu" }
+      vim.opt.completeopt = { "menuone", "noselect", "menu", "longest", "preview" }
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(ev)
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -90,7 +90,20 @@ return {
         }
       })
 
-      vim.lsp.enable { "lua_ls", "ts_ls", "pyright", "yamlls", "omnisharp", "jsonls" }
+      vim.lsp.config("sourcekit", {
+        cmd = { "sourcekit-lsp" },
+        filetypes = { "swift", "objective-c", "objective-cpp" },
+        root_markers = { "Package.swift", ".git/" },
+        capabilities = {
+          workspace = {
+            didChangeWatchedFiles = {
+              dynamicRegistration = true,
+            },
+          },
+        }
+      })
+
+      vim.lsp.enable { "lua_ls", "ts_ls", "pyright", "yamlls", "jsonls", "gleam", "nimls", "roslyn", "sourcekit" }
     end,
     dependencies = {
       { "SmiteshP/nvim-navic", lazy = true },
@@ -131,7 +144,15 @@ return {
           ["<C-CR>"] = cmp.mapping(function(_)
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "i", true)
           end, { "i" }),
-          ["<Tab>"] = cmp.mapping(confirm_or_fallback, { "i", "s" }),
+          ["<Tab>"] = cmp.mapping(function (fallback)
+            if cmp.visible() then
+              -- cmp.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace }
+              -- cmp.select_next_item()
+              cmp.complete_common_string()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
@@ -171,7 +192,18 @@ return {
       cmp.setup.cmdline({ "/", "?" }, { mapping = cmp.mapping.preset.cmdline(), sources = { { name = "buffer" } } })
 
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = {
+          ["<CR>"] = confirm_or_fallback,
+          ["<Tab>"] = {
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.complete_common_string()
+              else
+                fallback()
+              end
+            end,
+          }
+        },
         sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
       })
 
