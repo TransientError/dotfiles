@@ -9,19 +9,14 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
+      { "nvim-telescope/telescope-frecency.nvim", version = "*" },
     },
     keys = {
       {
         "<leader>pf",
-        function()
-          require("telescope.builtin").find_files { cwd = require("telescope.utils").buffer_dir() }
-        end,
       },
       {
         "<leader>fr",
-        function()
-          require("telescope.builtin").oldfiles()
-        end,
       },
       {
         "<leader>,",
@@ -42,7 +37,15 @@ return {
       local lga_actions = require "telescope-live-grep-args.actions"
 
       telescope.load_extension "live_grep_args"
+      telescope.load_extension "frecency"
       vim.keymap.set("n", "<leader>/", telescope.extensions.live_grep_args.live_grep_args)
+      vim.keymap.set("n", "<leader>fr", telescope.extensions.frecency.frecency)
+      vim.keymap.set("n", "<leader>pf", function()
+        telescope.extensions.frecency.frecency {
+          workspace = "CWD",
+          path_display = { "shorten" }
+        }
+      end)
 
       telescope.setup {
         defaults = {
