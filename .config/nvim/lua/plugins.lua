@@ -64,7 +64,12 @@ return {
     "williamboman/mason.nvim",
     cmd = "Mason",
     keys = { { "<leader>m", "<cmd>Mason<CR>" } },
-    opts = {},
+    opts = {
+      registries = {
+        "github:mason-org/mason-registry",
+        "github:Crashdummyy/mason-registry",
+      },
+    },
     event = "VeryLazy",
   },
   {
