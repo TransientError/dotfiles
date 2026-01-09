@@ -1,5 +1,5 @@
 if status is-interactive
-  if test -z "$MSYSTEM" 
+  if test -z "$MSYSTEM" -a -d /nix
     if test -e "$HOME/.nix-profile/etc/profile.d/nix.fish"
         source "$HOME/.nix-profile/etc/profile.d/nix.fish"
     else if test -d '/nix/var/nix/profiles/default/etc/profile.d/'
