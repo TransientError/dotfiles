@@ -32,4 +32,13 @@ if status is-interactive
   if type -q nvim
     set -gx EDITOR nvim
   end
+
+  if type -q rsync
+    abbr -a krs 'rsync -ah --partial --info=progress2,name1 --stats'
+  end
+
+  if type -q btrfs
+    abbr bfs 'sudo btrfs filesystem'
+    abbr bsv 'btrfs subvolume'
+  end
 end
