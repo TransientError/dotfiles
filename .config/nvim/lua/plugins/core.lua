@@ -109,7 +109,8 @@ return {
     },
   },
   {
-    "ggandor/leap.nvim",
+    "https://codeberg.org/andyg/leap.nvim.git",
+
     lazy = false,
     opts = {
       safe_labels = "sfnut/'",
@@ -123,13 +124,38 @@ return {
       vim.keymap.set({ "n", "x", "o" }, "gs", function()
         require("leap.remote").action()
       end)
-      vim.keymap.set({ "n", "x", "o" }, "R", function()
-        require("leap.treesitter").select {
-          opts = require("leap.user").with_traversal_keys("R", "r"),
-        }
-      end)
+      -- vim.keymap.set({ "n", "x", "o" }, "R", function()
+      --   require("leap.treesitter").select {
+      --     opts = require("leap.user").with_traversal_keys("R", "r"),
+      --   }
+      -- end)
       vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
     end,
+  },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {
+      modes = {
+        char = {
+          jump_labels = true,
+        },
+      }
+    },
+    keys = {
+      {
+        "R",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter {
+            actions = {
+              ["R"] = "next",
+              ["r"] = "prev",
+            },
+          }
+        end,
+      },
+    },
   },
   { "echasnovski/mini.splitjoin", version = "*", opts = {}, event = "VeryLazy" },
 }
