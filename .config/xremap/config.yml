@@ -25,6 +25,42 @@ keymap:
       C-i: C-e
       C-p: C-Shift-rightbrace
 
+  - name: Wuwa SOAI
+    application:
+      only: steam_app_3513350
+    device:
+      only: ["SOAI USB Gaming Mouse"]
+    remap:
+      BTN_EXTRA: Space
+      BTN_SIDE: t
+      F9: F2
+      F10: Esc
+      F8: m
+      F12: f
+      F7: 
+        launch: ["ydotool", "click", "0xC0"]
+
+  - name: ZZZ SOAI
+    application:
+      only: [steam_proton, "zenlesszonezero.exe.zenlesszonezero.exe"]
+    device:
+      only: ["SOAI USB Gaming Mouse"]
+    remap:
+      F7:
+        launch: ["ydotool", "click", "0xC0"]
+      BTN_EXTRA: 
+        launch: ["ydotool", "key", "57:1", "57:0"] # Space key
+      BTN_SIDE: 
+        launch: ["ydotool", "key", "46:1", "46:0"] # C key
+      F9:
+        launch: ["ydotool", "key", "60:1", "60:0"] # F2 key
+      F10:
+        launch: ["ydotool", "key", "1:1", "1:0"] # Escape key
+      F8:
+        launch: ["ydotool", "key", "50:1", "50:0"] # M key
+      F12:
+        launch: ["ydotool", "key", "33:1", "33:0"] # F key
+
   - name: Krita SOAI
     application:
       only: krita
@@ -36,6 +72,40 @@ keymap:
       F10: C-z
       F9: C-M-Shift-g
       F8: C-Shift-e
+
+  - name: Krita 
+    application:
+      only: krita
+    device:
+      only: ["PCsensor FootSwitch Keyboard"]
+    remap:
+      space: C-w
+      backspace: C-M-i
+
+  - name: ZZZ
+    application:
+      only: [steam_proton, "zenlesszonezero.exe.zenlesszonezero.exe"]
+    device:
+      only: ["PCsensor FootSwitch Keyboard"]
+    remap:
+      space: 
+        launch: ["ydotool", "click", "0xC0"] # left click
+      backspace:
+        launch: ["ydotool", "key", "2:1", "2:0"] # 1
+      enter:
+        launch: ["ydotool", "key", "33:1", "33:0"] # f
+
+  - name: Wuwa
+    application:
+      only: steam_app_3513350
+    device:
+      only: ["PCsensor FootSwitch Keyboard"]
+    remap:
+      space: 
+        launch: ["ydotool", "click", "0xC0"]
+      backspace: KEY_1
+      enter: F
+
 
   - name: Mouse SOAI
     device:
