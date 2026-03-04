@@ -57,7 +57,7 @@ return {
       "CopilotChatPrompts",
     },
     opts = {
-      model = "claude-sonnet-4",
+      model = "claude-sonnet-4.6",
       sticky = {
         "#buffer"
       },

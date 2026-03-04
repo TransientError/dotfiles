@@ -40,6 +40,7 @@ else
       listchars = { tab = "▸▸", trail = "·" },
       colorcolumn = "120",
       tabstop = 4,
+      autoread = true,
     },
   }
 
@@ -72,7 +73,11 @@ else
   map.set("", "<leader>fp", ":cd ~/.config/nvim<CR>:e ~/.config/nvim/init.lua<CR>", { noremap = true })
 
   vim.api.nvim_create_autocmd("VimResized", { pattern = "*", command = "wincmd =" })
-  vim.api.nvim_create_autocmd("FileType", { pattern = {"help", "man"}, command = "wincmd L" })
+  vim.api.nvim_create_autocmd("FileType", { pattern = { "help", "man" }, command = "wincmd L" })
+  vim.api.nvim_create_autocmd(
+    { "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" },
+    { pattern = "*", command = "checktime" }
+  )
 
   local uname = vim.fn.system "uname -a"
   if string.find(uname, "WSL") then
