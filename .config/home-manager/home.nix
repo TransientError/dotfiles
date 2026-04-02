@@ -43,9 +43,8 @@ in {
   # changes in each release.
   home.stateVersion = "20.09";
 
-  home.packages = with pkgs;
-    with gitAndTools; [
-      nixfmt
+  home.packages = with pkgs; [
+      nixfmt-classic
       parallel
       cargo-update
       dua
@@ -60,7 +59,7 @@ in {
       # duplicity
       htop
       direnv
-      python310Packages.pynvim
+      python312Packages.pynvim
     ];
 
   /* ugh this causes some sort of linking error, so I can't have it in nix anymore */
@@ -70,11 +69,10 @@ in {
 
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
+    package = pkgs.gitFull;
 
-    userName = "kvwu";
-
-    extraConfig = {
+    settings = {
+      user.name = "kvwu";
       alias = {
         lg =
           "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
