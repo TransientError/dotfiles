@@ -26,7 +26,7 @@ if status is-interactive
   end
 
   if type -q gh
-    abbr sug 'gh copilot suggest -t shell'
+    abbr sug 'copilot --model claude-haiku-4.5 -p'
   end
 
   if type -q nvim
