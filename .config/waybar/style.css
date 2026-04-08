@@ -18,3 +18,11 @@
   color: @green;
 }
 
+#workspaces button.active {
+  background-color: @blue;
+  color: @crust;
+  border-radius: 4px;
+  padding: 0 7px;
+  margin: 0 4px;
+}
+
