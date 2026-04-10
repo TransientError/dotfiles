@@ -1,0 +1,23 @@
+[opener]
+feh = [
+  { run = "feh --no-fehbg --no-menus --scale-down --auto-zoom --image-bg black --draw-filename $0", desc = "Open with feh", block = true }
+]
+
+[open]
+append_rules = [
+  # Open images with feh
+  { mime = "image/*", use = ["open", "feh"] }
+]
+[plugin]
+prepend_preloaders = [
+  # Replace magick, image, video with mediainfo
+  { mime = "{audio,video,image}/*", run = "mediainfo" } ,
+  { mime = "application/subrip", run = "mediainfo" } ,
+]
+prepend_previewers = [
+  # Replace magick, image, video with mediainfo
+  { mime = "{audio,video,image}/*", run = "mediainfo" } ,
+  { mime = "application/subrip", run = "mediainfo" } ,
+]
+[tasks]
+image_bound = [17000, 13000]

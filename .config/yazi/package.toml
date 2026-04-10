@@ -44,11 +44,6 @@ rev = "cab627c"
 hash = "4df5f3783cbbfed60466f1aa9bc45b5e"
 
 [[plugin.deps]]
-use = "DreamMaoMao/keyjump"
-rev = "1d31049"
-hash = "bd071ed39e436d83916e4ab842a45211"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:piper"
 rev = "57f1863"
 hash = "954922c883778c19c4a2dad5be08787f"
@@ -62,6 +57,11 @@ hash = "e2d4bfccf31e5ab05f46fee4797c5215"
 use = "yazi-rs/plugins:zoom"
 rev = "57f1863"
 hash = "a638db397a5a41d3f3a08a7427ccead1"
+
+[[plugin.deps]]
+use = "TransientError/keyjump"
+rev = "9fe1ec9"
+hash = "4c8bbe1f8479465383d112d9b25892e"
 
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
