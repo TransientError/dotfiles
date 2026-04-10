@@ -41,4 +41,8 @@ if status is-interactive
     abbr bfs 'sudo btrfs filesystem'
     abbr bsv 'btrfs subvolume'
   end
+
+  abbr gs git-setup
+  abbr gwc git-workspace-create
+  abbr gws git-workspace-setup
 end
