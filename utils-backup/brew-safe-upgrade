@@ -1,0 +1,349 @@
+#!/usr/bin/env python3
+"""
+brew-safe-upgrade: Homebrew upgrade with an N-day supply chain buffer.
+
+Checks out homebrew-core, homebrew-cask, and any third-party taps at
+their state from N days ago, then runs `brew upgrade` against those
+snapshots. Bottles work normally.
+
+Usage: brew safe-upgrade [options] [formula/cask ...]
+"""
+
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+
+# ── Terminal colors ──────────────────────────────────────────────────────────
+
+def _c(code, t):
+    return f"\033[{code}m{t}\033[0m" if sys.stdout.isatty() else str(t)
+
+def red(t):    return _c("0;31", t)
+def yellow(t): return _c("1;33", t)
+def green(t):  return _c("0;32", t)
+def dim(t):    return _c("2", t)
+def bold(t):   return _c("1", t)
+
+
+TAPS_BASE = Path("/opt/homebrew/Library/Taps")
+CACHE_BASE = Path.home() / ".cache" / "brew-safe-upgrade"
+
+
+def run(cmd, **kwargs):
+    return subprocess.run(cmd, capture_output=True, text=True, **kwargs)
+
+
+def find_old_commit(repo_dir, cutoff):
+    """Find the newest commit at or before cutoff. Returns (sha, date_str) or (None, None)."""
+    cutoff_str = cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
+    r = run([
+        "git", "-C", str(repo_dir), "log",
+        "--format=%H %aI", "--before", cutoff_str, "-1",
+    ], timeout=30)
+    if r.returncode == 0 and r.stdout.strip():
+        sha, date_str = r.stdout.strip().split(" ", 1)
+        return sha, date_str
+    # Fallback: oldest commit available
+    r = run([
+        "git", "-C", str(repo_dir), "log",
+        "--format=%H %aI", "--reverse",
+    ], timeout=30)
+    if r.stdout.strip():
+        sha, date_str = r.stdout.strip().split("\n")[0].split(" ", 1)
+        return sha, date_str
+    return None, None
+
+
+# ── Homebrew official taps (core, cask) — need clone/cache ───────────────────
+
+OFFICIAL_TAPS = {
+    "homebrew/core": {
+        "github": "https://github.com/Homebrew/homebrew-core.git",
+        "tap_dir": TAPS_BASE / "homebrew" / "homebrew-core",
+        "cache_dir": CACHE_BASE / "homebrew-core",
+        "label": "homebrew-core (~20MB)",
+    },
+    "homebrew/cask": {
+        "github": "https://github.com/Homebrew/homebrew-cask.git",
+        "tap_dir": TAPS_BASE / "homebrew" / "homebrew-cask",
+        "cache_dir": CACHE_BASE / "homebrew-cask",
+        "label": "homebrew-cask (~10MB)",
+    },
+}
+
+
+def setup_official_tap(tap_name, days, verbose=False):
+    """Clone/update an official tap at N days ago. Returns (sha, date_str, was_existing)."""
+    info = OFFICIAL_TAPS[tap_name]
+    tap_dir = info["tap_dir"]
+    cache_dir = info["cache_dir"]
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    since_date = (cutoff - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    was_existing = (tap_dir / ".git").exists()
+
+    if was_existing:
+        if verbose:
+            print(dim(f"  {tap_name}: already tapped as git, reusing"))
+        run(["git", "-C", str(tap_dir), "fetch", "--shallow-since", since_date, "origin"],
+            timeout=120)
+    elif cache_dir.exists() and (cache_dir / ".git").exists():
+        if verbose:
+            print(dim(f"  {tap_name}: reusing cached clone"))
+        run(["git", "-C", str(cache_dir), "fetch", "--shallow-since", since_date, "origin"],
+            timeout=120)
+        if tap_dir.exists():
+            shutil.rmtree(tap_dir)
+        tap_dir.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(cache_dir, tap_dir, symlinks=True)
+    else:
+        print(dim(f"  cloning {info['label']}..."))
+        tap_dir.parent.mkdir(parents=True, exist_ok=True)
+        if tap_dir.exists():
+            shutil.rmtree(tap_dir)
+        r = run([
+            "git", "clone",
+            "--shallow-since", since_date,
+            "--filter=blob:none",
+            info["github"],
+            str(tap_dir),
+        ], timeout=300)
+        if r.returncode != 0:
+            print(red(f"  {tap_name} clone failed: {r.stderr.strip()[:200]}"))
+            return None, None, was_existing
+
+    sha, date_str = find_old_commit(tap_dir, cutoff)
+    if not sha:
+        print(red(f"  {tap_name}: no commit old enough"))
+        return None, None, was_existing
+
+    r = run(["git", "-C", str(tap_dir), "checkout", sha], timeout=120)
+    if r.returncode != 0:
+        print(red(f"  {tap_name} checkout failed: {r.stderr.strip()[:200]}"))
+        return None, None, was_existing
+
+    return sha, date_str, was_existing
+
+
+def teardown_official_tap(tap_name, was_existing):
+    """Remove official tap, cache it, so brew falls back to API."""
+    if was_existing:
+        return
+    info = OFFICIAL_TAPS[tap_name]
+    tap_dir = info["tap_dir"]
+    cache_dir = info["cache_dir"]
+    if tap_dir.exists():
+        cache_dir.parent.mkdir(parents=True, exist_ok=True)
+        if cache_dir.exists():
+            shutil.rmtree(cache_dir)
+        shutil.copytree(tap_dir, cache_dir, symlinks=True)
+        shutil.rmtree(tap_dir)
+        # Keep the cached clone compact
+        run(["git", "-C", str(cache_dir), "gc", "--auto", "--quiet"], timeout=60)
+
+
+# ── Third-party taps — already local git repos ──────────────────────────────
+
+def find_thirdparty_taps():
+    """Find all tapped third-party git repos."""
+    taps = []
+    if not TAPS_BASE.exists():
+        return taps
+    for owner_dir in TAPS_BASE.iterdir():
+        if not owner_dir.is_dir() or owner_dir.name == "homebrew":
+            continue
+        for tap_dir in owner_dir.iterdir():
+            if tap_dir.is_dir() and (tap_dir / ".git").exists():
+                # Derive tap name: asmvik/homebrew-formulae -> asmvik/formulae
+                tap_name = f"{owner_dir.name}/{tap_dir.name.removeprefix('homebrew-')}"
+                taps.append((tap_name, tap_dir))
+    return taps
+
+
+def setup_thirdparty_tap(tap_name, tap_dir, days, verbose=False):
+    """Fetch and checkout a third-party tap at N days ago. Returns (sha, date_str)."""
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    since_date = (cutoff - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    # Fetch recent history
+    run(["git", "-C", str(tap_dir), "fetch", "--shallow-since", since_date, "origin"],
+        timeout=120)
+
+    sha, date_str = find_old_commit(tap_dir, cutoff)
+    if not sha:
+        if verbose:
+            print(dim(f"  {tap_name}: no commit old enough, skipping"))
+        return None, None
+
+    r = run(["git", "-C", str(tap_dir), "checkout", sha], timeout=30)
+    if r.returncode != 0:
+        print(red(f"  {tap_name} checkout failed: {r.stderr.strip()[:100]}"))
+        return None, None
+
+    return sha, date_str
+
+
+# ── Process packages ─────────────────────────────────────────────────────────
+
+def process_kind(kind, args, env):
+    """Process formulas or casks. Returns count of packages acted on."""
+    flag = "--formula" if kind == "formula" else "--cask"
+    label = "Formulas" if kind == "formula" else "Casks"
+
+    r = run(["brew", "outdated", flag, "--quiet"], env=env, timeout=60)
+    pkgs = [l.strip() for l in r.stdout.splitlines() if l.strip()]
+    if args.packages:
+        pkgs = [p for p in pkgs if p in args.packages]
+
+    if not pkgs:
+        print(f"{label}: everything up to date (at the safe horizon).")
+        return 0
+
+    print(f"{bold(label)} ({len(pkgs)} upgradable within safe window):")
+
+    for pkg in pkgs:
+        r2 = run(["brew", "info", "--json=v2", flag, pkg], env=env, timeout=30)
+        if r2.returncode == 0:
+            try:
+                data = json.loads(r2.stdout)
+                items = data.get("formulae" if kind == "formula" else "casks", [])
+                if items:
+                    it = items[0]
+                    if kind == "formula":
+                        inst = it.get("installed", [])
+                        cur = inst[-1]["version"] if inst else "?"
+                    else:
+                        cur = it.get("installed", "?") or "?"
+                    new = it["versions"]["stable"] if kind == "formula" else it.get("version", "?")
+                    print(f"  {green('↑')}  {bold(pkg)} {cur} → {green(new)}")
+                    continue
+            except Exception:
+                pass
+        print(f"  {green('↑')}  {bold(pkg)}")
+
+    print()
+
+    if args.dry_run:
+        cmd = ["brew", "upgrade", flag] + pkgs
+        print(dim(f"[dry-run] would run: {' '.join(cmd)}"))
+    else:
+        print(dim("→ upgrading..."))
+        print()
+        subprocess.run(["brew", "upgrade", flag] + pkgs, env=env)
+
+    return len(pkgs)
+
+
+# ── Main ─────────────────────────────────────────────────────────────────────
+
+def main():
+    p = argparse.ArgumentParser(
+        prog="brew safe-upgrade",
+        description="Upgrade Homebrew packages with an N-day supply chain buffer.",
+    )
+    p.add_argument(
+        "-d", "--days", type=int,
+        default=int(os.environ.get("BREW_SAFE_DAYS", "14")),
+        help="minimum age in days (default: 14, or BREW_SAFE_DAYS env var)",
+    )
+    p.add_argument("--dry-run", action="store_true", help="show plan without acting")
+    p.add_argument("-v", "--verbose", action="store_true")
+    p.add_argument("--formulas-only", action="store_true")
+    p.add_argument("--casks-only", action="store_true")
+    p.add_argument("--clear-cache", action="store_true", help="clear cached clones and exit")
+    p.add_argument("packages", nargs="*", metavar="formula")
+    args = p.parse_args()
+
+    if args.clear_cache:
+        cleared = False
+        for tap_name, info in OFFICIAL_TAPS.items():
+            if info["cache_dir"].exists():
+                shutil.rmtree(info["cache_dir"])
+                print(f"Cleared: {info['cache_dir']}")
+                cleared = True
+        if not cleared:
+            print("No cache to clear.")
+        return
+
+    dry = f"  {yellow('[dry-run]')}" if args.dry_run else ""
+    print(f"{bold('brew safe-upgrade')}  •  {args.days}-day buffer{dry}")
+    print()
+
+    do_core = not args.casks_only
+    do_cask = not args.formulas_only
+
+    # ── Set up official taps (clone/cache) ───────────────────────────────
+    official_state = {}  # tap_name -> (sha, date_str, was_existing)
+
+    print(dim(f"→ setting up {args.days}-day delayed taps..."))
+
+    if do_core:
+        sha, date_str, was = setup_official_tap("homebrew/core", args.days, args.verbose)
+        official_state["homebrew/core"] = (sha, date_str, was)
+        if sha:
+            print(dim(f"  core: {sha[:12]} ({date_str[:10]})"))
+        else:
+            print(red("  core: failed"))
+
+    if do_cask:
+        sha, date_str, was = setup_official_tap("homebrew/cask", args.days, args.verbose)
+        official_state["homebrew/cask"] = (sha, date_str, was)
+        if sha:
+            print(dim(f"  cask: {sha[:12]} ({date_str[:10]})"))
+        else:
+            print(red("  cask: failed"))
+
+    # ── Set up third-party taps (checkout in-place) ──────────────────────
+    thirdparty_state = []  # [(tap_name, tap_dir)]
+
+    for tap_name, tap_dir in find_thirdparty_taps():
+        sha, date_str = setup_thirdparty_tap(
+            tap_name, tap_dir, args.days, args.verbose
+        )
+        thirdparty_state.append((tap_name, tap_dir))
+        if sha:
+            print(dim(f"  {tap_name}: {sha[:12]} ({date_str[:10]})"))
+        elif args.verbose:
+            print(dim(f"  {tap_name}: no safe commit, skipped"))
+
+    print()
+
+    env = os.environ.copy()
+    env["HOMEBREW_NO_INSTALL_FROM_API"] = "1"
+    env["HOMEBREW_NO_AUTO_UPDATE"] = "1"
+
+    total = 0
+
+    try:
+        if do_core and official_state.get("homebrew/core", (None,))[0]:
+            total += process_kind("formula", args, env)
+            print()
+
+        if do_cask and official_state.get("homebrew/cask", (None,))[0]:
+            total += process_kind("cask", args, env)
+            print()
+
+    finally:
+        print(dim("→ restoring taps..."))
+        for tap_name, (_, _, was) in official_state.items():
+            teardown_official_tap(tap_name, was)
+
+    # Cleanup old versions and stale downloads (brew upgrade normally does this)
+    if total > 0 and not args.dry_run:
+        print()
+        print(dim("→ brew cleanup..."))
+        subprocess.run(["brew", "cleanup", "--quiet"], check=False)
+
+    print()
+    print(bold("─── Done ──────────────────────────────────────────"))
+    print(f"  {green('Upgraded:')} {total} packages to their {args.days}-day safe versions")
+
+
+if __name__ == "__main__":
+    main()
