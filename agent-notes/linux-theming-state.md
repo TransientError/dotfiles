@@ -25,7 +25,7 @@
 - **Broken for Qt5/KDE Frameworks** — can't resolve icon theme thru portal-gtk
 
 **Per-app overrides:**
-- Krita: `QT_QPA_PLATFORMTHEME=qt5ct` via `~/.local/share/applications/org.kde.krita.desktop`
+- Krita 6: `QT_QPA_PLATFORMTHEME=qt6ct` via `~/.local/share/applications/org.kde.krita.desktop`
 
 **Legacy env (set but overridden by hyprland):**
 - `~/.profile`: `QT_QPA_PLATFORMTHEME=qt5ct`
@@ -58,8 +58,13 @@ Portal pref: `~/.config/xdg-desktop-portal/portals.conf` → `default=hyprland;g
 ### Qt5 apps can't get icon theme from xdgdesktopportal
 - portal-gtk serves gsettings but Qt5 xdgdesktopportal plugin won't apply to KDE Frameworks KIconTheme
 - **Fix:** per-app desktop override with `QT_QPA_PLATFORMTHEME=qt5ct`
-- Applied to: Krita
-- When Krita ports Qt6 → remove override, global xdgdesktopportal handles it
+- ~~Applied to: Krita~~ — Krita 6.0 is Qt6, override removed 2026-05-07
+- No remaining Qt5 apps with this override
+
+### Qt6/KDE Frameworks apps can't get icon theme from xdgdesktopportal
+- Same root cause as Qt5: KIconTheme doesn't resolve icons through portal-gtk
+- **Fix:** per-app desktop override with `QT_QPA_PLATFORMTHEME=qt6ct`
+- Applied to: Krita 6 (2026-05-08)
 
 ### GTK3 icon theme mismatch
 - `~/.config/gtk-3.0/settings.ini` → `gtk-icon-theme-name=Adwaita`
@@ -71,7 +76,14 @@ Portal pref: `~/.config/xdg-desktop-portal/portals.conf` → `default=hyprland;g
 - Needs `QT_QPA_PLATFORMTHEME=xdgdesktopportal` + `KDE_COLOR_SCHEME_PATH`
 - qt6ct color scheme was `airy.conf` (light) → changed to `darker.conf`
 
+### EasyEffects light theme regression (2026-04-30)
+- Symptom: EasyEffects launched light despite `QT_QPA_PLATFORMTHEME=xdgdesktopportal` + `KDE_COLOR_SCHEME_PATH`.
+- Root cause: `hyprland.conf` `exec-once` launched `/usr/lib/xdg-desktop-portal` (frontend) at the same time as `xdg-desktop-portal-hyprland`. Frontend init'd before `xdg-desktop-portal-gtk` was up → `Settings` interface never registered. Every `org.freedesktop.portal.Settings.ReadAll` call returned `UnknownMethod`. Qt6 fell back to default light.
+- Diagnostic: `busctl --user call org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings Read ss org.freedesktop.appearance color-scheme` — failure = broken portal, `v v u 1` = dark working.
+- Fix: removed the `exec-once` lines for the portal frontend and `-hyprland`, unmasked `xdg-desktop-portal.service`. All three units (`xdg-desktop-portal{,-gtk,-hyprland}.service`) are static dbus-activated via `SystemdService=` in `/usr/share/dbus-1/services/*.service`. systemd user env supplies `XDG_CURRENT_DESKTOP=Hyprland` + `WAYLAND_DISPLAY` so the units start with correct context.
+
 ## Session History
 
 - **af9201bc** (2026-04-23): Fix EasyEffects dark theme. `QT_QPA_PLATFORMTHEME`: `qt5ct` → `qt6ct` → `xdgdesktopportal`. Add `KDE_COLOR_SCHEME_PATH`.
 - **c53a50b5** (2026-04-24): Fix Krita folder icons. Add `[Icons] Theme=Papirus-Dark` to kdeglobals (not enough alone). Create per-app desktop override for Krita with `qt5ct`.
+- **2026-04-30**: Fix EasyEffects light-theme regression by switching xdg-desktop-portal from `exec-once` manual launch to dbus activation. Unmask `xdg-desktop-portal.service`; remove portal `exec-once` lines from `hyprland.conf`.
