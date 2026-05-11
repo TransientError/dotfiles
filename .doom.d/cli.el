@@ -4,6 +4,16 @@
 ;; Drop-in replacement for `doom upgrade` that only checks out commits
 ;; aged past a buffer period, giving the community time to catch malicious changes.
 
+;; Inlined from lisp/cli/upgrade.el — not autoloaded in CLI context.
+;; If this breaks after a Doom update, check upstream for changes.
+(defun doom-upgrade--working-tree-dirty-p (dir)
+  "Return list of dirty files in DIR, or nil if clean."
+  (cl-destructuring-bind (success . stdout)
+      (doom-call-process "git" "status" "--porcelain" "-uno")
+    (if (= 0 success)
+        (split-string stdout "\n" t)
+      (error "Failed to check working tree in %s" dir))))
+
 (defvar kvwu/upgrade-buffer-days 14
   "Number of days to delay Doom upgrades for supply chain safety.")
 
