@@ -61,20 +61,23 @@ vim.api.nvim_create_user_command("LazySyncSafe", function(cmd_opts)
   local lazy = require "lazy"
 
   -- Install missing + clean removed (same as sync)
+  print("[LazySyncSafe] Installing missing plugins...")
   lazy.install { wait = headless, show = not headless }
   lazy.clean { wait = headless, show = not headless }
 
   -- Filter updates by tag age
   local plugins = lazy.plugins()
+  local total = #plugins
   local eligible = {}
   local skipped = {}
   local commit_eligible = {}
   local commit_skipped = {}
   local commit_too_new = {}
 
-  for _, plugin in ipairs(plugins) do
+  for idx, plugin in ipairs(plugins) do
     local dir = plugin.dir
     if dir and vim.fn.isdirectory(dir .. "/.git") == 1 then
+      print(string.format("[LazySyncSafe] (%d/%d) Fetching %s...", idx, total, plugin.name))
       vim.fn.system { "git", "-C", dir, "fetch", "--tags", "--quiet", "origin" }
 
       local out = vim.fn.systemlist {
