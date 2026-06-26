@@ -14,7 +14,7 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-(when (file-exists-p (concat doom-private-dir "kvwu-personal-init.el"))
+(when (file-exists-p (concat doom-user-dir "kvwu-personal-init.el"))
   (load! "init-functions.el")
   (load! "kvwu-personal-init.el"))
 
@@ -146,7 +146,7 @@
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
-       (:when (featurep! :kvwu ledger) ledger)            ; an accounting system in Emacs
+       (:when (personal-config-has-profile 'ledger) ledger)            ; an accounting system in Emacs
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c

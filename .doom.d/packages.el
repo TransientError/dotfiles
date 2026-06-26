@@ -90,7 +90,7 @@
 (package! evil-easymotion :disable t)
 (package! benchmark-init)
 
-(when (file-exists-p (concat doom-private-dir "packages-secrets.el")) (load! "packages-secrets.el"))
+(when (file-exists-p (concat doom-user-dir "packages-secrets.el")) (load! "packages-secrets.el"))
 
 ;; No longer used but kept here for reference
 ;; (package! protobuf-mode)
