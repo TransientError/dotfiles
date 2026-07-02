@@ -103,7 +103,17 @@ return {
         }
       })
 
-      vim.lsp.enable { "lua_ls", "ts_ls", "pyright", "yamlls", "jsonls", "gleam", "nimls", "roslyn", "sourcekit" }
+      local lsp_servers =
+        { "lua_ls", "ts_ls", "pyright", "yamlls", "jsonls", "gleam", "nimls", "roslyn", "sourcekit" }
+
+      -- Don't auto-attach LSP on buffer open. Enable on demand instead.
+      -- Calling vim.lsp.enable later re-fires FileType via doautoall, so it
+      -- attaches to already-open buffers too.
+      vim.api.nvim_create_user_command("LspOn", function()
+        vim.lsp.enable(lsp_servers)
+      end, { desc = "Enable LSP servers (attaches to open buffers)" })
+
+      vim.keymap.set("n", "<leader>cl", "<cmd>LspOn<cr>", { desc = "Enable LSP" })
     end,
     dependencies = {
       { "SmiteshP/nvim-navic", lazy = true },
