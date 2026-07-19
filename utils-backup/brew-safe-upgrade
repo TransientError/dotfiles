@@ -39,25 +39,89 @@ def run(cmd, **kwargs):
     return subprocess.run(cmd, capture_output=True, text=True, **kwargs)
 
 
-def find_old_commit(repo_dir, cutoff):
-    """Find the newest commit at or before cutoff. Returns (sha, date_str) or (None, None)."""
-    cutoff_str = cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
+def _pick_ref(repo_dir):
+    """Pick a ref to walk: origin's default branch, then origin/main, else HEAD.
+
+    We avoid bare HEAD when possible because it may be a stale detached checkout
+    left behind by a previous run.
+    """
+    for ref in ("origin/HEAD", "origin/main"):
+        r = run(["git", "-C", str(repo_dir), "rev-parse", "--verify", ref], timeout=10)
+        if r.returncode == 0:
+            return ref
+    return "HEAD"
+
+
+def _newest_before(repo_dir, ref, cutoff_str):
+    """Newest *present* commit with committer date <= cutoff. (sha, date) or (None, None)."""
     r = run([
         "git", "-C", str(repo_dir), "log",
-        "--format=%H %aI", "--before", cutoff_str, "-1",
+        "--format=%H %cI", "--before", cutoff_str, "-1", ref,
     ], timeout=30)
     if r.returncode == 0 and r.stdout.strip():
         sha, date_str = r.stdout.strip().split(" ", 1)
         return sha, date_str
-    # Fallback: oldest commit available
-    r = run([
-        "git", "-C", str(repo_dir), "log",
-        "--format=%H %aI", "--reverse",
-    ], timeout=30)
-    if r.stdout.strip():
-        sha, date_str = r.stdout.strip().split("\n")[0].split(" ", 1)
+    return None, None
+
+
+def _oldest_present(repo_dir, ref):
+    """Oldest commit currently reachable (the shallow floor / root). (sha, date) or (None, None)."""
+    r = run(["git", "-C", str(repo_dir), "log", "--format=%H %cI", ref], timeout=60)
+    if r.returncode == 0 and r.stdout.strip():
+        sha, date_str = r.stdout.strip().splitlines()[-1].split(" ", 1)
         return sha, date_str
     return None, None
+
+
+def find_old_commit(repo_dir, cutoff, verbose=False):
+    """Find the newest commit at or before cutoff.
+
+    A shallow clone may not reach far enough back to contain any commit that
+    old, so an empty result does not by itself mean "no commit is old enough" —
+    it can also mean "we haven't fetched deep enough yet".  We therefore
+    progressively deepen the clone until a qualifying commit becomes reachable
+    or we bottom out at the repository root.  The invariant that makes an empty
+    result trustworthy is: the oldest reachable commit is itself <= cutoff.
+
+    Returns (sha, date_str, aged):
+      * aged=True  -> sha is the genuine newest commit <= cutoff
+      * aged=False -> no commit is old enough anywhere in history; sha is the
+                      oldest commit we have (caller decides: pin it or skip)
+      * sha=None   -> the repository has no commits at all
+    """
+    cutoff_str = cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
+    ref = _pick_ref(repo_dir)
+
+    sha, date_str = _newest_before(repo_dir, ref, cutoff_str)
+    if sha:
+        return sha, date_str, True
+
+    # Nothing old enough is reachable yet.  If the clone is shallow, the missing
+    # commits may simply not have been fetched — deepen until we find one or run
+    # out of history.  (A blob:none partial clone is not shallow, so this loop
+    # is skipped for it once its full commit graph is present.)
+    shallow_file = repo_dir / ".git" / "shallow"
+    for _ in range(30):
+        if not shallow_file.exists():
+            break  # full history present; the empty result is authoritative
+        prev_oldest, _ = _oldest_present(repo_dir, ref)
+        if verbose:
+            floor = prev_oldest[:12] if prev_oldest else "?"
+            print(dim(f"    {repo_dir.name}: deepening (floor {floor})"))
+        r = run(["git", "-C", str(repo_dir), "fetch", "--deepen", "500", "origin"], timeout=300)
+        if r.returncode != 0:
+            # --deepen unsupported/failed — try a one-shot full unshallow, then stop.
+            run(["git", "-C", str(repo_dir), "fetch", "--unshallow", "origin"], timeout=600)
+        sha, date_str = _newest_before(repo_dir, ref, cutoff_str)
+        if sha:
+            return sha, date_str, True
+        new_oldest, _ = _oldest_present(repo_dir, ref)
+        if new_oldest == prev_oldest:
+            break  # deepening made no progress -> reached the remote root
+
+    # No commit at or before cutoff exists anywhere in this repo's history.
+    osha, odate = _oldest_present(repo_dir, ref)
+    return osha, odate, False
 
 
 # ── Homebrew official taps (core, cask) — need clone/cache ───────────────────
@@ -91,18 +155,30 @@ def setup_official_tap(tap_name, days, verbose=False):
     if was_existing:
         if verbose:
             print(dim(f"  {tap_name}: already tapped as git, reusing"))
-        run(["git", "-C", str(tap_dir), "fetch", "--shallow-since", since_date, "origin"],
-            timeout=120)
-    elif cache_dir.exists() and (cache_dir / ".git").exists():
+        r = run(["git", "-C", str(tap_dir), "fetch", "--shallow-since", since_date, "origin"],
+                timeout=120)
+        if r.returncode != 0:
+            print(yellow(f"  {tap_name}: fetch failed, trying fresh clone"))
+            shutil.rmtree(tap_dir)
+            was_existing = False
+            # fall through to fresh clone below
+
+    if not was_existing and cache_dir.exists() and (cache_dir / ".git").exists():
         if verbose:
             print(dim(f"  {tap_name}: reusing cached clone"))
-        run(["git", "-C", str(cache_dir), "fetch", "--shallow-since", since_date, "origin"],
-            timeout=120)
-        if tap_dir.exists():
-            shutil.rmtree(tap_dir)
-        tap_dir.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(cache_dir, tap_dir, symlinks=True)
-    else:
+        r = run(["git", "-C", str(cache_dir), "fetch", "--shallow-since", since_date, "origin"],
+                timeout=120)
+        if r.returncode != 0:
+            print(yellow(f"  {tap_name}: cached fetch failed, dropping cache"))
+            shutil.rmtree(cache_dir)
+            # fall through to fresh clone below
+        else:
+            if tap_dir.exists():
+                shutil.rmtree(tap_dir)
+            tap_dir.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(cache_dir, tap_dir, symlinks=True)
+
+    if not was_existing and not (tap_dir / ".git").exists():
         print(dim(f"  cloning {info['label']}..."))
         tap_dir.parent.mkdir(parents=True, exist_ok=True)
         if tap_dir.exists():
@@ -118,10 +194,25 @@ def setup_official_tap(tap_name, days, verbose=False):
             print(red(f"  {tap_name} clone failed: {r.stderr.strip()[:200]}"))
             return None, None, was_existing
 
-    sha, date_str = find_old_commit(tap_dir, cutoff)
-    if not sha:
-        print(red(f"  {tap_name}: no commit old enough"))
+    sha, date_str, aged = find_old_commit(tap_dir, cutoff, verbose)
+    if not sha or not aged:
+        print(red(f"  {tap_name}: no commit ≥ {days}d old; leaving untapped (brew uses its API)"))
         return None, None, was_existing
+
+    # Pre-fetch all objects (including blobs) for the target commit before
+    # checking out.  Without this, 'git checkout' in a blob:none partial clone
+    # tries to lazily fetch hundreds of missing blobs mid-operation — which can
+    # fail silently with a non-zero exit when the network is slow or flaky,
+    # causing the script to report "0 upgrades" even when packages are outdated.
+    # Using -c remote.origin.partialclonefilter= overrides the configured
+    # blob:none filter so the fetch includes all blob objects.
+    r_pre = run([
+        "git", "-C", str(tap_dir),
+        "-c", "remote.origin.partialclonefilter=",
+        "fetch", "--depth=1", "origin", sha,
+    ], timeout=180)
+    if r_pre.returncode != 0 and verbose:
+        print(yellow(f"  {tap_name}: object prefetch warning ({r_pre.stderr.strip()[:80]})"))
 
     r = run(["git", "-C", str(tap_dir), "checkout", sha], timeout=120)
     if r.returncode != 0:
@@ -171,15 +262,28 @@ def setup_thirdparty_tap(tap_name, tap_dir, days, verbose=False):
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     since_date = (cutoff - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    # Fetch recent history
-    run(["git", "-C", str(tap_dir), "fetch", "--shallow-since", since_date, "origin"],
-        timeout=120)
+    # Refresh history so find_old_commit sees the current remote state.
+    # `--shallow-since` only makes sense on a shallow clone (e.g. Homebrew's
+    # depth-1 tap); on a full clone it errors with "processing shallow info",
+    # so fetch normally there instead.
+    if (tap_dir / ".git" / "shallow").exists():
+        r = run(["git", "-C", str(tap_dir), "fetch", "--shallow-since", since_date, "origin"],
+                timeout=120)
+    else:
+        r = run(["git", "-C", str(tap_dir), "fetch", "origin"], timeout=120)
+    if r.returncode != 0 and verbose:
+        print(yellow(f"  {tap_name}: fetch failed ({r.stderr.strip()[:100]})"))
 
-    sha, date_str = find_old_commit(tap_dir, cutoff)
+    sha, date_str, aged = find_old_commit(tap_dir, cutoff, verbose)
     if not sha:
         if verbose:
-            print(dim(f"  {tap_name}: no commit old enough, skipping"))
+            print(dim(f"  {tap_name}: no commits, skipping"))
         return None, None
+    if not aged:
+        # No commit anywhere in this tap's history is old enough.  Pin the
+        # oldest commit we have: brew can then only ever see an equal-or-older
+        # formula version, so it will never upgrade past the safe horizon.
+        print(yellow(f"  {tap_name}: no commit ≥ {days}d old; pinning oldest available ({date_str[:10]})"))
 
     r = run(["git", "-C", str(tap_dir), "checkout", sha], timeout=30)
     if r.returncode != 0:
