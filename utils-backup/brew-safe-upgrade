@@ -6,15 +6,21 @@ Checks out homebrew-core, homebrew-cask, and any third-party taps at
 their state from N days ago, then runs `brew upgrade` against those
 snapshots. Bottles work normally.
 
+When yabai's binary changes, refresh its hash-pinned sudo rule and reload its
+scripting addition and running launchd service. Refreshing the rule requires sudo.
+
 Usage: brew safe-upgrade [options] [formula/cask ...]
 """
 
 import argparse
+import hashlib
 import json
 import os
+import pwd
 import shutil
 import subprocess
 import sys
+import tempfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -33,6 +39,8 @@ def bold(t):   return _c("1", t)
 
 TAPS_BASE = Path("/opt/homebrew/Library/Taps")
 CACHE_BASE = Path.home() / ".cache" / "brew-safe-upgrade"
+YABAI_BINARY = Path("/opt/homebrew/bin/yabai")
+YABAI_SUDOERS = Path("/private/etc/sudoers.d/yabai")
 
 
 def run(cmd, **kwargs):
@@ -295,6 +303,37 @@ def setup_thirdparty_tap(tap_name, tap_dir, days, verbose=False):
 
 # ── Process packages ─────────────────────────────────────────────────────────
 
+def refresh_yabai(digest):
+    """Refresh the sudo digest, then reload the scripting addition and service."""
+    print(dim("→ yabai changed: refreshing sudo rule (may request your password)..."))
+    username = pwd.getpwuid(os.getuid()).pw_name
+    rule = f"{username} ALL=(root) NOPASSWD: sha256:{digest} {YABAI_BINARY} --load-sa\n"
+
+    with tempfile.TemporaryDirectory(prefix="brew-safe-upgrade-yabai-") as tmp:
+        rule_path = Path(tmp) / "yabai"
+        rule_path.write_text(rule)
+        subprocess.run(["/usr/sbin/visudo", "-cf", str(rule_path)], check=True)
+        subprocess.run([
+            "sudo", "/usr/bin/install", "-S", "-o", "root", "-g", "wheel",
+            "-m", "440", str(rule_path), str(YABAI_SUDOERS),
+        ], check=True)
+
+    load_result = subprocess.run(["sudo", "-n", str(YABAI_BINARY), "--load-sa"])
+
+    # Older installations still use the pre-rename launchd label.
+    for label in ("com.asmvik.yabai", "com.koekeishiya.yabai"):
+        service = f"gui/{os.getuid()}/{label}"
+        if run(["launchctl", "print", service], timeout=10).returncode == 0:
+            subprocess.run(["launchctl", "kickstart", "-k", service], check=True)
+            break
+    else:
+        print(yellow("  No running yabai launchd service found; leaving services unchanged."))
+
+    # Partial macOS support can return failure even when opacity works.
+    load_result.check_returncode()
+    print(green("  yabai sudo rule and scripting addition refreshed."))
+
+
 def process_kind(kind, args, env):
     """Process formulas or casks. Returns count of packages acted on."""
     flag = "--formula" if kind == "formula" else "--cask"
@@ -336,10 +375,23 @@ def process_kind(kind, args, env):
     if args.dry_run:
         cmd = ["brew", "upgrade", flag] + pkgs
         print(dim(f"[dry-run] would run: {' '.join(cmd)}"))
+        if kind == "formula" and any(pkg.rsplit("/", 1)[-1] == "yabai" for pkg in pkgs):
+            print(dim("[dry-run] would refresh yabai if its binary changes"))
     else:
         print(dim("→ upgrading..."))
         print()
-        subprocess.run(["brew", "upgrade", flag] + pkgs, env=env)
+        upgrading_yabai = kind == "formula" and any(
+            pkg.rsplit("/", 1)[-1] == "yabai" for pkg in pkgs
+        )
+        old_digest = (
+            hashlib.sha256(YABAI_BINARY.read_bytes()).hexdigest() if upgrading_yabai else None
+        )
+        result = subprocess.run(["brew", "upgrade", flag] + pkgs, env=env)
+        if upgrading_yabai:
+            new_digest = hashlib.sha256(YABAI_BINARY.read_bytes()).hexdigest()
+            if new_digest != old_digest:
+                refresh_yabai(new_digest)
+        result.check_returncode()
 
     return len(pkgs)
 
@@ -433,6 +485,9 @@ def main():
             total += process_kind("cask", args, env)
             print()
 
+    except (subprocess.CalledProcessError, OSError) as exc:
+        print(red(f"Upgrade or post-upgrade refresh failed: {exc}"), file=sys.stderr)
+        return 1
     finally:
         print(dim("→ restoring taps..."))
         for tap_name, (_, _, was) in official_state.items():
@@ -450,4 +505,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
