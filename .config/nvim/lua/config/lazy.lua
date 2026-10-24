@@ -60,6 +60,16 @@ vim.api.nvim_create_user_command("LazySyncSafe", function(cmd_opts)
   local headless = #vim.api.nvim_list_uis() == 0
   local lazy = require "lazy"
 
+  local function has_vimdoc_parser()
+    return #vim.api.nvim_get_runtime_file("parser/vimdoc.*", false) > 0
+  end
+
+  if not has_vimdoc_parser() then
+    print("[LazySyncSafe] Installing required vimdoc parser...")
+    require("nvim-treesitter").install({ "vimdoc" }):wait(300000)
+    assert(has_vimdoc_parser(), "[LazySyncSafe] Failed to install the required vimdoc parser")
+  end
+
   -- Install missing + clean removed (same as sync)
   print("[LazySyncSafe] Installing missing plugins...")
   lazy.install { wait = headless, show = not headless }
