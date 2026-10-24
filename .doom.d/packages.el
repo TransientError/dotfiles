@@ -56,6 +56,7 @@
 (package! vimrc-mode)
 (package! ob-mermaid)
 (package! mermaid-mode)
+(package! rust-mode :recipe (:branch "main"))
 (when (personal-config-has-profile 'roam)
   (package! websocket)
   (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out"))))
