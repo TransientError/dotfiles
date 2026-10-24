@@ -115,11 +115,6 @@ in {
     config = { theme = "OneHalfDark"; };
   };
 
-  home.file.".config/kitty/theme.conf".source = extraConfigs/kitty/theme.conf;
-  home.file.".config/kitty/kitty.conf".source =
-    extraConfigs/kitty/kitty-base.conf;
-  home.file.".config/kitty/diff.conf".source = extraConfigs/kitty/diff.conf;
-
   imports = let
     os = hardwareInfo.os;
     hostname = builtins.getEnv "hostname";
